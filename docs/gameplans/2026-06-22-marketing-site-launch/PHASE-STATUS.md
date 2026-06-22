@@ -39,6 +39,12 @@ preflight_commands: profile=node; build='npm run build' (green), test='' (no tes
 hero_assets: Hero (chosen): Seedream 4.5 21:9 still + Seedance 2.0 fast 21:9 1080p 5s silent loop (amnesia->memory). Generated 2026-06-22, staged in .hero-staging/ (gitignored): seedream21.png, hero_video.mp4. Candidates: soul_v2, flux2, soul_v2b.
 ```
 
+### Phase 3 Outputs
+
+```
+site_pages: Full single-page site shipped (commit 18499f8): Nav, Hero (Seedance build-up scroll-scrub), Problem (two walls), AmnesiaMemory (before/after), HowItWorks (markdown->engine->MCP+hooks + cz_* loop), Features (5 cards), Receipts (beta-with-receipts), Quickstart (3 steps + copy), CTA, Footer. Cinematic film layer (grain/embers/vignette/grade), parallax, scroll-scrub. Mobile + reduced-motion verified (no overflow at 375px).
+```
+
 ## Corrections Log
 
 ### C-01 — Phase 0

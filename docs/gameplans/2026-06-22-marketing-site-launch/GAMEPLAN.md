@@ -70,7 +70,7 @@ _(None yet. Append A-NNN entries here once Phase 0 starts.)_
 
 **O-03.** _(phase 5)_ Higgsfield account signup, then generate the cinematic assets from docs/HIGGSFIELD-ASSET-PACK.md and drop them into the media slots.
 
-**O-04.** _(phase 3)_ Decide email-capture/waitlist vs pure outbound CTAs (GitHub/PyPI/docs). Default assumption: no backend, outbound CTAs only (simplest, no PII). Confirm before building any form.
+**O-04.** _(phase 3)_ Decide email-capture/waitlist vs pure outbound CTAs (GitHub/PyPI/docs). Default assumption: no backend, outbound CTAs only (simplest, no PII). Confirm before building any form. _(resolved 2026-06-22: Implemented pure outbound CTAs (Star on GitHub + View on PyPI) plus nav/footer links; no waitlist/email backend (no PII), matching the default. Revisit if a waitlist is wanted later.)_
 
 **O-05.** _(phase 0)_ Confirm GitHub repo name + visibility before the first push. Default: public, collincusce/clauderizer-site. _(resolved 2026-06-22: Confirmed public; github.com/collincusce/clauderizer-site created and pushed 2026-06-22.)_
 

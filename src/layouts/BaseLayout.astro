@@ -31,5 +31,88 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
   </head>
   <body>
     <slot />
+
+    <!-- Cinematic film layer (decorative; pointer-events:none) -->
+    <div class="fx" aria-hidden="true">
+      <canvas class="fx-particles"></canvas>
+      <div class="fx-grade"></div>
+      <div class="fx-vignette"></div>
+      <div class="fx-grain"></div>
+    </div>
+
+    <script>
+      const canvas = document.querySelector<HTMLCanvasElement>('.fx-particles');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const ctx = canvas?.getContext('2d');
+
+      if (canvas && ctx && !reduce.matches) {
+        const small = window.matchMedia('(max-width: 640px)').matches;
+        const COUNT = small ? 22 : 52;
+        let w = 0,
+          h = 0,
+          dpr = 1,
+          raf = 0;
+        type P = { x: number; y: number; r: number; vy: number; vx: number; a: number; tw: number };
+        let parts: P[] = [];
+
+        const resize = () => {
+          dpr = Math.min(window.devicePixelRatio || 1, 2);
+          w = canvas.width = Math.floor(window.innerWidth * dpr);
+          h = canvas.height = Math.floor(window.innerHeight * dpr);
+          canvas.style.width = window.innerWidth + 'px';
+          canvas.style.height = window.innerHeight + 'px';
+        };
+        const seed = () => {
+          parts = Array.from({ length: COUNT }, () => ({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: (Math.random() * 1.5 + 0.4) * dpr,
+            vy: -(Math.random() * 0.22 + 0.05) * dpr,
+            vx: (Math.random() - 0.5) * 0.1 * dpr,
+            a: Math.random() * 0.5 + 0.15,
+            tw: Math.random() * Math.PI * 2,
+          }));
+        };
+        const frame = () => {
+          ctx.clearRect(0, 0, w, h);
+          ctx.shadowColor = 'rgba(245,158,11,0.8)';
+          ctx.shadowBlur = 6 * dpr;
+          for (const p of parts) {
+            p.y += p.vy;
+            p.x += p.vx;
+            p.tw += 0.02;
+            if (p.y < -12) {
+              p.y = h + 12;
+              p.x = Math.random() * w;
+            }
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,180,84,${p.a * (0.6 + 0.4 * Math.sin(p.tw))})`;
+            ctx.fill();
+          }
+          raf = requestAnimationFrame(frame);
+        };
+
+        resize();
+        seed();
+        frame();
+        window.addEventListener(
+          'resize',
+          () => {
+            resize();
+            seed();
+          },
+          { passive: true }
+        );
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            cancelAnimationFrame(raf);
+            raf = 0;
+          } else if (!raf) {
+            raf = requestAnimationFrame(frame);
+          }
+        });
+      }
+    </script>
   </body>
 </html>

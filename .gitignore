@@ -16,3 +16,9 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
+
+# Higgsfield generation staging (candidates)
+.hero-staging/
+
+# Local preview launch config (machine path)
+.claude/launch.json

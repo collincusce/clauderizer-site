@@ -33,6 +33,12 @@ dev_url: http://localhost:4321 (astro dev), build output dist/ ~28K
 preflight_commands: profile=node; build='npm run build' (green), test='' (no tests until Phase 6)
 ```
 
+### Phase 5 Outputs
+
+```
+hero_assets: Hero (chosen): Seedream 4.5 21:9 still + Seedance 2.0 fast 21:9 1080p 5s silent loop (amnesia->memory). Generated 2026-06-22, staged in .hero-staging/ (gitignored): seedream21.png, hero_video.mp4. Candidates: soul_v2, flux2, soul_v2b.
+```
+
 ## Corrections Log
 
 ### C-01 — Phase 0

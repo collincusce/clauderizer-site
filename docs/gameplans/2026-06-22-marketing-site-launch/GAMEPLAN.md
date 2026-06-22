@@ -43,13 +43,23 @@ _(None yet. Append A-NNN entries here once Phase 0 starts.)_
 **Context**: User will sign up for Higgsfield and wants me to produce the full creative brief; the site must still look great before any video exists.
 **Decision**: Cinematic media is generated in Higgsfield from a tracked docs/HIGGSFIELD-ASSET-PACK.md prompt pack and dropped into defined media slots. Every slot has a code-native fallback (animated SVG/canvas) and a reduced-motion still, so the site is complete without external video.
 **Consequences**: Decouples the build from asset delivery; launch can proceed with placeholders and swap real media in later. Mandatory poster + reduced-motion fallback per the accessibility invariant.
-**Status**: active (2026-06-22)
+**Superseded by**: D3 (2026-06-22)
+**Status**: superseded (2026-06-22)
 
 ### D2 — GitHub: public repo collincusce/clauderizer-site over SSH, mirroring the Clauderizer repo
 
 **Context**: User asked to replicate Clauderizer's GitHub wiring. gh is authed as collincusce over SSH with repo scope. The site is promotional and dogfoods Clauderizer publicly.
 **Decision**: Create a PUBLIC repo github.com/collincusce/clauderizer-site with an SSH remote (git@github.com:collincusce/clauderizer-site.git), mirroring the Clauderizer repo's auth model. Confirm name and visibility with the user before the first push.
 **Consequences**: Public from day one tells the dogfooding story; if the user prefers private-until-launch, flip visibility before push (one gh command).
+**Status**: active (2026-06-22)
+
+### D3 — Media generated directly via the Higgsfield CLI in-repo (not a manual prompt-pack handoff)
+
+**Context**: User integrated the Higgsfield connector on claude.ai and asked to lean on Higgsfield harder. That connector does NOT surface in this Claude Code (Windows->WSL) session, but Higgsfield's official @higgsfield/cli is the documented path for Claude Code and works headlessly.
+**Decision**: Cinematic media is generated directly by scripting the Higgsfield CLI from the repo toolchain (auth via one-time device login). Prompts + exact commands live in docs/HIGGSFIELD-ASSET-PACK.md; outputs download into the repo. Each media slot still ships a code-native + reduced-motion fallback (the static SVG hero is the hero video's fallback).
+**Consequences**: The media pipeline is scripted, reproducible, and CI-automatable rather than a manual web session. Costs are trivial: ~0.12 credits per 2k image, ~17.5 credits per 1080p 5s video, on a 9000-credit ultra plan.
+**Supersedes**: D1
+**Evidence**: higgsfield account: redacted@example.com ultra 9000 credits; generate cost text2image_soul_v2 0.12cr / seedance_2_0 17.5cr; authed 2026-06-22
 **Status**: active (2026-06-22)
 
 ## Open Items

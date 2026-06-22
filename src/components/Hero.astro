@@ -1,0 +1,221 @@
+---
+// The cinematic hero: a Higgsfield-generated amnesia->memory loop behind the headline.
+// Motion is gated on prefers-reduced-motion (INVARIANT-03); the poster is the always-present base.
+---
+
+<section class="hero" aria-label="Clauderizer — durable working memory for coding agents">
+  <div class="hero-media" aria-hidden="true">
+    <img class="hero-still" src="/media/hero/poster.jpg" alt="" decoding="async" />
+    <video
+      class="hero-video"
+      muted
+      loop
+      playsinline
+      preload="auto"
+      poster="/media/hero/poster.jpg"
+    >
+      <source src="/media/hero/hero.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-scrim"></div>
+  </div>
+
+  <div class="hero-content">
+    <span class="eyebrow">// durable working memory for coding agents</span>
+    <h1>
+      Your coding agent is brilliant —<br />
+      <span class="amnesiac">and amnesiac.</span>
+    </h1>
+    <p class="lede">
+      Clauderizer gives it a memory that survives — plans, decisions, and a dependency graph as
+      plain, git-diffable markdown it reads and updates through real tool calls.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/collincusce/Clauderizer">
+        Get started on GitHub
+      </a>
+      <a class="btn btn-ghost" href="#how-it-works">See how it works</a>
+    </div>
+    <button class="install" type="button" data-copy="uvx --from clauderizer clauderize init">
+      <code>uvx --from clauderizer clauderize init</code>
+      <span class="copy-hint">copy</span>
+    </button>
+  </div>
+</section>
+
+<script>
+  const v = document.querySelector<HTMLVideoElement>('.hero-video');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const apply = () => {
+    if (!v) return;
+    if (reduce.matches) {
+      v.pause();
+      v.classList.remove('is-playing');
+    } else {
+      v.play()
+        .then(() => v.classList.add('is-playing'))
+        .catch(() => {});
+    }
+  };
+  apply();
+  reduce.addEventListener?.('change', apply);
+
+  const chip = document.querySelector<HTMLButtonElement>('.install');
+  chip?.addEventListener('click', async () => {
+    const hint = chip.querySelector('.copy-hint');
+    try {
+      await navigator.clipboard.writeText(chip.dataset.copy ?? '');
+      if (hint) {
+        const prev = hint.textContent;
+        hint.textContent = 'copied';
+        setTimeout(() => (hint.textContent = prev), 1400);
+      }
+    } catch {
+      /* clipboard unavailable */
+    }
+  });
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    align-items: center;
+    overflow: clip;
+  }
+  .hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-still,
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-video {
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+  .hero-video.is-playing {
+    opacity: 1;
+  }
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 90% at 76% 42%, transparent 38%, rgba(8, 9, 13, 0.55) 100%),
+      linear-gradient(
+        90deg,
+        rgba(8, 9, 13, 0.92) 0%,
+        rgba(8, 9, 13, 0.62) 40%,
+        rgba(8, 9, 13, 0.12) 72%
+      );
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: var(--maxw);
+    width: 100%;
+    margin: 0 auto;
+    padding: clamp(2rem, 8vh, 7rem) 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    color: var(--amber-400);
+  }
+  h1 {
+    font-size: clamp(2.4rem, 6.5vw, 5rem);
+    line-height: 1.04;
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    max-width: 20ch;
+  }
+  .amnesiac {
+    color: var(--muted);
+  }
+  .lede {
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    color: var(--cream-200);
+    max-width: 42rem;
+    margin: 0;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 0.4rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.8rem 1.3rem;
+    border-radius: 999px;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+      transform 0.15s ease,
+      background 0.15s ease,
+      border-color 0.15s ease;
+  }
+  .btn-primary {
+    background: var(--amber-500);
+    color: #1a1206;
+    box-shadow: 0 10px 30px -12px var(--amber-glow);
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    background: var(--amber-400);
+  }
+  .btn-ghost {
+    color: var(--cream-50);
+    border: 1px solid var(--edge);
+  }
+  .btn-ghost:hover {
+    border-color: var(--amber-500);
+  }
+  .install {
+    margin-top: 0.6rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    background: rgba(18, 21, 29, 0.7);
+    border: 1px solid var(--edge);
+    border-radius: var(--radius);
+    padding: 0.85rem 1.1rem;
+    cursor: pointer;
+    color: var(--cream-50);
+    backdrop-filter: blur(6px);
+    width: fit-content;
+  }
+  .install code {
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+  }
+  .copy-hint {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--amber-400);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video {
+      display: none;
+    }
+  }
+  @media (max-width: 640px) {
+    .hero-scrim {
+      background: linear-gradient(180deg, rgba(8, 9, 13, 0.45), rgba(8, 9, 13, 0.86));
+    }
+  }
+</style>

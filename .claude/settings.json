@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/bin/sh /home/ccusce/clauderizer-site/.clauderizer/hook.sh"
+            "command": "wsl.exe -d Ubuntu //bin/sh //home/ccusce/clauderizer-site/.clauderizer/hook.sh"
           }
         ]
       }
@@ -15,7 +15,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/bin/sh /home/ccusce/clauderizer-site/.clauderizer/hook.sh"
+            "command": "wsl.exe -d Ubuntu //bin/sh //home/ccusce/clauderizer-site/.clauderizer/hook.sh"
           }
         ]
       }

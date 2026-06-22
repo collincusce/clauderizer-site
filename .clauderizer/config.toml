@@ -7,7 +7,7 @@ preflight_advisory = []
 [host]
 profile = "node"
 target = "claude-code"
-session_host = "native"
+session_host = "windows-wsl:Ubuntu"
 
 [paths]
 docs = "docs"

@@ -25,19 +25,19 @@ on `hook_event_name`:
 ```toml
 [[hooks]]
 event = "SessionStart"
-command = '/bin/sh /home/ccusce/clauderizer-site/.clauderizer/hook.sh'
+command = 'wsl.exe -d Ubuntu //bin/sh //home/ccusce/clauderizer-site/.clauderizer/hook.sh'
 
 [[hooks]]
 event = "PreCompact"
-command = '/bin/sh /home/ccusce/clauderizer-site/.clauderizer/hook.sh'
+command = 'wsl.exe -d Ubuntu //bin/sh //home/ccusce/clauderizer-site/.clauderizer/hook.sh'
 
 [[hooks]]
 event = "PostCompact"
-command = '/bin/sh /home/ccusce/clauderizer-site/.clauderizer/hook.sh'
+command = 'wsl.exe -d Ubuntu //bin/sh //home/ccusce/clauderizer-site/.clauderizer/hook.sh'
 
 [[hooks]]
 event = "UserPromptSubmit"
-command = '/bin/sh /home/ccusce/clauderizer-site/.clauderizer/hook.sh'
+command = 'wsl.exe -d Ubuntu //bin/sh //home/ccusce/clauderizer-site/.clauderizer/hook.sh'
 ```
 
 ## 4. MCP server — register the `clauderizer` server
@@ -45,7 +45,7 @@ command = '/bin/sh /home/ccusce/clauderizer-site/.clauderizer/hook.sh'
 This repo's `.mcp.json` already defines the server command:
 
 ```
-/home/ccusce/.local/bin/uvx -q --from clauderizer clauderizer-mcp
+wsl.exe -d Ubuntu /home/ccusce/.local/bin/uvx -q --from clauderizer clauderizer-mcp
 ```
 
 Register it with kimi (`kimi mcp`, or `/mcp-config` in a session). kimi's

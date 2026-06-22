@@ -45,6 +45,8 @@ _(none yet)_
 
 **4.** clauderize init is idempotent and will NOT clobber an existing config.toml or profile.lock.toml. To switch the host profile after the first scaffold, edit profile.lock.toml (the editable override that preflight reads) and, for a consistent status digest, the config [host] profile scalar. *(evidence: Phase 0: init reported host profile=node but wrote 0 files; profile.lock stayed generic until edited)*
 
+**5.** Windows->WSL split-host Clauderizer wiring needs session_host=windows-wsl:<distro> AND a full-path uvx in .mcp.json/hook - bare uvx fails in the non-login wsl.exe shell (no ~/.local/bin on PATH). Verify from the Windows side: run the SessionStart hook command and clauderize doctor through the wsl.exe shim; both should report 'verified end-to-end'. *(evidence: Phase 0 / O-06; doctor via wsl.exe shim 2026-06-22)*
+
 ## Ending Protocol
 
 1. `cz_transition_phase` the finished phase to complete.

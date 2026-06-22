@@ -64,7 +64,7 @@ _(None yet. Append A-NNN entries here once Phase 0 starts.)_
 
 **O-05.** _(phase 0)_ Confirm GitHub repo name + visibility before the first push. Default: public, collincusce/clauderizer-site. _(resolved 2026-06-22: Confirmed public; github.com/collincusce/clauderizer-site created and pushed 2026-06-22.)_
 
-**O-06.** _(phase 0)_ Session host is recorded as `native`, but Claude Code runs on Windows over the wsl.localhost UNC path - so the SessionStart digest and the cz_* MCP tools do NOT auto-load (this gameplan runs on the `clauderize ops` CLI fallback, which works but is manual). The .mcp.json command is a Linux path Windows cannot spawn; it needs a `wsl.exe -d Ubuntu ...` shim. Fix: re-wire with `clauderize init --session-host windows-wsl:Ubuntu` and verify from the Windows side. Non-blocking.
+**O-06.** _(phase 0)_ Session host is recorded as `native`, but Claude Code runs on Windows over the wsl.localhost UNC path - so the SessionStart digest and the cz_* MCP tools do NOT auto-load (this gameplan runs on the `clauderize ops` CLI fallback, which works but is manual). The .mcp.json command is a Linux path Windows cannot spawn; it needs a `wsl.exe -d Ubuntu ...` shim. Fix: re-wire with `clauderize init --session-host windows-wsl:Ubuntu` and verify from the Windows side. Non-blocking. _(resolved 2026-06-22: Re-wired session_host=windows-wsl:Ubuntu and verified end-to-end from Windows: the SessionStart hook prints the digest and the MCP server launches via the wsl.exe shim (doctor reports both 'verified end-to-end'). cz_* MCP tools will auto-load from the next session. Full-path uvx in .mcp.json/hook is required (non-login wsl PATH); the doctor 'hook wrapper freshness' ? is a benign artifact of that, left as-is.)_
 
 ## Phase Breakdown
 

@@ -1,12 +1,26 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
 import Hero from '@/components/Hero.astro';
 import Problem from '@/components/Problem.astro';
+import AmnesiaMemory from '@/components/AmnesiaMemory.astro';
 import HowItWorks from '@/components/HowItWorks.astro';
+import Features from '@/components/Features.astro';
+import Receipts from '@/components/Receipts.astro';
+import Quickstart from '@/components/Quickstart.astro';
+import CTA from '@/components/CTA.astro';
+import Footer from '@/components/Footer.astro';
 ---
 
 <BaseLayout>
+  <Nav />
   <Hero />
   <Problem />
+  <AmnesiaMemory />
   <HowItWorks />
+  <Features />
+  <Receipts />
+  <Quickstart />
+  <CTA />
+  <Footer />
 </BaseLayout>

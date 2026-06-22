@@ -1,0 +1,104 @@
+---
+const without = [
+  'Re-derives your architecture from scratch every session',
+  'Contradicts a decision it made an hour ago',
+  'Conventions rot — nothing executes them',
+];
+const withCz = [
+  'Oriented before you type — the digest greets it cold',
+  'Decisions + invariants ride forward and are enforced',
+  'Memory ships, diffs, and reviews with the code',
+];
+---
+
+<section class="section am" id="memory">
+  <div class="container">
+    <p class="kicker reveal reveal-sm">Same agent, same repo</p>
+    <h2 class="reveal">One of them remembers.</h2>
+
+    <div class="split">
+      <article class="panel forget reveal">
+        <span class="tag">Without Clauderizer</span>
+        <ul>
+          {without.map((t) => <li>{t}</li>)}
+        </ul>
+      </article>
+      <div class="arrow reveal" aria-hidden="true">→</div>
+      <article class="panel remember reveal">
+        <span class="tag">With Clauderizer</span>
+        <ul>
+          {withCz.map((t) => <li>{t}</li>)}
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .am {
+    background: var(--ink-900);
+  }
+  .split {
+    margin-top: 2.6rem;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1.4rem;
+    align-items: center;
+  }
+  .panel {
+    border-radius: var(--radius);
+    border: 1px solid var(--edge);
+    padding: 1.7rem;
+    min-height: 100%;
+  }
+  .panel .tag {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    display: inline-block;
+    margin-bottom: 0.9rem;
+  }
+  .panel ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .forget {
+    background: rgba(20, 22, 28, 0.6);
+    filter: saturate(0.4);
+  }
+  .forget .tag {
+    color: var(--muted);
+  }
+  .forget li {
+    color: var(--muted);
+  }
+  .remember {
+    background:
+      radial-gradient(120% 120% at 100% 0%, rgba(245, 158, 11, 0.12), transparent 60%),
+      rgba(20, 18, 12, 0.6);
+    border-color: rgba(245, 158, 11, 0.35);
+    box-shadow: 0 24px 60px -34px var(--amber-glow);
+  }
+  .remember .tag {
+    color: var(--amber-400);
+  }
+  .remember li {
+    color: var(--cream-50);
+  }
+  .arrow {
+    font-size: 1.8rem;
+    color: var(--amber-400);
+    text-align: center;
+  }
+  @media (max-width: 760px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+    .arrow {
+      transform: rotate(90deg);
+    }
+  }
+</style>

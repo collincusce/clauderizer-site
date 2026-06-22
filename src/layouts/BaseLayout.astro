@@ -113,6 +113,23 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
           }
         });
       }
+
+      // Global copy-to-clipboard for any [data-copy] button.
+      document.addEventListener('click', (e) => {
+        const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-copy]');
+        if (!btn) return;
+        navigator.clipboard
+          ?.writeText(btn.dataset.copy ?? '')
+          .then(() => {
+            const hint = btn.querySelector('.copy-hint');
+            if (hint) {
+              const prev = hint.textContent;
+              hint.textContent = 'copied';
+              setTimeout(() => (hint.textContent = prev), 1400);
+            }
+          })
+          .catch(() => {});
+      });
     </script>
   </body>
 </html>

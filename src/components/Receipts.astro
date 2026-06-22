@@ -1,0 +1,79 @@
+---
+const stats = [
+  { n: '38', l: 'MCP tools + 3 resources' },
+  { n: '3×3', l: 'OS × Python, suite green' },
+  { n: '0', l: 'runtime dependencies' },
+  { n: 'MIT', l: 'licensed, no lock-in' },
+];
+---
+
+<section class="section receipts">
+  <div class="container">
+    <p class="kicker reveal reveal-sm">Maturity</p>
+    <h2 class="reveal">Beta, with receipts.</h2>
+    <p class="sub reveal">
+      Every gate is public evidence, not vibes: the suite green on ubuntu / macOS / windows ×
+      py3.11–3.13 with the Windows wrapper <em>executed</em>, cold-start proven on both host shapes,
+      and the quickstart run against the published package on a clean CI machine on every push.
+    </p>
+
+    <div class="stats">
+      {
+        stats.map((s) => (
+          <div class="stat reveal">
+            <span class="n">{s.n}</span>
+            <span class="l">{s.l}</span>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="note reveal">
+      Markdown is the source of truth. The graph index is a disposable cache rebuilt on demand — if
+      they ever disagree, markdown wins.
+    </p>
+  </div>
+</section>
+
+<style>
+  .receipts {
+    background: var(--ink-800);
+  }
+  .sub {
+    max-width: 48rem;
+    color: var(--cream-200);
+    font-size: clamp(1.02rem, 1.7vw, 1.18rem);
+    margin: 0 0 2.4rem;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: 1rem;
+  }
+  .stat {
+    border: 1px solid var(--edge);
+    border-radius: var(--radius);
+    background: rgba(11, 13, 18, 0.5);
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .stat .n {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--amber-400);
+  }
+  .stat .l {
+    color: var(--cream-200);
+    font-size: 0.92rem;
+  }
+  .note {
+    margin-top: 2.2rem;
+    max-width: 44rem;
+    color: var(--muted);
+    border-left: 2px solid var(--amber-500);
+    padding-left: 1rem;
+  }
+</style>

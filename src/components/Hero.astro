@@ -96,20 +96,6 @@
     update();
   }
 
-  const chip = document.querySelector<HTMLButtonElement>('.install');
-  chip?.addEventListener('click', async () => {
-    const hint = chip.querySelector('.copy-hint');
-    try {
-      await navigator.clipboard.writeText(chip.dataset.copy ?? '');
-      if (hint) {
-        const prev = hint.textContent;
-        hint.textContent = 'copied';
-        setTimeout(() => (hint.textContent = prev), 1400);
-      }
-    } catch {
-      /* clipboard unavailable */
-    }
-  });
 </script>
 
 <style>

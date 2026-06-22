@@ -1,0 +1,113 @@
+---
+
+---
+
+<section class="section cta">
+  <div class="glow parallax parallax-mid" aria-hidden="true"></div>
+  <div class="container inner">
+    <h2 class="reveal">Give your agent a memory that survives.</h2>
+    <p class="sub reveal">
+      Project memory belongs in the repo — where it ships, diffs, and reviews with the code. As tool
+      calls the agent can't forget to make, not advice it has to remember.
+    </p>
+    <button class="cmd reveal" type="button" data-copy="uvx --from clauderizer clauderize init">
+      <code>uvx --from clauderizer clauderize init</code>
+      <span class="copy-hint">copy</span>
+    </button>
+    <div class="row reveal">
+      <a class="btn btn-primary" href="https://github.com/collincusce/Clauderizer">Star on GitHub</a>
+      <a class="btn btn-ghost" href="https://pypi.org/project/clauderizer/">View on PyPI</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    position: relative;
+    background: var(--ink-900);
+    overflow: clip;
+  }
+  .glow {
+    position: absolute;
+    inset: auto 50% -40% 50%;
+    transform: translateX(-50%);
+    width: min(48rem, 90vw);
+    height: 40rem;
+    background: radial-gradient(circle, var(--amber-glow), transparent 62%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  .inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.3rem;
+  }
+  .inner h2 {
+    max-width: 20ch;
+  }
+  .sub {
+    max-width: 42rem;
+    color: var(--cream-200);
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    margin: 0;
+  }
+  .cmd {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--ink-700);
+    border: 1px solid var(--edge);
+    border-radius: var(--radius);
+    padding: 0.9rem 1.2rem;
+    cursor: pointer;
+    color: var(--cream-50);
+    box-shadow: 0 0 0 1px var(--amber-glow);
+  }
+  .cmd code {
+    font-family: var(--font-mono);
+  }
+  .copy-hint {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--amber-400);
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.8rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+      transform 0.15s ease,
+      background 0.15s ease,
+      border-color 0.15s ease;
+  }
+  .btn-primary {
+    background: var(--amber-500);
+    color: #1a1206;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    background: var(--amber-400);
+  }
+  .btn-ghost {
+    color: var(--cream-50);
+    border: 1px solid var(--edge);
+  }
+  .btn-ghost:hover {
+    border-color: var(--amber-500);
+  }
+</style>

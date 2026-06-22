@@ -1,0 +1,123 @@
+---
+const steps = [
+  { n: '1', t: 'Clauderize any repo', c: 'uvx --from clauderizer clauderize init --size standard' },
+  { n: '2', t: 'Point it at a goal', c: 'Plan a gameplan to ship the billing system' },
+  { n: '3', t: 'Then, every session', c: 'Do the next phase' },
+];
+---
+
+<section class="section quickstart" id="quickstart">
+  <div class="container">
+    <p class="kicker reveal reveal-sm">Quickstart</p>
+    <h2 class="reveal">Three steps. Then just drive.</h2>
+    <p class="sub reveal">
+      One command clauderizes any repo in any language. You talk in plain English; Claude makes the
+      tool calls and keeps the memory honest between sessions.
+    </p>
+
+    <ol class="steps">
+      {
+        steps.map((s) => (
+          <li class="step reveal">
+            <span class="idx">{s.n}</span>
+            <div class="body">
+              <b>{s.t}</b>
+              <button class="code" type="button" data-copy={s.c}>
+                <code>{s.c}</code>
+                <span class="copy-hint">copy</span>
+              </button>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <p class="install-line reveal">
+      Prefer a real install? <code>pipx install "clauderizer[mcp]"</code> — the core engine has zero
+      runtime dependencies.
+    </p>
+  </div>
+</section>
+
+<style>
+  .quickstart {
+    background: var(--ink-900);
+  }
+  .sub {
+    max-width: 46rem;
+    color: var(--cream-200);
+    font-size: clamp(1.02rem, 1.7vw, 1.18rem);
+    margin: 0 0 2.4rem;
+  }
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .step {
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+  }
+  .step .idx {
+    flex: none;
+    width: 2.2rem;
+    height: 2.2rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(245, 158, 11, 0.14);
+    color: var(--amber-400);
+    font-family: var(--font-mono);
+    font-weight: 700;
+  }
+  .step .body {
+    flex: 1;
+    min-width: 0;
+  }
+  .step b {
+    display: block;
+    margin: 0.2rem 0 0.5rem;
+  }
+  .code {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    background: var(--ink-800);
+    border: 1px solid var(--edge);
+    border-radius: 10px;
+    padding: 0.75rem 0.95rem;
+    color: var(--cream-50);
+  }
+  .code:hover {
+    border-color: rgba(245, 158, 11, 0.4);
+  }
+  .code code {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    overflow-x: auto;
+  }
+  .copy-hint {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--amber-400);
+  }
+  .install-line {
+    margin-top: 2rem;
+    color: var(--cream-200);
+  }
+  .install-line code {
+    font-family: var(--font-mono);
+    color: var(--amber-400);
+  }
+</style>

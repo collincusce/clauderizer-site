@@ -1,63 +1,100 @@
 ---
-// The cinematic hero: a Higgsfield-generated amnesia->memory loop behind the headline.
-// Motion is gated on prefers-reduced-motion (INVARIANT-03); the poster is the always-present base.
+// Cinematic scroll-scrub hero: scrolling advances the Higgsfield clip frame-by-frame
+// (video.currentTime driven by scroll progress over a tall sticky track).
+// Reduced-motion users get a static poster hero (INVARIANT-03).
 ---
 
-<section class="hero" aria-label="Clauderizer — durable working memory for coding agents">
-  <div class="hero-media" aria-hidden="true">
-    <img class="hero-still" src="/media/hero/poster.jpg" alt="" decoding="async" />
-    <video
-      class="hero-video"
-      muted
-      loop
-      playsinline
-      preload="auto"
-      poster="/media/hero/poster.jpg"
-    >
-      <source src="/media/hero/hero.mp4" type="video/mp4" />
-    </video>
-    <div class="hero-scrim"></div>
-  </div>
-
-  <div class="hero-content">
-    <span class="eyebrow">// durable working memory for coding agents</span>
-    <h1>
-      Your coding agent is brilliant —<br />
-      <span class="amnesiac">and amnesiac.</span>
-    </h1>
-    <p class="lede">
-      Clauderizer gives it a memory that survives — plans, decisions, and a dependency graph as
-      plain, git-diffable markdown it reads and updates through real tool calls.
-    </p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="https://github.com/collincusce/Clauderizer">
-        Get started on GitHub
-      </a>
-      <a class="btn btn-ghost" href="#how-it-works">See how it works</a>
+<section class="hero-scroll" aria-label="Clauderizer — durable working memory for coding agents">
+  <div class="hero-stage">
+    <div class="hero-media" aria-hidden="true">
+      <img class="hero-still" src="/media/hero/poster.jpg" alt="" decoding="async" />
+      <video class="hero-video" muted playsinline preload="auto" poster="/media/hero/poster.jpg">
+        <source src="/media/hero/hero-scrub.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-scrim"></div>
     </div>
-    <button class="install" type="button" data-copy="uvx --from clauderizer clauderize init">
-      <code>uvx --from clauderizer clauderize init</code>
-      <span class="copy-hint">copy</span>
-    </button>
+
+    <div class="hero-content">
+      <span class="eyebrow">// durable working memory for coding agents</span>
+      <h1>
+        Your coding agent is brilliant —<br />
+        <span class="amnesiac">and amnesiac.</span>
+      </h1>
+      <p class="lede">
+        Clauderizer gives it a memory that survives — plans, decisions, and a dependency graph as
+        plain, git-diffable markdown it reads and updates through real tool calls.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/collincusce/Clauderizer">
+          Get started on GitHub
+        </a>
+        <a class="btn btn-ghost" href="#how-it-works">See how it works</a>
+      </div>
+      <button class="install" type="button" data-copy="uvx --from clauderizer clauderize init">
+        <code>uvx --from clauderizer clauderize init</code>
+        <span class="copy-hint">copy</span>
+      </button>
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true"><span>scroll to remember</span></div>
   </div>
 </section>
 
 <script>
-  const v = document.querySelector<HTMLVideoElement>('.hero-video');
+  const track = document.querySelector<HTMLElement>('.hero-scroll');
+  const video = document.querySelector<HTMLVideoElement>('.hero-video');
+  const content = document.querySelector<HTMLElement>('.hero-content');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const apply = () => {
-    if (!v) return;
-    if (reduce.matches) {
-      v.pause();
-      v.classList.remove('is-playing');
-    } else {
-      v.play()
-        .then(() => v.classList.add('is-playing'))
-        .catch(() => {});
-    }
-  };
-  apply();
-  reduce.addEventListener?.('change', apply);
+
+  if (track && video) {
+    const t = track;
+    const v = video;
+    const c = content;
+    let duration = 0;
+    let target = 0;
+    let raf = 0;
+
+    const tick = () => {
+      raf = 0;
+      if (Math.abs((v.currentTime || 0) - target) > 0.005) {
+        try {
+          v.currentTime = target;
+        } catch {
+          /* not seekable yet */
+        }
+      }
+    };
+
+    const update = () => {
+      if (reduce.matches || !duration) return;
+      const total = t.offsetHeight - window.innerHeight;
+      const scrolled = Math.min(Math.max(-t.getBoundingClientRect().top, 0), Math.max(total, 1));
+      const p = total > 0 ? scrolled / total : 0;
+      target = p * (duration - 0.05);
+      if (!raf) raf = requestAnimationFrame(tick);
+      if (c) {
+        const fade = Math.min(Math.max((p - 0.62) / 0.3, 0), 1);
+        c.style.opacity = String(1 - fade);
+        c.style.transform = `translateY(${fade * -34}px)`;
+      }
+    };
+
+    const onMeta = () => {
+      duration = v.duration || 0;
+      v.classList.add('is-ready');
+      update();
+    };
+    if (v.readyState >= 1) onMeta();
+    v.addEventListener('loadedmetadata', onMeta);
+
+    // iOS only allows frame-seeking after a muted play()/pause().
+    v.play().then(() => v.pause()).catch(() => {});
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    reduce.addEventListener?.('change', update);
+    update();
+  }
 
   const chip = document.querySelector<HTMLButtonElement>('.install');
   chip?.addEventListener('click', async () => {
@@ -76,12 +113,17 @@
 </script>
 
 <style>
-  .hero {
+  .hero-scroll {
     position: relative;
-    min-height: 100svh;
+    height: 240vh; /* scroll distance to scrub the clip */
+  }
+  .hero-stage {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: clip;
     display: grid;
     align-items: center;
-    overflow: clip;
   }
   .hero-media {
     position: absolute;
@@ -98,9 +140,9 @@
   }
   .hero-video {
     opacity: 0;
-    transition: opacity 1.2s ease;
+    transition: opacity 0.8s ease;
   }
-  .hero-video.is-playing {
+  .hero-video.is-ready {
     opacity: 1;
   }
   .hero-scrim {
@@ -125,6 +167,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.4rem;
+    will-change: opacity, transform;
   }
   .eyebrow {
     font-family: var(--font-mono);
@@ -208,9 +251,32 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-video {
-      display: none;
+  .scroll-cue {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-cue {
+      animation: cue 2.4s ease-in-out infinite;
+    }
+    @keyframes cue {
+      0%,
+      100% {
+        opacity: 0.35;
+        transform: translate(-50%, 0);
+      }
+      50% {
+        opacity: 0.9;
+        transform: translate(-50%, 6px);
+      }
     }
   }
   @media (max-width: 640px) {
@@ -218,31 +284,18 @@
       background: linear-gradient(180deg, rgba(8, 9, 13, 0.45), rgba(8, 9, 13, 0.86));
     }
   }
-
-  /* Cinematic scroll-out: content lifts + fades, the film slowly scales in. */
-  @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: scroll()) {
-      .hero-content {
-        animation: hero-lift linear both;
-        animation-timeline: scroll(root);
-        animation-range: 0 85vh;
-      }
-      @keyframes hero-lift {
-        to {
-          opacity: 0;
-          transform: translateY(-52px);
-        }
-      }
-      .hero-media {
-        animation: hero-scale linear both;
-        animation-timeline: scroll(root);
-        animation-range: 0 100vh;
-      }
-      @keyframes hero-scale {
-        to {
-          transform: scale(1.12);
-        }
-      }
+  /* INVARIANT-03: no scrub under reduced-motion — static poster hero. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-scroll {
+      height: auto;
+    }
+    .hero-stage {
+      position: static;
+      min-height: 100svh;
+    }
+    .hero-video,
+    .scroll-cue {
+      display: none;
     }
   }
 </style>

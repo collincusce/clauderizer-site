@@ -55,8 +55,6 @@ obsolete items — mark with "(obsolete)" rather than deleting.)_
 
 ### Category: Process
 
-_(none yet)_
-
 **1.** Pin the build runtime to the framework's real engines field, verified at install time - not a remembered version. Astro 7 needs Node >=22.12; this project builds on Node 24.
 
 **2.** For automated git push from a headless shell, use gh's HTTPS credential helper rather than a passphrase-protected SSH key.
@@ -68,3 +66,9 @@ _(none yet)_
 **5.** Windows->WSL split-host Clauderizer wiring needs session_host=windows-wsl:<distro> AND a full-path uvx in .mcp.json/hook - bare uvx fails in the non-login wsl.exe shell (no ~/.local/bin on PATH). Verify from the Windows side: run the SessionStart hook command and clauderize doctor through the wsl.exe shim; both should report 'verified end-to-end'. *(evidence: Phase 0 / O-06; doctor via wsl.exe shim 2026-06-22)*
 
 **6.** Higgsfield connectors added on claude.ai do NOT surface in Claude Code; install @higgsfield/cli (npm i -g) instead - it is the documented Claude Code path. One-time `higgsfield auth login` (device, user approves in browser), then generate cost/create/wait/get are fully scriptable. `--start-image <localfile>` auto-uploads for image-to-video; `--wait --json` prints result URLs to download. *(evidence: Phase 1 hero exploration 2026-06-22; cli v0.2.3)*
+
+**8.** preview_screenshot can hang (30s) on a page with an autoplaying loop <video> or after heavy preview_eval/reload churn. Reliable pattern: clean preview stop -> start -> resize -> screenshot with NO eval in between (mirrors the first good capture). Use preview_eval for layout metrics (scrollWidth vs innerWidth for overflow, element counts, computed font-size) as a robust complement to pixels. *(evidence: Phase 1/3 hero+parallax verification 2026-06-22)*
+
+### Category: Architecture
+
+**7.** Mobile-safe parallax = CSS scroll-driven animations (animation-timeline: view()/scroll()), gated on BOTH @media (prefers-reduced-motion: no-preference) AND @supports (animation-timeline: view()) so it degrades to clean static content. Motion rides decorative layers only (drifting blobs/dot-grid); content uses a 'reveal' fade-up whose DEFAULT state is fully visible. Avoid background-attachment: fixed (broken on iOS) and JS scroll handlers (jank on touch). Shrink --cz-shift at <=640px. *(evidence: Phase 1/3 parallax sections 2026-06-22; verified no horizontal overflow at 375px)*

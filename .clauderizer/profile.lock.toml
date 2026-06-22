@@ -1,0 +1,10 @@
+profile = "generic"
+
+[commands]
+test = ""
+build = ""
+lint = ""
+typecheck = ""
+
+[preflight]
+baseline_test_regex = ""

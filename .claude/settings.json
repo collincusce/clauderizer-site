@@ -1,0 +1,24 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/bin/sh /home/ccusce/clauderizer-site/.clauderizer/hook.sh"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/bin/sh /home/ccusce/clauderizer-site/.clauderizer/hook.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

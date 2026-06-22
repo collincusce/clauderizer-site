@@ -1,10 +1,10 @@
-profile = "generic"
+profile = "node"
 
 [commands]
 test = ""
-build = ""
-lint = ""
-typecheck = ""
+build = "npm run build"
+lint = "npm run lint"
+typecheck = "astro check"
 
 [preflight]
 baseline_test_regex = ""

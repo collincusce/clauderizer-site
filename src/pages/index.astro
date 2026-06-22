@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout>
+  <main class="wrap">
+    <span class="badge">// clauderizer — durable working memory</span>
+    <h1>
+      Your coding agent is brilliant —<br />
+      <span class="amnesiac">and amnesiac.</span>
+    </h1>
+    <p class="lede">
+      Clauderizer gives it a memory that survives — plans, decisions, and a dependency graph as
+      plain, git-diffable markdown it reads and updates through real tool calls.
+    </p>
+    <div class="cta">
+      <code>uvx --from clauderizer clauderize init</code>
+    </div>
+    <p class="soon">
+      The full experience is being built — in the open, dogfooding Clauderizer itself.
+    </p>
+  </main>
+</BaseLayout>
+
+<style>
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: clamp(3rem, 12vh, 9rem) 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-height: 100dvh;
+    justify-content: center;
+  }
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    color: var(--amber-400);
+    opacity: 0.9;
+  }
+  h1 {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    line-height: 1.05;
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .amnesiac {
+    color: var(--muted);
+  }
+  .lede {
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    color: var(--cream-200);
+    max-width: 46rem;
+    margin: 0;
+  }
+  .cta {
+    margin-top: 0.5rem;
+  }
+  .cta code {
+    font-family: var(--font-mono);
+    background: var(--ink-700);
+    border: 1px solid var(--edge);
+    border-radius: var(--radius);
+    padding: 0.9rem 1.2rem;
+    display: inline-block;
+    color: var(--cream-50);
+    box-shadow:
+      0 0 0 1px var(--amber-glow),
+      0 18px 40px -20px var(--amber-glow);
+  }
+  .soon {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-top: 1rem;
+  }
+</style>

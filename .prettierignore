@@ -1,0 +1,15 @@
+dist/
+.astro/
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+
+# Clauderizer-managed — never reformat (engine owns these)
+docs/
+.clauderizer/
+.claude/
+AGENTS.md
+CLAUDE.md
+
+# Generated infra output
+infra/**/cdk.out/

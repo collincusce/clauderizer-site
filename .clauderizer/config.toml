@@ -5,7 +5,7 @@ preflight_checks = ["branch_base", "clean_tree", "tests", "build", "deps_spotche
 preflight_advisory = []
 
 [host]
-profile = "generic"
+profile = "node"
 target = "claude-code"
 session_host = "native"
 

@@ -1,7 +1,7 @@
 # Marketing Site Launch Gameplan
 
 > Created: 2026-06-22
-> Status: Planning
+> Status: Executing
 > Kind: driven
 > Procedure: docs/gameplans/GAMEPLAN-PROCEDURE.md
 
@@ -62,7 +62,9 @@ _(None yet. Append A-NNN entries here once Phase 0 starts.)_
 
 **O-04.** _(phase 3)_ Decide email-capture/waitlist vs pure outbound CTAs (GitHub/PyPI/docs). Default assumption: no backend, outbound CTAs only (simplest, no PII). Confirm before building any form.
 
-**O-05.** _(phase 0)_ Confirm GitHub repo name + visibility before the first push. Default: public, collincusce/clauderizer-site.
+**O-05.** _(phase 0)_ Confirm GitHub repo name + visibility before the first push. Default: public, collincusce/clauderizer-site. _(resolved 2026-06-22: Confirmed public; github.com/collincusce/clauderizer-site created and pushed 2026-06-22.)_
+
+**O-06.** _(phase 0)_ Session host is recorded as `native`, but Claude Code runs on Windows over the wsl.localhost UNC path - so the SessionStart digest and the cz_* MCP tools do NOT auto-load (this gameplan runs on the `clauderize ops` CLI fallback, which works but is manual). The .mcp.json command is a Linux path Windows cannot spawn; it needs a `wsl.exe -d Ubuntu ...` shim. Fix: re-wire with `clauderize init --session-host windows-wsl:Ubuntu` and verify from the Windows side. Non-blocking.
 
 ## Phase Breakdown
 
@@ -76,11 +78,11 @@ _(None yet. Append A-NNN entries here once Phase 0 starts.)_
 | 0.1 | _(describe)_ | _(est)_ |
 
 **Exit criteria**:
-- [ ] npm run build (astro build) succeeds on WSL node v20 and the dev server runs
-- [ ] Repo pushed to github.com/collincusce/clauderizer-site over SSH; clauderizer-init scaffold committed separately from the gameplan and from app code
-- [ ] .clauderizer/profile.lock.toml is set to the node profile and clauderize doctor exits 0
-- [ ] A dedicated 'clauderizer' AWS profile resolves to account 063337706623 (aws sts get-caller-identity --profile clauderizer)
-- [ ] Prettier + ESLint configured and clean; .gitignore covers node_modules, dist, .astro, and any secrets
+- [x] npm run build (astro build) succeeds on WSL node v20 and the dev server runs
+- [x] Repo pushed to github.com/collincusce/clauderizer-site over SSH; clauderizer-init scaffold committed separately from the gameplan and from app code
+- [x] .clauderizer/profile.lock.toml is set to the node profile and clauderize doctor exits 0
+- [x] A dedicated 'clauderizer' AWS profile resolves to account 063337706623 (aws sts get-caller-identity --profile clauderizer)
+- [x] Prettier + ESLint configured and clean; .gitignore covers node_modules, dist, .astro, and any secrets
 
 ### Phase 1: Design system and brand language
 

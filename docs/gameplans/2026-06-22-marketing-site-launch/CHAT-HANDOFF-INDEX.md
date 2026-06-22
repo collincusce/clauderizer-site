@@ -1,7 +1,7 @@
 # Chat Handoff Index — Marketing Site Launch
 
 > Last updated: 2026-06-22
-> Status: Phase 0 ready
+> Status: Phase 1 ready
 
 ## How This Works
 
@@ -29,7 +29,7 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 
 | Phase | Name | Status | Started | Completed | Handoff |
 |-------|------|--------|---------|-----------|---------|
-| 0 | Foundation: repo, Astro scaffold and AWS/GitHub wiring | ⬜ READY | — | — | handoffs/PHASE-0-HANDOFF.md |
+| 0 | Foundation: repo, Astro scaffold and AWS/GitHub wiring | ✅ COMPLETE | 2026-06-22 | 2026-06-22 | handoffs/PHASE-0-HANDOFF.md |
 | 1 | Design system and brand language | ⬜ NOT STARTED | — | — | handoffs/PHASE-1-HANDOFF.md |
 | 2 | The memory-graph hero (signature centerpiece) | ⬜ NOT STARTED | — | — | handoffs/PHASE-2-HANDOFF.md |
 | 3 | Narrative content sections | ⬜ NOT STARTED | — | — | handoffs/PHASE-3-HANDOFF.md |
@@ -44,7 +44,9 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 
 ## Per-Phase Completion Summaries
 
-_(None yet.)_
+### Phase 0 — completed 2026-06-22
+
+Phase 0 stood up the foundation. Created and pushed the public GitHub repo collincusce/clauderizer-site (over HTTPS via the gh token - the SSH key is passphrase-locked, see C-02), and hand-scaffolded an Astro 7 + TypeScript 6 + ESLint 10 project that builds cleanly on Node 24 (Astro 7 dropped Node 20, see C-01), with a BaseLayout, brand-token starter CSS (reduced-motion baked in per INVARIANT-03), an on-brand placeholder hero, MDX + sitemap, Prettier + ESLint (both clean), and a public README. Clauderizer was switched to the node profile so cz_preflight now runs the real `npm run build` (green), and the dedicated `clauderizer` AWS profile resolves to account 063337706623 (INVARIANT-01). All five exit criteria met. Two divergences recorded (C-01 Node 20->24, C-02 SSH->HTTPS) plus one new open item (O-06): the session host is recorded as native while Claude Code runs on Windows over the wsl.localhost UNC path, so the digest and cz_* MCP tools do not auto-load - the whole phase ran on the clauderize ops CLI fallback. No subsystem cascades fired: scaffolding changed no dependent's contract (INVARIANT-05 judgment).
 
 ## Accumulated Lessons
 
@@ -54,3 +56,11 @@ obsolete items — mark with "(obsolete)" rather than deleting.)_
 ### Category: Process
 
 _(none yet)_
+
+**1.** Pin the build runtime to the framework's real engines field, verified at install time - not a remembered version. Astro 7 needs Node >=22.12; this project builds on Node 24.
+
+**2.** For automated git push from a headless shell, use gh's HTTPS credential helper rather than a passphrase-protected SSH key.
+
+**3.** Clauderizer ops-fallback scratch files (ops batches, runner scripts) must live OUTSIDE the repo (e.g. /tmp), or cz_preflight's clean_tree check trips on the tool's own footprint. *(evidence: Phase 0: first cz_preflight failed clean_tree on _ops_pf.json)*
+
+**4.** clauderize init is idempotent and will NOT clobber an existing config.toml or profile.lock.toml. To switch the host profile after the first scaffold, edit profile.lock.toml (the editable override that preflight reads) and, for a consistent status digest, the config [host] profile scalar. *(evidence: Phase 0: init reported host profile=node but wrote 0 files; profile.lock stayed generic until edited)*

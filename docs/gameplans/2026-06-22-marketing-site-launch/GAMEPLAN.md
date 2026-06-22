@@ -68,7 +68,7 @@ _(None yet. Append A-NNN entries here once Phase 0 starts.)_
 
 **O-02.** _(phase 7)_ Capture the real Route53 hosted-zone IDs for each clauderizer TLD (one zone per TLD vs a shared zone) - needed for the CDK Route53 records. Blocked on the deploy-permissions open item.
 
-**O-03.** _(phase 5)_ Higgsfield account signup, then generate the cinematic assets from docs/HIGGSFIELD-ASSET-PACK.md and drop them into the media slots.
+**O-03.** _(phase 5)_ Higgsfield account signup, then generate the cinematic assets from docs/HIGGSFIELD-ASSET-PACK.md and drop them into the media slots. _(resolved 2026-06-22: Higgsfield authed via @higgsfield/cli (device login) and used directly from scripts — no manual signup-then-generate step needed. Hero + candidate clips generated 2026-06-22.)_
 
 **O-04.** _(phase 3)_ Decide email-capture/waitlist vs pure outbound CTAs (GitHub/PyPI/docs). Default assumption: no backend, outbound CTAs only (simplest, no PII). Confirm before building any form. _(resolved 2026-06-22: Implemented pure outbound CTAs (Star on GitHub + View on PyPI) plus nav/footer links; no waitlist/email backend (no PII), matching the default. Revisit if a waitlist is wanted later.)_
 

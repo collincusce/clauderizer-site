@@ -8,11 +8,11 @@
 | Phase | Name | Status | Started | Completed | Handoff |
 |-------|------|--------|---------|-----------|---------|
 | 0 | Foundation: repo, Astro scaffold and AWS/GitHub wiring | ✅ COMPLETE | 2026-06-22 | 2026-06-22 | handoffs/PHASE-0-HANDOFF.md |
-| 1 | Design system and brand language | ⬜ NOT STARTED | — | — | handoffs/PHASE-1-HANDOFF.md |
-| 2 | The memory-graph hero (signature centerpiece) | ⬜ NOT STARTED | — | — | handoffs/PHASE-2-HANDOFF.md |
-| 3 | Narrative content sections | ⬜ NOT STARTED | — | — | handoffs/PHASE-3-HANDOFF.md |
+| 1 | Design system and brand language | ✅ COMPLETE | 2026-06-22 | 2026-06-22 | handoffs/PHASE-1-HANDOFF.md |
+| 2 | The memory-graph hero (signature centerpiece) | ✅ COMPLETE | 2026-06-22 | 2026-06-22 | handoffs/PHASE-2-HANDOFF.md |
+| 3 | Narrative content sections | ✅ COMPLETE | 2026-06-22 | 2026-06-22 | handoffs/PHASE-3-HANDOFF.md |
 | 4 | Interactive demos and motion delight | ⬜ NOT STARTED | — | — | handoffs/PHASE-4-HANDOFF.md |
-| 5 | Media slots and Higgsfield asset pack | ⬜ NOT STARTED | — | — | handoffs/PHASE-5-HANDOFF.md |
+| 5 | Media slots and Higgsfield asset pack | ✅ COMPLETE | 2026-06-22 | 2026-06-22 | handoffs/PHASE-5-HANDOFF.md |
 | 6 | SEO, performance and accessibility hardening | ⬜ NOT STARTED | — | — | handoffs/PHASE-6-HANDOFF.md |
 | 7 | Infrastructure as code (CDK) | ⬜ NOT STARTED | — | — | handoffs/PHASE-7-HANDOFF.md |
 | 8 | CI/CD (GitHub Actions + OIDC) | ⬜ NOT STARTED | — | — | handoffs/PHASE-8-HANDOFF.md |
@@ -62,3 +62,11 @@ site_pages: Full single-page site shipped (commit 18499f8): Nav, Hero (Seedance 
 **What was actually correct**: origin is HTTPS via gh's credential helper. The SSH key is correct and server-accepted but passphrase-protected, so it cannot sign non-interactively from the headless WSL shell.
 **Why**: No ssh-agent/passphrase is available to automation; the gh token (repo scope) gives reliable, secret-free pushes. The user can set origin back to SSH for interactive use.
 **Lesson**: For automated git push from a headless shell, use gh's HTTPS credential helper rather than a passphrase-protected SSH key.
+
+### C-03 — Phase 2
+
+**Phase**: 2
+**What gameplan said**: Phase 2: a WebGL/canvas animated dependency-graph DAG that blooms from amnesia fog, with a static SVG fallback.
+**What was actually correct**: The hero is a Higgsfield Seedance build-up video, scroll-scrubbed frame-by-frame (currentTime driven by scroll over a tall sticky track); the static poster is the reduced-motion/no-video fallback.
+**Why**: The motion-website pivot (Higgsfield + Claude Code playbook) made a generated cinematic video + scroll-scrub far higher-impact than a hand-built WebGL graph, and it tells the amnesia->memory story directly through the scrub.
+**Lesson**: For a cinematic hero, a Higgsfield scroll-scrubbed all-keyframes video can beat a hand-built WebGL graph and reuses the same reduced-motion poster fallback.

@@ -1,7 +1,7 @@
 # Chat Handoff Index — Marketing Site Launch
 
 > Last updated: 2026-06-22
-> Status: Phase 1 ready
+> Status: Phase 4 ready
 
 ## How This Works
 
@@ -30,11 +30,11 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 | Phase | Name | Status | Started | Completed | Handoff |
 |-------|------|--------|---------|-----------|---------|
 | 0 | Foundation: repo, Astro scaffold and AWS/GitHub wiring | ✅ COMPLETE | 2026-06-22 | 2026-06-22 | handoffs/PHASE-0-HANDOFF.md |
-| 1 | Design system and brand language | ⬜ NOT STARTED | — | — | handoffs/PHASE-1-HANDOFF.md |
-| 2 | The memory-graph hero (signature centerpiece) | ⬜ NOT STARTED | — | — | handoffs/PHASE-2-HANDOFF.md |
-| 3 | Narrative content sections | ⬜ NOT STARTED | — | — | handoffs/PHASE-3-HANDOFF.md |
+| 1 | Design system and brand language | ✅ COMPLETE | 2026-06-22 | 2026-06-22 | handoffs/PHASE-1-HANDOFF.md |
+| 2 | The memory-graph hero (signature centerpiece) | ✅ COMPLETE | 2026-06-22 | 2026-06-22 | handoffs/PHASE-2-HANDOFF.md |
+| 3 | Narrative content sections | ✅ COMPLETE | 2026-06-22 | 2026-06-22 | handoffs/PHASE-3-HANDOFF.md |
 | 4 | Interactive demos and motion delight | ⬜ NOT STARTED | — | — | handoffs/PHASE-4-HANDOFF.md |
-| 5 | Media slots and Higgsfield asset pack | ⬜ NOT STARTED | — | — | handoffs/PHASE-5-HANDOFF.md |
+| 5 | Media slots and Higgsfield asset pack | ✅ COMPLETE | 2026-06-22 | 2026-06-22 | handoffs/PHASE-5-HANDOFF.md |
 | 6 | SEO, performance and accessibility hardening | ⬜ NOT STARTED | — | — | handoffs/PHASE-6-HANDOFF.md |
 | 7 | Infrastructure as code (CDK) | ⬜ NOT STARTED | — | — | handoffs/PHASE-7-HANDOFF.md |
 | 8 | CI/CD (GitHub Actions + OIDC) | ⬜ NOT STARTED | — | — | handoffs/PHASE-8-HANDOFF.md |
@@ -47,6 +47,22 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 ### Phase 0 — completed 2026-06-22
 
 Phase 0 stood up the foundation. Created and pushed the public GitHub repo collincusce/clauderizer-site (over HTTPS via the gh token - the SSH key is passphrase-locked, see C-02), and hand-scaffolded an Astro 7 + TypeScript 6 + ESLint 10 project that builds cleanly on Node 24 (Astro 7 dropped Node 20, see C-01), with a BaseLayout, brand-token starter CSS (reduced-motion baked in per INVARIANT-03), an on-brand placeholder hero, MDX + sitemap, Prettier + ESLint (both clean), and a public README. Clauderizer was switched to the node profile so cz_preflight now runs the real `npm run build` (green), and the dedicated `clauderizer` AWS profile resolves to account 063337706623 (INVARIANT-01). All five exit criteria met. Two divergences recorded (C-01 Node 20->24, C-02 SSH->HTTPS) plus one new open item (O-06): the session host is recorded as native while Claude Code runs on Windows over the wsl.localhost UNC path, so the digest and cz_* MCP tools do not auto-load - the whole phase ran on the clauderize ops CLI fallback. No subsystem cascades fired: scaffolding changed no dependent's contract (INVARIANT-05 judgment).
+
+### Phase 1 — completed 2026-06-22
+
+Design system shipped: brand tokens (deep-ink/cream/warm-amber), type, and a scroll-driven motion system (reveal + parallax via CSS animation-timeline, gated on prefers-reduced-motion AND @supports) plus a cinematic film layer (grain, ember particles, vignette, warm grade). Base layout, sticky glass nav, and footer built. No standalone /styleguide page — the live components are the styleguide. Mobile + reduced-motion verified.
+
+### Phase 2 — completed 2026-06-22
+
+Memory-graph hero shipped as a Seedance 2.0 build-up scroll-scrub: scroll progress drives video.currentTime frame-by-frame, constructing a glowing dependency graph out of darkness (amnesia->memory). All-keyframes encode (2.2MB) for clean seeks; the static poster is the reduced-motion/no-video fallback. Replaced the planned WebGL/canvas DAG (see correction).
+
+### Phase 3 — completed 2026-06-22
+
+Narrative content shipped (copy adapted from the README, static .astro not MDX): Problem (two walls), Amnesia<->Memory before/after, How it works (markdown->engine->MCP+hooks + the cz_* loop), Features (5 cards), Receipts (Stable, with receipts), Quickstart (3 steps + copy-to-clipboard), CTA, Footer. Pure outbound CTAs (GitHub/PyPI), no waitlist (O-04).
+
+### Phase 5 — completed 2026-06-22
+
+Media shipped via the Higgsfield CLI directly (D3): 4 hero candidates + a Seedance 2.0 build-up clip (5-slot prompt), re-encoded all-keyframes for the scroll-scrub. The planned HIGGSFIELD-ASSET-PACK.md prompt-pack handoff was superseded by the direct-CLI pipeline. Code-native film layer + SVG/poster fallbacks satisfy INVARIANT-03. ~53 of 9000 credits used.
 
 ## Accumulated Lessons
 
@@ -68,6 +84,8 @@ obsolete items — mark with "(obsolete)" rather than deleting.)_
 **6.** Higgsfield connectors added on claude.ai do NOT surface in Claude Code; install @higgsfield/cli (npm i -g) instead - it is the documented Claude Code path. One-time `higgsfield auth login` (device, user approves in browser), then generate cost/create/wait/get are fully scriptable. `--start-image <localfile>` auto-uploads for image-to-video; `--wait --json` prints result URLs to download. *(evidence: Phase 1 hero exploration 2026-06-22; cli v0.2.3)*
 
 **8.** preview_screenshot can hang (30s) on a page with an autoplaying loop <video> or after heavy preview_eval/reload churn. Reliable pattern: clean preview stop -> start -> resize -> screenshot with NO eval in between (mirrors the first good capture). Use preview_eval for layout metrics (scrollWidth vs innerWidth for overflow, element counts, computed font-size) as a robust complement to pixels. *(evidence: Phase 1/3 hero+parallax verification 2026-06-22)*
+
+**10.** For a cinematic hero, a Higgsfield scroll-scrubbed all-keyframes video can beat a hand-built WebGL graph and reuses the same reduced-motion poster fallback.
 
 ### Category: Architecture
 

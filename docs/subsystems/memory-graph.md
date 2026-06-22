@@ -1,7 +1,7 @@
 ---
 id: subsys.memory-graph
 type: subsystem
-status: planned
+status: active
 depends_on:
   - subsys.site
 last_verified: 2026-06-22

@@ -218,4 +218,31 @@
       background: linear-gradient(180deg, rgba(8, 9, 13, 0.45), rgba(8, 9, 13, 0.86));
     }
   }
+
+  /* Cinematic scroll-out: content lifts + fades, the film slowly scales in. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      .hero-content {
+        animation: hero-lift linear both;
+        animation-timeline: scroll(root);
+        animation-range: 0 85vh;
+      }
+      @keyframes hero-lift {
+        to {
+          opacity: 0;
+          transform: translateY(-52px);
+        }
+      }
+      .hero-media {
+        animation: hero-scale linear both;
+        animation-timeline: scroll(root);
+        animation-range: 0 100vh;
+      }
+      @keyframes hero-scale {
+        to {
+          transform: scale(1.12);
+        }
+      }
+    }
+  }
 </style>

@@ -1,6 +1,5 @@
 /*
- * Clauderizer brand tokens — Phase 0 starter.
- * The full design system (type scale, motion language, /styleguide) lands in Phase 1.
+ * Clauderizer brand tokens + scroll-motion system — Phase 1.
  * Art direction: "living memory-graph" — deep ink canvas, warm cream text, amber "memory" accent.
  */
 :root {
@@ -22,6 +21,7 @@
 
   --maxw: 72rem;
   --radius: 14px;
+  --section-pad: clamp(4rem, 12vh, 9rem);
 }
 
 * {
@@ -41,6 +41,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden; /* parallax layers never cause horizontal scroll */
 }
 
 a {
@@ -51,6 +52,105 @@ svg,
 video {
   display: block;
   max-width: 100%;
+}
+
+h2 {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  margin: 0 0 0.6rem;
+  max-width: 18ch;
+}
+
+.container {
+  max-width: var(--maxw);
+  width: 100%;
+  margin: 0 auto;
+  padding-inline: 1.5rem;
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-pad);
+  overflow: clip; /* contain parallax layers */
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  color: var(--amber-400);
+  margin: 0 0 1rem;
+}
+
+/* ---- Scroll-driven motion: compositor-based, mobile-friendly, opt-in ----
+   Defaults are the natural, fully-visible state, so reduced-motion users and
+   browsers without scroll-timelines get finished content. Motion only enhances. */
+.parallax {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: cz-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 8% entry 64%;
+    }
+    .reveal-sm {
+      animation-range: entry 0% entry 48%;
+    }
+    @keyframes cz-reveal {
+      from {
+        opacity: 0;
+        transform: translateY(36px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Decorative backdrop layers drift at different rates -> depth. */
+    .parallax {
+      animation: cz-parallax linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+    .parallax-slow {
+      --cz-shift: 5%;
+    }
+    .parallax-mid {
+      --cz-shift: 11%;
+    }
+    .parallax-fast {
+      --cz-shift: 20%;
+    }
+    @keyframes cz-parallax {
+      from {
+        transform: translateY(var(--cz-shift, 8%));
+      }
+      to {
+        transform: translateY(calc(-1 * var(--cz-shift, 8%)));
+      }
+    }
+  }
+}
+
+/* Gentler parallax on small screens. */
+@media (prefers-reduced-motion: no-preference) and (max-width: 640px) {
+  @supports (animation-timeline: view()) {
+    .parallax-slow {
+      --cz-shift: 3%;
+    }
+    .parallax-mid {
+      --cz-shift: 6%;
+    }
+    .parallax-fast {
+      --cz-shift: 10%;
+    }
+  }
 }
 
 /* INVARIANT-03: motion is an enhancement, never a requirement. */

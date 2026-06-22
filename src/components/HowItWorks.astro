@@ -1,0 +1,155 @@
+---
+// How it works: markdown source of truth -> engine -> MCP + hooks -> your agent.
+// A drifting dot-grid backdrop parallaxes; the stages + loop reveal on scroll.
+const stages = [
+  {
+    t: 'Markdown in docs/',
+    d: 'Plans, decisions, invariants, a dependency graph — diffable, reviewable, shipped with the code.',
+  },
+  {
+    t: 'The engine',
+    d: 'Reads and writes the markdown, rebuilds the graph cache, runs pre-flight and cascade for real.',
+  },
+  {
+    t: 'MCP tools + hooks',
+    d: 'Self-describing tool calls and lifecycle hooks inject status into context — automatically.',
+  },
+  {
+    t: 'Your agent',
+    d: 'Oriented before you type a word. No reading order, no re-briefing, no drift.',
+  },
+];
+---
+
+<section class="section how" id="how-it-works">
+  <div class="dotgrid parallax parallax-fast" aria-hidden="true"></div>
+
+  <div class="container">
+    <p class="kicker reveal reveal-sm">How it works</p>
+    <h2 class="reveal">Markdown is the source of truth.</h2>
+    <p class="sub reveal">
+      The graph index is a disposable cache, rebuilt from the markdown on demand — if they ever
+      disagree, markdown wins. No database, no lock-in. Your memory is just readable files in <code
+        >docs/</code
+      >.
+    </p>
+
+    <ol class="pipeline">
+      {
+        stages.map((s, i) => (
+          <li class="stage reveal">
+            <span class="dot" />
+            <span class="idx">{String(i + 1).padStart(2, '0')}</span>
+            <b>{s.t}</b>
+            <p>{s.d}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <figure class="loop reveal">
+      <figcaption>A typical phase loop</figcaption>
+      <pre><code>cz_next_phase_context   → the full bundle for this phase
+cz_preflight            → runs your real tests/build, for real
+… do the work …
+cz_add_decision / cz_add_invariant / cz_upsert_entity
+cz_cascade              → walk the graph, flag dependents
+cz_write_handoff        → assemble the next cumulative handoff</code></pre>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .how {
+    background: var(--ink-900);
+  }
+  .dotgrid {
+    position: absolute;
+    inset: -10% 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: radial-gradient(rgba(245, 158, 11, 0.16) 1px, transparent 1.4px);
+    background-size: 26px 26px;
+    -webkit-mask-image: radial-gradient(120% 70% at 50% 30%, #000 30%, transparent 75%);
+    mask-image: radial-gradient(120% 70% at 50% 30%, #000 30%, transparent 75%);
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+  .sub {
+    max-width: 46rem;
+    color: var(--cream-200);
+    font-size: clamp(1.02rem, 1.7vw, 1.18rem);
+    margin: 0 0 2.6rem;
+  }
+  .sub code,
+  .loop code {
+    font-family: var(--font-mono);
+  }
+  .pipeline {
+    list-style: none;
+    margin: 0 0 2.6rem;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 1.1rem;
+  }
+  .stage {
+    position: relative;
+    padding: 1.4rem;
+    border: 1px solid var(--edge);
+    border-radius: var(--radius);
+    background: rgba(17, 20, 28, 0.6);
+  }
+  .stage .dot {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.4rem;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--amber-500);
+    box-shadow: 0 0 0 4px var(--amber-glow);
+  }
+  .stage .idx {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .stage b {
+    display: block;
+    margin: 0.4rem 0 0.5rem;
+    font-size: 1.12rem;
+  }
+  .stage p {
+    margin: 0;
+    color: var(--cream-200);
+    font-size: 0.96rem;
+  }
+  .loop {
+    margin: 0;
+    border: 1px solid var(--edge);
+    border-radius: var(--radius);
+    background: var(--ink-800);
+    overflow: hidden;
+  }
+  .loop figcaption {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    color: var(--amber-400);
+    padding: 0.8rem 1.1rem;
+    border-bottom: 1px solid var(--edge);
+  }
+  .loop pre {
+    margin: 0;
+    padding: 1.1rem;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    line-height: 1.7;
+    color: var(--cream-200);
+  }
+</style>

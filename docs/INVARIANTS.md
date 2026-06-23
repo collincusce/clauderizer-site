@@ -35,3 +35,8 @@ The CloudFront ACM certificate must be issued in us-east-1, because CloudFront o
 **Introduced by**: Marketing Site Launch gameplan - infra decision
 
 Every AWS resource carries cost-allocation tags (at minimum project=clauderizer-site) so spend is attributable.
+
+### INVARIANT-07 — This repo is PUBLIC and its docs/ memory ships with it: never commit raw PII or secrets to tracked files (personal emails, unrelated AWS account IDs, credentials, keys). Record source-of-truth secrets/PII indirectly (named AWS profiles, env, untracked notes) or redact in-doc. The project own account id 063337706623 is acceptable (load-bearing in infra/cdk, not secret). If something leaks, scrub with git filter-repo + force-push and verify on the remote.
+**Introduced by**: Phase 9 post-launch PII scrub (2 emails + account 116662357168 redacted from history) 2026-06-22
+
+This repo is PUBLIC and its docs/ memory ships with it: never commit raw PII or secrets to tracked files (personal emails, unrelated AWS account IDs, credentials, keys). Record source-of-truth secrets/PII indirectly (named AWS profiles, env, untracked notes) or redact in-doc. The project own account id 063337706623 is acceptable (load-bearing in infra/cdk, not secret). If something leaks, scrub with git filter-repo + force-push and verify on the remote.

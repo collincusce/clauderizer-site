@@ -47,3 +47,11 @@ _(Add entries with `cz_add_decision`.)_
 **Decision**: Adopt the 'Living memory-graph' art direction: a dark, premium canvas where a glowing dependency-graph DAG blooms out of amnesia fog into structured memory; warm amber 'memory' accent on deep ink; the amnesia<->memory transformation as the recurring motif.
 **Consequences**: Sets palette, motion language, and the media brief. Demands disciplined performance and reduced-motion fallbacks so the cinematic layer never hurts accessibility or Lighthouse.
 **Status**: active (2026-06-22)
+
+### D-006 — Adopt GSAP + vanilla Three.js for a maximal-spectacle motion layer; recompose the hero as a WebGL memory-graph
+
+**Context**: User reviewed the Phase 0-3/5 site and judged it under-impressive versus the Clauderizer README assets, directing a '100x' lift and pointing to the '$35K Motion-Website Playbook with Higgsfield' (Higgsfield cinematics + a real web-motion stack: GSAP/Three.js/Motion via CLAUDEDESIGNSKILLS). The existing site used only hand-rolled CSS scroll-timeline. Asked how far to push given the Phase 6 Lighthouse >=95 gate and INVARIANT-03, the user chose 'Maximal spectacle'.
+**Decision**: Add gsap + three as deps and build the motion layer with vanilla Three.js + GSAP in lazy client islands (NOT React Three Fiber - the site has no React and R3F would pull in the React runtime). Recompose the hero as a vanilla-Three.js living memory-graph (the original subsys.memory-graph vision). three is dynamically imported/code-split; every enhancement gates on prefers-reduced-motion + WebGL support with a static fallback.
+**Consequences**: Much higher visual ceiling and product-true demos, but a ~600KB three chunk (lazy, off the critical path) and more continuous animation that Phase 6 must validate against Lighthouse >=95. Reinstates the WebGL hero that C-03 pivoted away from; the Higgsfield scroll-scrub video is now unused in the hero (its poster remains the no-WebGL fallback).
+**Evidence**: x.com/i/article/2067199898689081344 (paywalled, @zeuuss_01) + companion x.com/zeuuss_01/status/2067213248517017884; gsap 3.15.0 + three 0.184.0 installed; astro build green 2026-06-22.
+**Status**: active (2026-06-22)

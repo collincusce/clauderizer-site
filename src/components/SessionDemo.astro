@@ -1,0 +1,512 @@
+---
+// "What a session feels like" — the live SessionStart terminal (Phase 4
+// centerpiece). The full transcript is real: it's THIS site's own gameplan
+// digest (dogfooding). The whole transcript is in the DOM so it reads fine
+// with JS off or under reduced-motion; GSAP adds the typewriter + phase-rail
+// ticking as enhancement. Pausable, replayable, keyboard- and SR-accessible.
+const phases = [
+  { n: 0, name: 'Foundation', done: true },
+  { n: 1, name: 'Design system', done: true },
+  { n: 2, name: 'Memory-graph hero', done: true },
+  { n: 3, name: 'Narrative sections', done: true },
+  { n: 4, name: 'Interactive demos', done: false, current: true },
+  { n: 5, name: 'Media + Higgsfield', done: true },
+  { n: 6, name: 'SEO / a11y', done: false },
+  { n: 7, name: 'Infra (CDK)', done: false },
+  { n: 8, name: 'CI/CD', done: false },
+  { n: 9, name: 'Launch', done: false },
+];
+---
+
+<section class="section session" id="session">
+  <div class="container">
+    <p class="kicker reveal reveal-sm">What a session feels like</p>
+    <h2 class="reveal">The digest greets your agent — cold.</h2>
+    <p class="sub reveal">
+      Before you type a word, the SessionStart hook has already told the agent exactly where things
+      stand. No reading order, no re-briefing. <strong>This is the digest for this very site.</strong>
+    </p>
+
+    <div class="terminal reveal" data-term>
+      <div class="term-bar">
+        <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="term-title">coding agent · fresh session</span>
+        <div class="term-controls">
+          <button type="button" class="term-btn" data-term-toggle aria-label="Pause the demo">
+            <span class="ico-pause" aria-hidden="true"></span><span data-toggle-label>Pause</span>
+          </button>
+          <button type="button" class="term-btn" data-term-replay aria-label="Replay the demo">
+            ↺ Replay
+          </button>
+        </div>
+      </div>
+
+      <div class="term-body" aria-live="polite">
+        <p class="ln ctx" data-line>you open a fresh session — nothing typed yet</p>
+
+        <div class="digest" data-line>
+          <span class="digest-bar" aria-hidden="true"></span>
+          <p class="ln" data-type><span class="t-clay">[Clauderizer]</span> gameplan <span class="t-cream">marketing-site-launch</span> — phase <span class="t-cream">4 / 10</span></p>
+          <p class="ln" data-type><span class="t-mut">baseline</span> 0 tests <span class="t-mut">·</span> <span class="t-clay">10 lessons</span> <span class="t-mut">· 0 pending cascades</span></p>
+          <p class="ln" data-type><span class="t-mut">next:</span> <span class="t-cream">cz_next_phase_context → cz_preflight</span></p>
+          <p class="ln note" data-line>↑ injected automatically — no reading order, no re-briefing</p>
+        </div>
+
+        <p class="ln agent" data-line><span class="caret-cursor">▸</span> I see where we are — phase 4 of 10. Preflight's green. Building the interactive demos now.</p>
+
+        <figure class="rail" data-line>
+          <figcaption>phase 4 of 10 · this very site, built by dogfooding itself</figcaption>
+          <ol class="rail-track" role="list">
+            {
+              phases.map((p) => (
+                <li
+                  class:list={['phase-node', { done: p.done, current: p.current }]}
+                  data-node
+                  data-done={p.done ? 'true' : 'false'}
+                  aria-label={`Phase ${p.n}: ${p.name}${p.current ? ' (current)' : p.done ? ' (complete)' : ' (upcoming)'}`}
+                >
+                  <span class="node-dot" aria-hidden="true" />
+                  <span class="node-n">{p.n}</span>
+                </li>
+              ))
+            }
+          </ol>
+        </figure>
+
+        <p class="ln punch" data-line>Every session picks up exactly where you left off.</p>
+        <p class="ln tag" data-line>That's how you fly. ✦</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { prefersReducedMotion, onNearViewport } from '@/lib/env';
+
+  const term = document.querySelector<HTMLElement>('[data-term]');
+  if (term) {
+    const lines = [...term.querySelectorAll<HTMLElement>('[data-line]')];
+    const nodes = [...term.querySelectorAll<HTMLElement>('[data-node]')];
+    const toggleBtn = term.querySelector<HTMLButtonElement>('[data-term-toggle]');
+    const replayBtn = term.querySelector<HTMLButtonElement>('[data-term-replay]');
+    const toggleLabel = term.querySelector<HTMLElement>('[data-toggle-label]');
+
+    // Cache the to-be-typed lines: plain text for the typewriter, plus a clone
+    // of the original colored token nodes to restore afterwards (no innerHTML).
+    const typed = [...term.querySelectorAll<HTMLElement>('[data-type]')].map((el) => ({
+      el,
+      text: el.textContent || '',
+      source: [...el.childNodes].map((n) => n.cloneNode(true)),
+    }));
+    const restore = (t: (typeof typed)[number]) =>
+      t.el.replaceChildren(...t.source.map((n) => n.cloneNode(true)));
+
+    if (prefersReducedMotion()) {
+      // Static path: everything already visible; controls aren't needed.
+      term.querySelector('.term-controls')?.setAttribute('hidden', '');
+    } else {
+      let tl: gsap.core.Timeline | null = null;
+      let gsapRef: typeof import('gsap').gsap | null = null;
+
+      const setStart = () => {
+        lines.forEach((l) => {
+          l.style.opacity = '0';
+          l.style.transform = 'translateY(8px)';
+        });
+        // "armed" holds each node neutral until its slot ticks green/clay.
+        nodes.forEach((n) => {
+          n.classList.add('armed');
+          n.style.opacity = '0.3';
+        });
+        typed.forEach((t) => {
+          t.el.textContent = '';
+        });
+      };
+
+      const build = (gsap: NonNullable<typeof gsapRef>) => {
+        const t = gsap.timeline({ paused: true });
+        lines.forEach((line) => {
+          const ownTyped = typed.find((x) => x.el === line || line.contains(x.el));
+          if (line.matches('.digest')) {
+            t.to(line, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }, '>');
+            typed
+              .filter((x) => line.contains(x.el))
+              .forEach((tw) => {
+                const obj = { n: 0 };
+                t.call(() => tw.el.classList.add('typing'), [], '>');
+                t.to(
+                  obj,
+                  {
+                    n: tw.text.length,
+                    duration: Math.min(tw.text.length / 52, 1.6),
+                    ease: 'none',
+                    onUpdate: () => {
+                      tw.el.textContent = tw.text.slice(0, Math.ceil(obj.n));
+                    },
+                    onComplete: () => {
+                      tw.el.classList.remove('typing');
+                      restore(tw);
+                    },
+                  },
+                  '>'
+                );
+              });
+          } else if (line.matches('.rail')) {
+            t.to(line, { opacity: 1, y: 0, duration: 0.35 }, '>0.1');
+            // per-node tweens so each slot fires its own onStart -> ticks in turn
+            nodes.forEach((node, idx) => {
+              t.to(
+                node,
+                {
+                  opacity: 1,
+                  duration: 0.28,
+                  ease: 'power2.out',
+                  onStart: () => node.classList.remove('armed'),
+                },
+                idx === 0 ? '>' : '>-0.16'
+              );
+            });
+          } else if (!ownTyped) {
+            t.to(line, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '>-0.05');
+          }
+        });
+        t.eventCallback('onComplete', () => {
+          if (toggleLabel) toggleLabel.textContent = 'Replay';
+          term.classList.add('term-done');
+        });
+        return t;
+      };
+
+      const start = async () => {
+        const mod = await import('gsap');
+        gsapRef = mod.gsap;
+        setStart();
+        tl = build(gsapRef);
+        tl.play();
+      };
+
+      let started = false;
+      onNearViewport(
+        term,
+        () => {
+          if (started) return;
+          started = true;
+          start();
+        },
+        '-10% 0px'
+      );
+
+      toggleBtn?.addEventListener('click', () => {
+        if (!tl) {
+          start();
+          return;
+        }
+        if (!tl.paused() && tl.progress() < 1) {
+          tl.pause();
+          if (toggleLabel) toggleLabel.textContent = 'Play';
+          term.classList.add('term-paused');
+        } else {
+          if (tl.progress() === 1) tl.restart();
+          else tl.play();
+          if (toggleLabel) toggleLabel.textContent = 'Pause';
+          term.classList.remove('term-paused');
+        }
+      });
+
+      replayBtn?.addEventListener('click', () => {
+        if (!gsapRef) {
+          start();
+          return;
+        }
+        setStart();
+        tl = build(gsapRef);
+        term.classList.remove('term-done', 'term-paused');
+        if (toggleLabel) toggleLabel.textContent = 'Pause';
+        tl.play();
+      });
+    }
+  }
+</script>
+
+<style>
+  .session {
+    background: linear-gradient(180deg, var(--ink-800), var(--ink-900));
+  }
+  .sub {
+    max-width: 48rem;
+    color: var(--cream-200);
+    font-size: clamp(1.02rem, 1.7vw, 1.18rem);
+    margin: 0 0 2.4rem;
+  }
+  .sub strong {
+    color: var(--clay-200);
+    font-weight: 600;
+  }
+
+  .terminal {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--edge-strong);
+    background: #0c0f15;
+    box-shadow:
+      0 40px 90px -50px rgba(0, 0, 0, 0.9),
+      0 0 0 1px rgba(255, 255, 255, 0.02),
+      0 0 70px -30px var(--clay-glow);
+    max-width: 58rem;
+  }
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.7rem 0.95rem;
+    background: linear-gradient(180deg, #161b23, #11151c);
+    border-bottom: 1px solid var(--edge);
+  }
+  .lights {
+    display: inline-flex;
+    gap: 0.45rem;
+  }
+  .lights i {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: block;
+  }
+  .lights i:nth-child(1) {
+    background: #e5685c;
+  }
+  .lights i:nth-child(2) {
+    background: #e0a93f;
+  }
+  .lights i:nth-child(3) {
+    background: #57c24a;
+  }
+  .term-title {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .term-controls {
+    margin-left: auto;
+    display: flex;
+    gap: 0.5rem;
+  }
+  .term-controls[hidden] {
+    display: none;
+  }
+  .term-btn {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--cream-200);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--edge);
+    border-radius: 7px;
+    padding: 0.28rem 0.6rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition:
+      border-color 0.15s ease,
+      color 0.15s ease,
+      background 0.15s ease;
+  }
+  .term-btn:hover {
+    border-color: var(--clay);
+    color: var(--clay-200);
+  }
+  .term-btn:focus-visible {
+    outline: 2px solid var(--clay);
+    outline-offset: 2px;
+  }
+  .ico-pause {
+    width: 8px;
+    height: 9px;
+    border-left: 2.5px solid currentColor;
+    border-right: 2.5px solid currentColor;
+  }
+  .term-paused .ico-pause {
+    width: 0;
+    height: 0;
+    border-left: 7px solid currentColor;
+    border-right: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+  }
+
+  .term-body {
+    padding: 1.3rem 1.4rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    line-height: 1.72;
+    color: var(--cream-200);
+    min-height: 340px;
+  }
+  .ln {
+    margin: 0;
+  }
+  .ctx {
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 0.9rem;
+  }
+  .digest {
+    position: relative;
+    background: #1b1612;
+    border: 1px solid #3a2a20;
+    border-radius: 8px;
+    padding: 0.85rem 1rem 0.9rem 1.1rem;
+    margin-bottom: 1rem;
+  }
+  .digest-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3.5px;
+    border-radius: 2px;
+    background: var(--clay);
+  }
+  .t-clay {
+    color: var(--clay);
+    font-weight: 600;
+  }
+  .t-cream {
+    color: var(--cream-50);
+    font-weight: 600;
+  }
+  .t-mut {
+    color: var(--muted);
+  }
+  .note {
+    color: var(--dim);
+    font-style: italic;
+    margin-top: 0.35rem;
+  }
+  .agent {
+    margin-bottom: 1.1rem;
+    color: var(--cream-50);
+  }
+  .agent .caret-cursor {
+    color: var(--clay);
+    font-weight: 700;
+  }
+
+  /* blinking caret on the line currently typing */
+  .typing::after {
+    content: '';
+    display: inline-block;
+    width: 0.55em;
+    height: 1.05em;
+    transform: translateY(0.18em);
+    margin-left: 1px;
+    background: var(--clay);
+    animation: term-caret 0.9s steps(1) infinite;
+  }
+  @keyframes term-caret {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .rail {
+    margin: 0 0 1.1rem;
+    padding: 0.9rem 0 0.2rem;
+  }
+  .rail figcaption {
+    color: var(--muted);
+    font-size: 0.76rem;
+    margin-bottom: 0.85rem;
+  }
+  .rail-track {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+  }
+  .phase-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .node-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid #2a3340;
+    background: #12161d;
+    display: grid;
+    place-items: center;
+    transition:
+      background 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+  .node-n {
+    font-size: 0.68rem;
+    color: var(--muted);
+  }
+  /* .armed (JS-only) holds a node neutral until its slot ticks; .done/.current
+     are the no-JS static truth — green/clay with zero JS or reduced-motion. */
+  .phase-node.done:not(.armed) .node-dot {
+    background: var(--ok);
+    border-color: var(--ok);
+    box-shadow: 0 0 0 4px var(--ok-soft);
+  }
+  .phase-node.done:not(.armed) .node-dot::after {
+    content: '✓';
+    color: #07210a;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+  .phase-node.current:not(.armed) .node-dot {
+    border-color: var(--clay);
+    background: var(--clay-soft);
+    box-shadow: 0 0 0 4px var(--clay-soft);
+    animation: node-pulse 2s ease-in-out infinite;
+  }
+  .phase-node.current:not(.armed) .node-n {
+    color: var(--clay-200);
+  }
+  @keyframes node-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 4px var(--clay-soft);
+    }
+    50% {
+      box-shadow: 0 0 0 7px rgba(224, 138, 94, 0.08);
+    }
+  }
+
+  .punch {
+    font-family: var(--font-sans);
+    font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+    font-weight: 700;
+    color: var(--cream-50);
+    margin-top: 0.4rem;
+  }
+  .tag {
+    font-family: var(--font-sans);
+    color: var(--clay);
+    margin-top: 0.2rem;
+  }
+
+  @media (max-width: 560px) {
+    .term-body {
+      font-size: 0.78rem;
+    }
+    .node-dot {
+      width: 19px;
+      height: 19px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .phase-node.current .node-dot {
+      animation: none;
+    }
+  }
+</style>

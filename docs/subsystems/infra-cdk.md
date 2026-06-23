@@ -1,7 +1,7 @@
 ---
 id: subsys.infra-cdk
 type: subsystem
-status: planned
+status: active
 depends_on:
   - ext.aws-personal
   - ext.route53-domains

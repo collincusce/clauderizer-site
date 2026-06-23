@@ -1,10 +1,13 @@
 profile = "node"
 
+# Split-host note: the login-shell `node` resolves to v20 (nvm auto-use does not
+# fire in non-interactive `bash -lc`), but Astro 7 requires >=22.12 (C-01). Pin
+# the v24 npm by absolute path so cz_preflight's build/typecheck don't false-fail.
 [commands]
 test = ""
-build = "npm run build"
-lint = "npm run lint"
-typecheck = "astro check"
+build = "/home/ccusce/.nvm/versions/node/v24.13.1/bin/npm run build"
+lint = "/home/ccusce/.nvm/versions/node/v24.13.1/bin/npm run lint"
+typecheck = "/home/ccusce/.nvm/versions/node/v24.13.1/bin/npx astro check"
 
 [preflight]
 baseline_test_regex = ""

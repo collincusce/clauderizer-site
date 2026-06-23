@@ -1,0 +1,67 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<BaseLayout title="404 — Clauderizer" description="That page slipped out of memory.">
+  <Nav />
+  <main class="nf">
+    <p class="code">404</p>
+    <h1>That page slipped out of memory.</h1>
+    <p class="lede">
+      Even durable memory has its limits — the page you're after isn't in the graph. Let's get you
+      back to where things stand.
+    </p>
+    <a class="btn" href="/">← Back to the start</a>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .nf {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: clamp(7rem, 22vh, 12rem) 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    min-height: 60svh;
+  }
+  .code {
+    font-family: var(--font-mono);
+    font-size: clamp(3rem, 12vw, 6rem);
+    font-weight: 800;
+    margin: 0;
+    color: var(--clay);
+    letter-spacing: -0.04em;
+    text-shadow: 0 0 40px var(--clay-glow);
+  }
+  h1 {
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    margin: 0;
+  }
+  .lede {
+    color: var(--cream-200);
+    max-width: 34rem;
+    margin: 0;
+  }
+  .btn {
+    margin-top: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.8rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #20140a;
+    background: linear-gradient(180deg, var(--amber-400), var(--clay));
+    box-shadow: 0 12px 34px -12px var(--clay-glow);
+    transition: transform 0.16s ease;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+</style>

@@ -13,7 +13,7 @@ const cols = [
     links: [
       { t: 'GitHub', href: 'https://github.com/collincusce/Clauderizer' },
       { t: 'PyPI', href: 'https://pypi.org/project/clauderizer/' },
-      { t: 'License (MIT)', href: 'https://github.com/collincusce/Clauderizer/blob/main/LICENSE' },
+      { t: 'License (Apache 2.0)', href: 'https://github.com/collincusce/Clauderizer/blob/main/LICENSE' },
     ],
   },
 ];
@@ -31,7 +31,7 @@ const cols = [
     {
       cols.map((c) => (
         <nav class="col" aria-label={c.h}>
-          <h4>{c.h}</h4>
+          <h3>{c.h}</h3>
           {c.links.map((l) => (
             <a href={l.href}>{l.t}</a>
           ))}
@@ -41,7 +41,7 @@ const cols = [
   </div>
   <div class="container bottom">
     <span>Durable working memory for coding agents — built by dogfooding itself.</span>
-    <span>MIT licensed</span>
+    <span>Apache 2.0 licensed</span>
   </div>
 </footer>
 
@@ -74,7 +74,7 @@ const cols = [
     flex-direction: column;
     gap: 0.55rem;
   }
-  .col h4 {
+  .col h3 {
     margin: 0 0 0.3rem;
     font-size: 0.78rem;
     text-transform: uppercase;

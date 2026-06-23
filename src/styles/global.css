@@ -4,15 +4,33 @@
  */
 :root {
   --ink-900: #0b0d12; /* deep ink background */
+  --ink-850: #0e1117; /* card ink (matches the README assets) */
   --ink-800: #11141c;
   --ink-700: #1a1f2b;
   --cream-50: #f4efe6; /* warm cream text */
   --cream-200: #d8d2c4;
-  --muted: #8b91a1;
+  --muted: #8b91a1; /* 6.1:1 on --ink-900 — AA for normal text */
+  --dim: #868d9b; /* ~5.8:1 — the dimmest text that still clears AA */
   --amber-400: #ffb454; /* warm "memory" accent */
   --amber-500: #f59e0b;
   --amber-glow: rgba(245, 158, 11, 0.35);
+
+  /* Refined clay accent + semantic states — the README's own palette,
+     which the live site never used. Clay carries the cinematic/graph moments;
+     green = remembered/passing, red = forgotten/failing. */
+  --clay: #e08a5e;
+  --clay-200: #f0b89a;
+  --clay-soft: rgba(224, 138, 94, 0.16);
+  --clay-glow: rgba(224, 138, 94, 0.4);
+  --ok: #57c24a; /* remembered / preflight green */
+  --ok-soft: rgba(87, 194, 74, 0.14);
+  --ok-line: rgba(87, 194, 74, 0.4);
+  --bad: #e5685c; /* amnesia / failing */
+  --bad-soft: rgba(229, 104, 92, 0.1);
+  --bad-line: rgba(229, 104, 92, 0.34);
+
   --edge: rgba(255, 255, 255, 0.08);
+  --edge-strong: rgba(255, 255, 255, 0.15);
 
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -206,6 +224,69 @@ h2 {
       transform: translate(0, 0);
     }
   }
+}
+
+/* ---- Memory-graph DOM labels (JS-positioned over projected node coords) ---- */
+.mg-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.01em;
+  padding: 0.18rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(12, 15, 21, 0.72);
+  border: 1px solid var(--edge);
+  color: var(--cream-200);
+  backdrop-filter: blur(3px);
+  will-change: transform, opacity;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.mg-label::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 0.4rem;
+  vertical-align: 1px;
+  background: currentColor;
+  box-shadow: 0 0 7px currentColor;
+}
+.mg-phase {
+  color: var(--clay);
+  border-color: var(--clay-soft);
+}
+.mg-decision {
+  color: var(--amber-400);
+  border-color: rgba(255, 180, 84, 0.28);
+}
+.mg-invariant {
+  color: var(--cream-50);
+  border-color: var(--edge-strong);
+}
+.mg-subsystem {
+  color: #79a6cf;
+  border-color: rgba(121, 166, 207, 0.3);
+}
+.mg-lesson {
+  color: var(--muted);
+}
+
+/* Perf governor (O-07): pause perpetual animations when the tab is hidden or
+   the animated block is scrolled offscreen — saves battery + main-thread work
+   without affecting content (toggled by the BaseLayout governor script). */
+.anim-paused *,
+.anim-paused *::before,
+.anim-paused *::after,
+.anim-off,
+.anim-off *,
+.anim-off *::before,
+.anim-off *::after {
+  animation-play-state: paused !important;
 }
 
 /* INVARIANT-03: motion is an enhancement, never a requirement. */

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://clauderizer.com/sitemap-index.xml

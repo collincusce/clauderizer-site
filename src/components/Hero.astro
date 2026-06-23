@@ -1,248 +1,285 @@
 ---
-// Cinematic scroll-scrub hero: scrolling advances the Higgsfield clip frame-by-frame
-// (video.currentTime driven by scroll progress over a tall sticky track).
-// Reduced-motion users get a static poster hero (INVARIANT-03).
+// Hero — recomposed around the living memory-graph (the site's signature WebGL
+// centerpiece). Scattered "amnesia" memories bloom into a structured, glowing
+// dependency graph as the page loads. The Higgsfield poster is the static
+// fallback for no-WebGL / reduced-motion (INVARIANT-03).
 ---
 
-<section class="hero-scroll" aria-label="Clauderizer — durable working memory for coding agents">
-  <div class="hero-stage">
-    <div class="hero-media" aria-hidden="true">
-      <img class="hero-still" src="/media/hero/poster.jpg" alt="" decoding="async" />
-      <video class="hero-video" muted playsinline preload="auto" poster="/media/hero/poster.jpg">
-        <source src="/media/hero/hero-scrub.mp4" type="video/mp4" />
-      </video>
-      <div class="hero-scrim"></div>
-    </div>
-
-    <div class="hero-content">
-      <span class="eyebrow">// durable working memory for coding agents</span>
-      <h1>
-        Your coding agent is brilliant —<br />
-        <span class="amnesiac">and amnesiac.</span>
-      </h1>
-      <p class="lede">
-        Clauderizer gives it a memory that survives — plans, decisions, and a dependency graph as
-        plain, git-diffable markdown it reads and updates through real tool calls.
-      </p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="https://github.com/collincusce/Clauderizer">
-          Get started on GitHub
-        </a>
-        <a class="btn btn-ghost" href="#how-it-works">See how it works</a>
-      </div>
-      <button class="install" type="button" data-copy="uvx --from clauderizer clauderize init">
-        <code>uvx --from clauderizer clauderize init</code>
-        <span class="copy-hint">copy</span>
-      </button>
-    </div>
-
-    <div class="scroll-cue" aria-hidden="true"><span>scroll to remember</span></div>
+<section class="hero" aria-label="Clauderizer — durable working memory for coding agents">
+  <div class="hero-bg" aria-hidden="true">
+    <img class="hero-poster" src="/media/hero/poster.jpg" alt="" decoding="async" fetchpriority="high" />
+    <canvas class="hero-graph" data-graph></canvas>
+    <div class="hero-labels" data-graph-labels></div>
+    <div class="hero-scrim"></div>
   </div>
+
+  <div class="hero-content container">
+    <span class="eyebrow">// durable working memory for coding agents</span>
+    <h1>
+      Your coding agent is brilliant —<br />
+      <span class="amnesiac">and amnesiac.</span>
+    </h1>
+    <p class="lede">
+      Clauderizer gives it a memory that survives — plans, decisions, and a dependency graph as
+      plain, git-diffable markdown it reads and updates through real tool calls.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/collincusce/Clauderizer">
+        Get started on GitHub
+      </a>
+      <a class="btn btn-ghost" href="#session">Watch a session →</a>
+    </div>
+    <button
+      class="install"
+      type="button"
+      data-copy="uvx --from clauderizer clauderize init"
+      aria-label="Copy the install command: uvx --from clauderizer clauderize init"
+    >
+      <code><span class="prompt">$</span> uvx --from clauderizer clauderize init</code>
+      <span class="copy-hint">copy</span>
+    </button>
+
+    <ul class="hero-legend" aria-label="What the graph nodes represent">
+      <li><span class="dot d-phase"></span>phases</li>
+      <li><span class="dot d-decision"></span>decisions</li>
+      <li><span class="dot d-invariant"></span>invariants</li>
+      <li><span class="dot d-subsystem"></span>subsystems</li>
+    </ul>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true"><span>scroll to remember</span></div>
 </section>
 
 <script>
-  const track = document.querySelector<HTMLElement>('.hero-scroll');
-  const video = document.querySelector<HTMLVideoElement>('.hero-video');
-  const content = document.querySelector<HTMLElement>('.hero-content');
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  import { supportsWebGL, prefersReducedMotion, isCompact } from '@/lib/env';
 
-  if (track && video) {
-    const t = track;
-    const v = video;
-    const c = content;
-    let duration = 0;
-    let target = 0;
-    let raf = 0;
+  const section = document.querySelector<HTMLElement>('.hero');
+  const canvas = document.querySelector<HTMLCanvasElement>('.hero-graph');
+  const labels = document.querySelector<HTMLElement>('.hero-labels');
 
-    const tick = () => {
-      raf = 0;
-      if (Math.abs((v.currentTime || 0) - target) > 0.005) {
-        try {
-          v.currentTime = target;
-        } catch {
-          /* not seekable yet */
-        }
-      }
-    };
+  // Three.js is heavy, so it's dynamically imported — code-split into its own
+  // chunk that only loads when the enhanced path will actually run. The static
+  // poster carries the hero until (and unless) the graph is ready.
+  if (section && canvas && supportsWebGL() && !prefersReducedMotion()) {
+    const boot = () =>
+      import('@/lib/memoryGraph')
+        .then(({ initMemoryGraph }) => {
+          const graph = initMemoryGraph({ canvas, labelLayer: labels, compact: isCompact() });
+          requestAnimationFrame(() => {
+            section.classList.add('graph-live');
+            // small delay so the first frame paints at "fog" before blooming
+            setTimeout(() => graph.setCoherence(1), 220);
+          });
+        })
+        .catch(() => {
+          /* leave the static poster in place */
+        });
 
-    const update = () => {
-      if (reduce.matches || !duration) return;
-      const total = t.offsetHeight - window.innerHeight;
-      const scrolled = Math.min(Math.max(-t.getBoundingClientRect().top, 0), Math.max(total, 1));
-      const p = total > 0 ? scrolled / total : 0;
-      target = p * (duration - 0.05);
-      if (!raf) raf = requestAnimationFrame(tick);
-      if (c) {
-        const fade = Math.min(Math.max((p - 0.62) / 0.3, 0), 1);
-        c.style.opacity = String(1 - fade);
-        c.style.transform = `translateY(${fade * -34}px)`;
-      }
-    };
-
-    const onMeta = () => {
-      duration = v.duration || 0;
-      v.classList.add('is-ready');
-      update();
-    };
-    if (v.readyState >= 1) onMeta();
-    v.addEventListener('loadedmetadata', onMeta);
-
-    // iOS only allows frame-seeking after a muted play()/pause().
-    v.play().then(() => v.pause()).catch(() => {});
-
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    reduce.addEventListener?.('change', update);
-    update();
+    if ('requestIdleCallback' in window) {
+      (window as Window & typeof globalThis).requestIdleCallback(boot, { timeout: 1200 });
+    } else {
+      setTimeout(boot, 200);
+    }
   }
-
 </script>
 
 <style>
-  .hero-scroll {
+  .hero {
     position: relative;
-    height: 240vh; /* scroll distance to scrub the clip */
-  }
-  .hero-stage {
-    position: sticky;
-    top: 0;
-    height: 100svh;
-    overflow: clip;
+    min-height: 100svh;
     display: grid;
     align-items: center;
+    overflow: clip;
   }
-  .hero-media {
+  .hero-bg {
     position: absolute;
     inset: 0;
     z-index: 0;
   }
-  .hero-still,
-  .hero-video {
+  .hero-poster,
+  .hero-graph {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
+  }
+  .hero-poster {
     object-fit: cover;
+    opacity: 0.9;
+    transition: opacity 1.1s ease;
   }
-  .hero-video {
+  .hero-graph {
     opacity: 0;
-    transition: opacity 0.8s ease;
+    transition: opacity 1.4s ease;
   }
-  .hero-video.is-ready {
+  /* When the live graph is running, fade the poster down to a faint base glow. */
+  .hero.graph-live .hero-poster {
+    opacity: 0.16;
+  }
+  .hero.graph-live .hero-graph {
     opacity: 1;
+  }
+  .hero-labels {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
   }
   .hero-scrim {
     position: absolute;
     inset: 0;
+    z-index: 1;
     background:
-      radial-gradient(120% 90% at 76% 42%, transparent 38%, rgba(8, 9, 13, 0.55) 100%),
+      radial-gradient(115% 90% at 78% 38%, transparent 36%, rgba(8, 9, 13, 0.5) 100%),
       linear-gradient(
         90deg,
-        rgba(8, 9, 13, 0.92) 0%,
-        rgba(8, 9, 13, 0.62) 40%,
-        rgba(8, 9, 13, 0.12) 72%
+        rgba(8, 9, 13, 0.94) 0%,
+        rgba(8, 9, 13, 0.66) 42%,
+        rgba(8, 9, 13, 0.08) 78%
       );
   }
   .hero-content {
     position: relative;
-    z-index: 1;
-    max-width: var(--maxw);
-    width: 100%;
-    margin: 0 auto;
-    padding: clamp(2rem, 8vh, 7rem) 1.5rem;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     gap: 1.4rem;
-    will-change: opacity, transform;
+    padding-block: clamp(6rem, 14vh, 9rem);
   }
   .eyebrow {
     font-family: var(--font-mono);
     font-size: 0.82rem;
     letter-spacing: 0.05em;
-    color: var(--amber-400);
+    color: var(--clay);
   }
   h1 {
-    font-size: clamp(2.4rem, 6.5vw, 5rem);
-    line-height: 1.04;
+    font-size: clamp(2.5rem, 6.6vw, 5.1rem);
+    line-height: 1.03;
     margin: 0;
     font-weight: 800;
-    letter-spacing: -0.02em;
-    max-width: 20ch;
+    letter-spacing: -0.025em;
+    max-width: 18ch;
   }
   .amnesiac {
     color: var(--muted);
+    -webkit-text-stroke: 0.4px rgba(139, 145, 161, 0.3);
   }
   .lede {
-    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    font-size: clamp(1.05rem, 2vw, 1.32rem);
     color: var(--cream-200);
-    max-width: 42rem;
+    max-width: 40rem;
     margin: 0;
   }
   .cta-row {
     display: flex;
     flex-wrap: wrap;
     gap: 0.8rem;
-    margin-top: 0.4rem;
+    margin-top: 0.3rem;
   }
   .btn {
     display: inline-flex;
     align-items: center;
-    padding: 0.8rem 1.3rem;
+    padding: 0.82rem 1.4rem;
     border-radius: 999px;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
     transition:
-      transform 0.15s ease,
-      background 0.15s ease,
-      border-color 0.15s ease;
+      transform 0.16s ease,
+      background 0.16s ease,
+      border-color 0.16s ease,
+      box-shadow 0.16s ease;
   }
   .btn-primary {
-    background: var(--amber-500);
-    color: #1a1206;
-    box-shadow: 0 10px 30px -12px var(--amber-glow);
+    background: linear-gradient(180deg, var(--amber-400), var(--clay));
+    color: #20140a;
+    box-shadow: 0 12px 34px -12px var(--clay-glow);
   }
   .btn-primary:hover {
-    transform: translateY(-1px);
-    background: var(--amber-400);
+    transform: translateY(-2px);
+    box-shadow: 0 18px 44px -14px var(--clay-glow);
   }
   .btn-ghost {
     color: var(--cream-50);
-    border: 1px solid var(--edge);
+    border: 1px solid var(--edge-strong);
   }
   .btn-ghost:hover {
-    border-color: var(--amber-500);
+    border-color: var(--clay);
+    transform: translateY(-2px);
   }
   .install {
-    margin-top: 0.6rem;
+    margin-top: 0.5rem;
     display: inline-flex;
     align-items: center;
     gap: 0.9rem;
-    background: rgba(18, 21, 29, 0.7);
+    background: rgba(14, 17, 23, 0.72);
     border: 1px solid var(--edge);
     border-radius: var(--radius);
     padding: 0.85rem 1.1rem;
     cursor: pointer;
     color: var(--cream-50);
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(8px);
     width: fit-content;
+  }
+  .install:hover {
+    border-color: var(--clay);
   }
   .install code {
     font-family: var(--font-mono);
     font-size: 0.92rem;
   }
+  .install .prompt {
+    color: var(--clay);
+  }
   .copy-hint {
     font-family: var(--font-mono);
     font-size: 0.72rem;
-    color: var(--amber-400);
+    color: var(--clay);
     text-transform: uppercase;
     letter-spacing: 0.08em;
+  }
+  .hero-legend {
+    list-style: none;
+    margin: 0.6rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--muted);
+  }
+  .hero-legend li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .hero-legend .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .d-phase {
+    background: #e08a5e;
+    box-shadow: 0 0 8px #e08a5e;
+  }
+  .d-decision {
+    background: #ffb454;
+    box-shadow: 0 0 8px #ffb454;
+  }
+  .d-invariant {
+    background: #f4efe6;
+    box-shadow: 0 0 8px #f4efe6;
+  }
+  .d-subsystem {
+    background: #79a6cf;
+    box-shadow: 0 0 8px #79a6cf;
   }
   .scroll-cue {
     position: absolute;
     bottom: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1;
+    z-index: 2;
     font-family: var(--font-mono);
     font-size: 0.72rem;
     letter-spacing: 0.12em;
@@ -267,21 +304,10 @@
   }
   @media (max-width: 640px) {
     .hero-scrim {
-      background: linear-gradient(180deg, rgba(8, 9, 13, 0.45), rgba(8, 9, 13, 0.86));
+      background: linear-gradient(180deg, rgba(8, 9, 13, 0.5), rgba(8, 9, 13, 0.88));
     }
-  }
-  /* INVARIANT-03: no scrub under reduced-motion — static poster hero. */
-  @media (prefers-reduced-motion: reduce) {
-    .hero-scroll {
-      height: auto;
-    }
-    .hero-stage {
-      position: static;
-      min-height: 100svh;
-    }
-    .hero-video,
-    .scroll-cue {
-      display: none;
+    .hero-legend {
+      gap: 0.9rem;
     }
   }
 </style>

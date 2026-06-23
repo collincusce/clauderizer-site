@@ -1,7 +1,7 @@
 ---
 id: subsys.ci
 type: subsystem
-status: planned
+status: active
 depends_on:
   - subsys.infra-cdk
   - ext.github

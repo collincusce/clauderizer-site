@@ -1,6 +1,8 @@
 ---
-// How it works: markdown source of truth -> engine -> MCP + hooks -> your agent.
-// A drifting dot-grid backdrop parallaxes; the stages + loop reveal on scroll.
+// How it works: markdown source of truth -> engine -> MCP + hooks -> your agent,
+// shown as a connected pipeline; then the cz_* phase loop as a live, perpetually
+// cycling animation (CSS-driven so it runs without JS and stills under
+// reduced-motion). A drifting dot-grid backdrop parallaxes.
 const stages = [
   {
     t: 'Markdown in docs/',
@@ -19,6 +21,15 @@ const stages = [
     d: 'Oriented before you type a word. No reading order, no re-briefing, no drift.',
   },
 ];
+
+const loop = [
+  { call: 'cz_next_phase_context', out: 'the full bundle for this phase' },
+  { call: 'cz_preflight', out: 'runs your real tests / build — for real' },
+  { call: '… do the work …', out: 'write code, honour the invariants', work: true },
+  { call: 'cz_add_decision · cz_add_invariant', out: 'structured, graph-aware records' },
+  { call: 'cz_cascade', out: 'walk the graph, flag dependents' },
+  { call: 'cz_write_handoff', out: 'assemble the next cumulative handoff' },
+];
 ---
 
 <section class="section how" id="how-it-works">
@@ -34,27 +45,43 @@ const stages = [
       >.
     </p>
 
-    <ol class="pipeline">
+    <ol class="pipeline reveal">
       {
         stages.map((s, i) => (
-          <li class="stage reveal">
-            <span class="dot" />
+          <li class="stage">
             <span class="idx">{String(i + 1).padStart(2, '0')}</span>
             <b>{s.t}</b>
             <p>{s.d}</p>
+            {i < stages.length - 1 && (
+              <span class="flow" aria-hidden="true">
+                →
+              </span>
+            )}
           </li>
         ))
       }
     </ol>
 
-    <figure class="loop reveal">
-      <figcaption>A typical phase loop</figcaption>
-      <pre><code>cz_next_phase_context   → the full bundle for this phase
-cz_preflight            → runs your real tests/build, for real
-… do the work …
-cz_add_decision / cz_add_invariant / cz_upsert_entity
-cz_cascade              → walk the graph, flag dependents
-cz_write_handoff        → assemble the next cumulative handoff</code></pre>
+    <figure class="loop reveal" aria-label="A typical phase loop: the cz_* tool calls a session runs, in order">
+      <figcaption>
+        <span class="loop-title">A typical phase loop</span>
+        <span class="loop-hint">runs every session →</span>
+      </figcaption>
+      <ol class="loop-track" role="list" data-anim>
+        {
+          loop.map((step, i) => (
+            <li class:list={['loop-step', { work: step.work }]} style={`--i:${i}`}>
+              <span class="loop-dot" aria-hidden="true" />
+              <code class="loop-call">{step.call}</code>
+              <span class="loop-out">{step.out}</span>
+            </li>
+          ))
+        }
+        <li class="loop-return" aria-hidden="true">
+          <span class="loop-dot return" />
+          <span class="loop-out">↺ next session picks up exactly here</span>
+        </li>
+      </ol>
     </figure>
   </div>
 </section>
@@ -88,12 +115,14 @@ cz_write_handoff        → assemble the next cumulative handoff</code></pre>
   .loop code {
     font-family: var(--font-mono);
   }
+
+  /* ---- connected pipeline ---- */
   .pipeline {
     list-style: none;
-    margin: 0 0 2.6rem;
+    margin: 0 0 3rem;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
     gap: 1.1rem;
   }
   .stage {
@@ -102,21 +131,18 @@ cz_write_handoff        → assemble the next cumulative handoff</code></pre>
     border: 1px solid var(--edge);
     border-radius: var(--radius);
     background: rgba(17, 20, 28, 0.6);
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease;
   }
-  .stage .dot {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.4rem;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: var(--amber-500);
-    box-shadow: 0 0 0 4px var(--amber-glow);
+  .stage:hover {
+    border-color: var(--clay-soft);
+    transform: translateY(-3px);
   }
   .stage .idx {
     font-family: var(--font-mono);
     font-size: 0.78rem;
-    color: var(--muted);
+    color: var(--clay);
   }
   .stage b {
     display: block;
@@ -128,28 +154,209 @@ cz_write_handoff        → assemble the next cumulative handoff</code></pre>
     color: var(--cream-200);
     font-size: 0.96rem;
   }
+  .stage .flow {
+    position: absolute;
+    right: -0.95rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--clay);
+    font-size: 1.2rem;
+    z-index: 2;
+  }
+  @media (max-width: 640px) {
+    .stage .flow {
+      right: 50%;
+      top: auto;
+      bottom: -0.95rem;
+      transform: translateX(50%) rotate(90deg);
+    }
+  }
+
+  /* ---- the live cz_* loop ---- */
   .loop {
     margin: 0;
     border: 1px solid var(--edge);
     border-radius: var(--radius);
-    background: var(--ink-800);
+    background: var(--ink-850);
     overflow: hidden;
+    max-width: 46rem;
   }
   .loop figcaption {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.05em;
-    color: var(--amber-400);
-    padding: 0.8rem 1.1rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem 1.2rem;
     border-bottom: 1px solid var(--edge);
   }
-  .loop pre {
-    margin: 0;
-    padding: 1.1rem;
-    overflow-x: auto;
+  .loop-title {
     font-family: var(--font-mono);
-    font-size: 0.86rem;
-    line-height: 1.7;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: var(--clay);
+  }
+  .loop-hint {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+  .loop-track {
+    list-style: none;
+    margin: 0;
+    padding: 1.1rem 1.2rem 1.3rem;
+    position: relative;
+  }
+  /* the connector rail */
+  .loop-track::before {
+    content: '';
+    position: absolute;
+    left: calc(1.2rem + 6px);
+    top: 1.7rem;
+    bottom: 2.2rem;
+    width: 2px;
+    background: var(--edge-strong);
+  }
+  .loop-step,
+  .loop-return {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: baseline;
+    column-gap: 0.85rem;
+    padding: 0.46rem 0;
+    padding-left: 0.1rem;
+  }
+  .loop-dot {
+    position: relative;
+    z-index: 1;
+    width: 14px;
+    height: 14px;
+    margin-top: 0.18rem;
+    border-radius: 50%;
+    border: 2px solid #2a3340;
+    background: var(--ink-900);
+    transition:
+      background 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      transform 0.3s ease;
+  }
+  .loop-call {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
     color: var(--cream-200);
+    grid-column: 2;
+    transition: color 0.3s ease;
+  }
+  .loop-step.work .loop-call {
+    color: var(--muted);
+    font-style: italic;
+  }
+  /* Output line always reserves its space (no layout animation) — only
+     opacity/transform animate, so the perpetual loop stays compositor-only. */
+  .loop-out {
+    grid-column: 2;
+    font-size: 0.8rem;
+    color: var(--muted);
+    opacity: 0.4;
+    transition: opacity 0.35s ease;
+  }
+  .loop-return .loop-out {
+    grid-column: 2;
+    opacity: 1;
+    color: var(--clay);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+  .loop-return .loop-dot.return {
+    border-color: var(--clay);
+    background: var(--clay-soft);
+  }
+
+  /* perpetual activation: each step fires in turn via negative-delay stagger.
+     CSS-only -> runs with JS off; the @media block below stills it. */
+  @media (prefers-reduced-motion: no-preference) {
+    .loop-step {
+      animation: loop-fire 9s linear infinite;
+      animation-delay: calc(var(--i) * -1.5s);
+    }
+    .loop-step .loop-dot {
+      animation: loop-dot 9s linear infinite;
+      animation-delay: calc(var(--i) * -1.5s);
+    }
+    .loop-step .loop-out {
+      animation: loop-out 9s linear infinite;
+      animation-delay: calc(var(--i) * -1.5s);
+    }
+    @keyframes loop-dot {
+      0%,
+      3% {
+        background: var(--ink-900);
+        border-color: #2a3340;
+        box-shadow: none;
+        transform: scale(1);
+      }
+      8%,
+      14% {
+        background: var(--clay);
+        border-color: var(--clay);
+        box-shadow: 0 0 0 5px var(--clay-soft);
+        transform: scale(1.18);
+      }
+      22%,
+      100% {
+        background: var(--ink-900);
+        border-color: #2a3340;
+        box-shadow: none;
+        transform: scale(1);
+      }
+    }
+    @keyframes loop-fire {
+      0%,
+      3%,
+      22%,
+      100% {
+        color: inherit;
+      }
+    }
+    @keyframes loop-out {
+      0%,
+      6% {
+        opacity: 0.25;
+        transform: translateY(-2px);
+      }
+      10%,
+      20% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      26%,
+      100% {
+        opacity: 0.25;
+        transform: translateY(-2px);
+      }
+    }
+    /* active call brightens while its slot is lit */
+    .loop-step .loop-call {
+      animation: loop-call 9s linear infinite;
+      animation-delay: calc(var(--i) * -1.5s);
+    }
+    @keyframes loop-call {
+      0%,
+      5% {
+        color: var(--cream-200);
+      }
+      9%,
+      18% {
+        color: var(--clay-200);
+      }
+      24%,
+      100% {
+        color: var(--cream-200);
+      }
+    }
+    .loop-step.work .loop-call {
+      animation: none;
+    }
   }
 </style>

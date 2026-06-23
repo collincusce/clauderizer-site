@@ -10,7 +10,7 @@ const stages = [
   },
   {
     t: 'The engine',
-    d: 'Reads and writes the markdown, rebuilds the graph cache, runs pre-flight and cascade for real.',
+    d: 'Reads and writes the Markdown, rebuilds the graph cache, and runs preflight and cascade against the real repository.',
   },
   {
     t: 'MCP tools + hooks',
@@ -18,13 +18,13 @@ const stages = [
   },
   {
     t: 'Your agent',
-    d: 'Oriented before you type a word. No reading order, no re-briefing, no drift.',
+    d: 'Oriented before you type a word. No prescribed reading order, no re-briefing, no drift.',
   },
 ];
 
 const loop = [
   { call: 'cz_next_phase_context', out: 'the full bundle for this phase' },
-  { call: 'cz_preflight', out: 'runs your real tests / build — for real' },
+  { call: 'cz_preflight', out: 'actually runs your tests / build' },
   { call: '… do the work …', out: 'write code, honour the invariants', work: true },
   { call: 'cz_add_decision · cz_add_invariant', out: 'structured, graph-aware records' },
   { call: 'cz_cascade', out: 'walk the graph, flag dependents' },
@@ -39,8 +39,8 @@ const loop = [
     <p class="kicker reveal reveal-sm">How it works</p>
     <h2 class="reveal">Markdown is the source of truth.</h2>
     <p class="sub reveal">
-      The graph index is a disposable cache, rebuilt from the markdown on demand — if they ever
-      disagree, markdown wins. No database, no lock-in. Your memory is just readable files in <code
+      The graph index is a disposable cache, rebuilt from the Markdown on demand — if they ever
+      disagree, Markdown wins. No database, no lock-in. Your memory is just readable files in <code
         >docs/</code
       >.
     </p>

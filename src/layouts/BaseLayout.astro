@@ -19,14 +19,30 @@ const jsonLd = {
   '@type': 'SoftwareApplication',
   name: 'Clauderizer',
   applicationCategory: 'DeveloperApplication',
+  applicationSubCategory: 'Coding agent memory',
   operatingSystem: 'Linux, macOS, Windows (WSL)',
   description,
   url: 'https://clauderizer.com',
+  image: ogImage,
   downloadUrl: 'https://pypi.org/project/clauderizer/',
+  installUrl: 'https://pypi.org/project/clauderizer/',
   codeRepository: 'https://github.com/collincusce/Clauderizer',
+  softwareRequirements: 'Python 3.11+',
   license: 'https://www.apache.org/licenses/LICENSE-2.0',
+  isAccessibleForFree: true,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   author: { '@type': 'Person', name: 'Collin Cusce' },
+  keywords:
+    'coding agent memory, AI pair programming, MCP server, Model Context Protocol, cross-session context, persistent memory, dependency graph, Claude Code, Cursor, GitHub Copilot',
+  featureList: [
+    'Durable cross-session memory for AI coding agents',
+    'Plans, decisions, and invariants as Git-diffable Markdown',
+    'Self-describing MCP tools and lifecycle hooks',
+    'Dependency graph with cascade and preflight',
+    'Host-portable across Claude Code, Cursor, Copilot, Codex, Gemini, and more',
+    'Apache 2.0 licensed with zero runtime dependencies',
+  ],
+  sameAs: ['https://github.com/collincusce/Clauderizer', 'https://pypi.org/project/clauderizer/'],
 };
 ---
 

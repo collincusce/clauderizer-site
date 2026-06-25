@@ -1,0 +1,162 @@
+---
+// FAQ — citeable Q&A in the served HTML (native <details>, no JS required) with
+// a matching FAQPage JSON-LD generated from the SAME array, so the structured
+// data always mirrors the visible text. Answers are drawn from real site copy.
+// High-leverage for generative-engine optimization: AI answer engines lean on
+// explicit question/answer pairs, and crawlers that don't run JS still see it.
+const faqs = [
+  {
+    q: 'What is Clauderizer?',
+    a: 'Clauderizer gives AI coding agents durable, cross-session memory: plans, decisions, invariants, and a dependency graph stored as plain, Git-diffable Markdown the agent reads and updates through real tool calls.',
+  },
+  {
+    q: 'How is it different from a CLAUDE.md or a rules file?',
+    a: 'A rules file is prose the agent has to remember to read and follow. Clauderizer exposes memory as self-describing MCP tools and lifecycle hooks, so orientation and updates happen as executed tool calls — not conventions that quietly rot.',
+  },
+  {
+    q: 'Where does the memory live?',
+    a: 'In your repository, as Markdown under docs/. It ships with the code, shows up in diffs, and is reviewed alongside changes. The dependency graph is a disposable cache rebuilt from that Markdown; if they ever disagree, Markdown wins.',
+    aHtml:
+      'In your repository, as Markdown under <code>docs/</code>. It ships with the code, shows up in diffs, and is reviewed alongside changes. The dependency graph is a disposable cache rebuilt from that Markdown; if they ever disagree, Markdown wins.',
+  },
+  {
+    q: 'Which AI coding tools does it work with?',
+    a: 'One install targets Claude Code, Cursor, GitHub Copilot, OpenAI Codex, Gemini, Windsurf, Cline, Amp, Continue, Zed, and Kimi.',
+  },
+  {
+    q: 'Is it free and open source?',
+    a: 'Yes. Clauderizer is Apache 2.0 licensed with an explicit patent grant, and the core engine has zero runtime dependencies.',
+  },
+  {
+    q: 'How do I get started?',
+    a: 'Run uvx --from clauderizer clauderize init in any repository, or pipx install "clauderizer[mcp]" for a permanent install. Then point your agent at a goal and say "do the next phase" each session.',
+    aHtml:
+      'Run <code>uvx --from clauderizer clauderize init</code> in any repository, or <code>pipx install "clauderizer[mcp]"</code> for a permanent install. Then point your agent at a goal and say "do the next phase" each session.',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<section class="section faq" id="faq">
+  <div class="container">
+    <p class="kicker reveal reveal-sm">Questions</p>
+    <h2 class="reveal">Answers, before you ask.</h2>
+
+    <div class="faq-list">
+      {
+        faqs.map((f) => (
+          <details class="faq-item reveal">
+            <summary>
+              <span class="q">{f.q}</span>
+              <span class="chev" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18">
+                  <path
+                    d="M6 9l6 6 6-6"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    fill="none"
+                  />
+                </svg>
+              </span>
+            </summary>
+            <div class="faq-a">
+              <p set:html={f.aHtml ?? f.a} />
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+
+<style>
+  .faq {
+    background: var(--ink-800);
+  }
+  .faq-list {
+    margin-top: 2.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    max-width: 52rem;
+  }
+  .faq-item {
+    border: 1px solid var(--edge);
+    border-radius: var(--radius);
+    background: rgba(18, 21, 29, 0.6);
+    overflow: hidden;
+    transition:
+      border-color 0.18s ease,
+      background 0.18s ease;
+  }
+  .faq-item:hover {
+    border-color: var(--clay-soft);
+  }
+  .faq-item[open] {
+    border-color: rgba(245, 158, 11, 0.4);
+    background: rgba(20, 23, 31, 0.72);
+  }
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.15rem 1.3rem;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    font-size: clamp(1rem, 1.6vw, 1.12rem);
+    color: var(--cream-50);
+  }
+  /* hide the default disclosure marker across engines */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::marker {
+    content: '';
+  }
+  summary:focus-visible {
+    outline: 2px solid var(--clay);
+    outline-offset: -2px;
+    border-radius: var(--radius);
+  }
+  .chev {
+    flex: none;
+    color: var(--amber-400);
+    transition: transform 0.2s ease;
+  }
+  .faq-item[open] .chev {
+    transform: rotate(180deg);
+  }
+  .faq-a {
+    padding: 0 1.3rem 1.25rem;
+  }
+  .faq-a p {
+    margin: 0;
+    color: var(--cream-200);
+    max-width: 46rem;
+    line-height: 1.65;
+  }
+  .faq-a code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: var(--amber-400);
+    background: rgba(245, 158, 11, 0.08);
+    padding: 0.1rem 0.35rem;
+    border-radius: 5px;
+    word-break: break-word;
+  }
+</style>

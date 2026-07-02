@@ -1,0 +1,314 @@
+---
+// Vocabulary — "words that do things". Clauderizer binds ordinary words to
+// specific tools and disciplines; speaking them steers the agent onto the
+// rails. Rendered as native <details> chips (no JS, keyboard accessible,
+// citeable in the served HTML — same reasoning as FAQ) with a matching
+// DefinedTermSet JSON-LD generated from the SAME array so the structured data
+// always mirrors the visible text.
+const groups = [
+  {
+    label: 'The structures',
+    terms: [
+      {
+        term: 'gameplan',
+        meaning:
+          'A whole initiative: phases, decisions, exit criteria, a post-mortem. Comes in kinds — driven (build something), loop (standing maintenance), campaign (creative work with deliverables).',
+        say: '“Create a gameplan for X” triggers real planning — recorded decisions and verifiable exit criteria, not a bullet list.',
+      },
+      {
+        term: 'phase',
+        meaning: 'One session-sized chunk of a gameplan.',
+        say: '“Do the next phase” runs the full discipline: pre-flight, the work, then the ending protocol.',
+      },
+      {
+        term: 'handoff',
+        meaning:
+          'The self-contained context bundle the next session reads — cumulative, carrying every still-relevant lesson.',
+        say: '“Write the handoff” assembles it as an operation. If a session dies, the next one loses nothing.',
+      },
+      {
+        term: 'focus / portfolio',
+        meaning: 'Which gameplan is the current default target; the set of all open ones.',
+        say: '“Switch focus to the campaign” — several initiatives coexist without stepping on each other.',
+      },
+      {
+        term: 'entity',
+        meaning:
+          'A tracked subsystem, feature, or deliverable with a version, a status, and dependency edges in the project graph.',
+        say: '“Track the billing worker as an entity” puts it in the graph — which is what makes cascade possible.',
+      },
+      {
+        term: 'deliverable',
+        meaning:
+          'A campaign’s execution unit — a film, a deck — moving through a lifecycle from concept to shipped. Never an individual rendered file.',
+        say: '“Add the flagship film as a deliverable” gets you a board you can read the campaign from.',
+      },
+    ],
+  },
+  {
+    label: 'The rituals',
+    terms: [
+      {
+        term: 'ritual',
+        meaning:
+          'The umbrella word, and the most important one: a discipline that executes instead of a convention someone has to remember.',
+        say: 'Cascade, pre-flight, and handoff assembly are tool calls, not reminders.',
+      },
+      {
+        term: 'cascade',
+        meaning:
+          'Nothing changes in isolation: after editing something tracked, walk everything that depends on it and reconcile.',
+        say: '“Cascade that change” walks the real dependency graph — each flagged dependent gets an explicit verdict, never a shrug.',
+      },
+      {
+        term: 'pre-flight',
+        meaning:
+          'Run the project’s actual checks — tests, build, a campaign’s QA gates — before starting work.',
+        say: '“Pre-flight it” runs the commands for real and reports measured results. Kills “session claims tests pass.”',
+      },
+      {
+        term: 'baseline',
+        meaning: 'The measured number pre-flight tracks — a test count, or campaign gates.',
+        say: '“What’s the baseline?” gets the tracked, auto-refreshed figure, not a stale note.',
+      },
+    ],
+  },
+  {
+    label: 'The memory words',
+    terms: [
+      {
+        term: 'decision',
+        meaning: 'A numbered, append-only decision record with its reasoning.',
+        say: '“We decided X because Y” gets recorded; supersede a decision with a new one, never rewrite history.',
+      },
+      {
+        term: 'invariant',
+        meaning:
+          'A rule that must always hold, honored by every session. Can be scoped to one gameplan or tagged for one working role.',
+        say: '“Make it an invariant: the logo is never AI-generated.”',
+      },
+      {
+        term: 'lesson',
+        meaning:
+          'A reusable learning that rides in every future handoff. Curated with three verbs: consolidate, promote, obsolete.',
+        say: '“Lesson learned: build the adversarial fixture first.”',
+      },
+      {
+        term: 'correction',
+        meaning: 'The divergence log — what the plan said versus what turned out to be true.',
+        say: '“The plan said X, actually Y” keeps the plan honest without rewriting it.',
+      },
+      {
+        term: 'open item',
+        meaning: 'A tracked unknown or blocker with a stable ID — resolved, never deleted.',
+        say: '“Open item: which auth provider?” — unknowns get tracked, never silently dropped.',
+      },
+      {
+        term: 'amend',
+        meaning: 'A tracked mid-flight change to a gameplan.',
+        say: '“Amend the gameplan” puts scope changes on the record instead of letting them drift.',
+      },
+    ],
+  },
+  {
+    label: 'The gates — advisory, always',
+    terms: [
+      {
+        term: 'advisory',
+        meaning:
+          'The governing posture: gates surface, they never block. The engine proposes; you decide.',
+        say: 'Every check below follows this rule.',
+      },
+      {
+        term: 'exit criteria',
+        meaning: 'Verifiable done-conditions each phase carries.',
+        say: '“Check off the criterion” marks it; completing a phase surfaces any left unchecked.',
+      },
+      {
+        term: 'approve',
+        meaning:
+          'A human sign-off recorded as the artifact’s content hash — edit the file afterward and the approval visibly goes stale until re-approved.',
+        say: '“Approve the shot spec” — spend-gates that expire when the content changes.',
+      },
+      {
+        term: 'standing condition',
+        meaning:
+          'A declared threshold probe checked whenever anyone asks for status; when it trips, an iteration is proposed — nothing runs by itself.',
+        say: '“Watch the backlog: below three approved stills means a new iteration.”',
+      },
+    ],
+  },
+  {
+    label: 'The lifecycle words',
+    terms: [
+      {
+        term: 'status / digest',
+        meaning: 'The compact where-things-stand block every session opens with.',
+        say: '“Where do we stand?”',
+      },
+      {
+        term: 'onboard',
+        meaning:
+          'Seed memory from a repo’s existing README and specs — the agent distills; the engine never writes that prose itself.',
+        say: '“Onboard this repo” turns placeholder docs into a seeded memory graph.',
+      },
+      {
+        term: 'upgrade',
+        meaning:
+          'Deliver a newer engine’s improvements to your repo: mechanical changes applied, memory-shaped changes proposed.',
+        say: '“Upgrade the repo” after updating the package.',
+      },
+      {
+        term: 'append-only',
+        meaning: 'The house physics: nothing in memory is ever deleted.',
+        say: 'Say “obsolete it,” “supersede it,” or “resolve it” — never “delete it.”',
+      },
+    ],
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  name: 'Clauderizer vocabulary — words that do things',
+  hasDefinedTerm: groups.flatMap((g) =>
+    g.terms.map((t) => ({
+      '@type': 'DefinedTerm',
+      name: t.term,
+      description: `${t.meaning} ${t.say}`,
+    }))
+  ),
+};
+---
+
+<section class="section vocabulary" id="vocabulary">
+  <div class="container">
+    <p class="kicker reveal reveal-sm">Speak the language</p>
+    <h2 class="reveal">Words that do things.</h2>
+    <p class="lede reveal">
+      Clauderizer binds a handful of ordinary words to specific tools and disciplines. They
+      aren’t jargon — they’re handles. Use one, and your agent reaches for the exact machinery
+      instead of improvising. Tap a word.
+    </p>
+
+    {
+      groups.map((g) => (
+        <div class="vocab-group">
+          <h3 class="group-label reveal reveal-sm">{g.label}</h3>
+          <div class="chips">
+            {g.terms.map((t) => (
+              <details class="chip reveal">
+                <summary>
+                  <span class="term">{t.term}</span>
+                  <span class="plus" aria-hidden="true">
+                    +
+                  </span>
+                </summary>
+                <div class="card">
+                  <p class="meaning">{t.meaning}</p>
+                  <p class="say">{t.say}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+
+<style>
+  .vocabulary {
+    background: var(--ink-800);
+  }
+  .lede {
+    margin-top: 1rem;
+    max-width: 46rem;
+    color: var(--cream-200);
+    line-height: 1.65;
+  }
+  .vocab-group {
+    margin-top: 2.4rem;
+  }
+  .group-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber-400);
+    margin: 0 0 0.9rem;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: flex-start;
+  }
+  .chip {
+    border: 1px solid var(--edge);
+    border-radius: var(--radius);
+    background: rgba(18, 21, 29, 0.6);
+    transition:
+      border-color 0.18s ease,
+      background 0.18s ease;
+    max-width: 100%;
+  }
+  .chip:hover {
+    border-color: var(--clay-soft);
+  }
+  .chip[open] {
+    border-color: rgba(245, 158, 11, 0.4);
+    background: rgba(20, 23, 31, 0.72);
+    flex-basis: 100%;
+  }
+  .chip summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.55rem 0.95rem;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--cream-50);
+    white-space: nowrap;
+  }
+  .chip summary::-webkit-details-marker {
+    display: none;
+  }
+  .chip summary::marker {
+    content: '';
+  }
+  .chip summary:focus-visible {
+    outline: 2px solid var(--clay);
+    outline-offset: -2px;
+    border-radius: var(--radius);
+  }
+  .plus {
+    color: var(--amber-400);
+    font-weight: 700;
+    transition: transform 0.2s ease;
+  }
+  .chip[open] .plus {
+    transform: rotate(45deg);
+  }
+  .card {
+    padding: 0 1rem 1rem;
+    max-width: 46rem;
+  }
+  .card p {
+    margin: 0;
+    line-height: 1.6;
+  }
+  .meaning {
+    color: var(--cream-200);
+  }
+  .say {
+    margin-top: 0.5rem !important;
+    color: var(--amber-400);
+    font-size: 0.95rem;
+  }
+</style>

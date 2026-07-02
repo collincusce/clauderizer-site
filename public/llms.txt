@@ -1,0 +1,55 @@
+# Clauderizer
+
+> Durable, cross-session working memory for AI coding agents. Clauderizer gives a coding agent a memory that survives between sessions — plans, decisions, invariants, and a dependency graph stored as plain, Git-diffable Markdown that the agent reads and updates through real MCP tool calls and lifecycle hooks.
+
+Clauderizer is a free, open-source (Apache 2.0) developer tool. It installs into any repository with one command and works across more than ten AI coding hosts, including Claude Code, Cursor, GitHub Copilot, OpenAI Codex, Gemini, Windsurf, Cline, Amp, Continue, Zed, and Kimi. Canonical site: https://clauderizer.com
+
+## What problem it solves
+
+Long-running AI coding work hits two walls:
+
+- A fresh session starts blank — every "where were we?" is re-derived from scratch, or re-explained by the developer for the tenth time.
+- A long session fills its context window — mid-task the agent forgets its own earlier decisions and can confidently contradict them an hour later.
+
+The usual fix is conventions ("keep a decisions log", "write a handoff"), but conventions rot because nothing executes them. Clauderizer keeps that proven model and makes it a system: structured memory the agent updates through tool calls it cannot forget to make.
+
+## How it works
+
+- **Markdown is the source of truth.** Plans, decisions, invariants, lessons, and a dependency graph live as readable files under `docs/`, shipped and reviewed alongside the code.
+- **The engine** reads and writes that Markdown, rebuilds the graph cache, and runs preflight and cascade against the real repository. The graph index is a disposable cache rebuilt from the Markdown on demand; if they ever disagree, Markdown wins. No database, no lock-in.
+- **MCP tools and lifecycle hooks** inject project status into the agent's context automatically at session start — no prescribed reading order, no re-briefing.
+- **A typical phase loop:** `cz_next_phase_context` → `cz_preflight` (actually runs your tests/build) → do the work → `cz_add_decision` / `cz_add_invariant` → `cz_cascade` (walk the graph, flag dependents) → `cz_write_handoff` (assemble the next cumulative handoff). The next session picks up exactly there.
+
+## Install
+
+- Try it with no install: `uvx --from clauderizer clauderize init`
+- Choose a project size: `uvx --from clauderizer clauderize init --size standard` (sizes: `pet`, `standard`, `saas`)
+- Permanent install: `pipx install "clauderizer[mcp]"`
+
+## Key facts
+
+- Free and open source under the Apache License 2.0, with an explicit patent grant.
+- The core engine has zero runtime dependencies.
+- Exposes 38 MCP tools and 3 resources.
+- Tested across Ubuntu, macOS, and Windows on Python 3.11–3.13 (a 3×3 matrix), all passing; the quickstart runs against the published package in clean CI on every push.
+- Host-portable: one install targets Claude Code, Cursor, GitHub Copilot, OpenAI Codex, Gemini, Windsurf, Cline, Amp, Continue, Zed, and Kimi.
+
+## FAQ
+
+- **What is Clauderizer?** A tool that gives AI coding agents durable, cross-session memory — plans, decisions, invariants, and a dependency graph as Git-diffable Markdown the agent reads and updates through real tool calls.
+- **How is it different from a CLAUDE.md or a rules file?** A static rules file is prose the agent has to remember to read and follow. Clauderizer exposes memory as self-describing MCP tools and lifecycle hooks, so orientation and updates happen as executed tool calls, not conventions that quietly rot.
+- **Where is the memory stored?** As plain Markdown files in your repository under `docs/`, so it ships with the code, shows up in diffs, and is reviewed alongside changes. The dependency graph is a disposable cache rebuilt from that Markdown.
+- **Which AI coding tools does it support?** Claude Code, Cursor, GitHub Copilot, OpenAI Codex, Gemini, Windsurf, Cline, Amp, Continue, Zed, and Kimi — from a single install.
+- **Is it free?** Yes — open source under Apache 2.0, with zero runtime dependencies in the core engine.
+- **How do I install it?** Run `uvx --from clauderizer clauderize init` in any repository, or `pipx install "clauderizer[mcp]"` for a permanent install.
+
+## Links
+
+- [Home](https://clauderizer.com): product overview, how it works, and quickstart.
+- [GitHub repository](https://github.com/collincusce/Clauderizer): source, README, and documentation.
+- [PyPI package](https://pypi.org/project/clauderizer/): published releases of `clauderizer`.
+- [License (Apache 2.0)](https://www.apache.org/licenses/LICENSE-2.0): full license text.
+
+---
+
+Maintained by Collin Cusce. Last reviewed 2026-06-24.

@@ -41,7 +41,7 @@ All 10 phases complete. Phases 0 to 3 and 5 landed in prior sessions; Phase 4 (m
 
 ## Open threads (non-blocking)
 
-- **CI not yet exercised.** Pushing `.github/workflows` needs the gh token's `workflow` scope; until then those two files are held in the working tree and the OIDC deploy/Lighthouse CI have not run live. The site is deployed manually via the scoped role in the meantime.
+- **CI: resolved 2026-06-23.** The `workflow` scope was granted, the two workflow files were pushed, and the first OIDC deploy ran green end to end (gate, build, assume-role, stack outputs, S3 sync, invalidation). Pushes to `main` now auto-deploy. Lighthouse CI runs on the next PR (it is a pull_request workflow, so it has not fired yet).
 - **Production Lighthouse number** is unmeasured locally (no Chrome in WSL; PSI anonymous quota was hit). It is enforced by the Phase 8 Lighthouse CI on the first real push, or re-run PSI/lhci by hand.
 - **O-08 (deferred):** the unused `hero-scrub.mp4` (2.2MB) still ships; harmless (never requested by the page). Drop it from `public/` if bundle size matters.
 - The Clauderizer **README** (separate repo) still carries a few of the same stylistic tics if alignment is wanted.

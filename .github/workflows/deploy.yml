@@ -1,0 +1,77 @@
+name: Deploy
+
+# Publishes the built site to S3 + invalidates CloudFront on pushes to main.
+# Auth is GitHub -> AWS OIDC only (INVARIANT-02: no static keys). FAIL-CLOSED:
+# until the deploy role exists (O-01), the repo variable AWS_DEPLOY_ROLE_ARN is
+# unset and every AWS step is skipped — the job never proceeds without creds.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  id-token: write # required to request the OIDC token
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Build + sync + invalidate
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      AWS_REGION: us-east-1
+      AWS_DEPLOY_ROLE_ARN: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+      STACK_NAME: ClauderizerSiteStack
+    steps:
+      - name: Gate (fail-closed until O-01 grants the deploy role)
+        run: |
+          if [ -z "${AWS_DEPLOY_ROLE_ARN}" ]; then
+            echo "::notice title=Deploy gated::AWS_DEPLOY_ROLE_ARN repo variable is unset (O-01). No deploy performed."
+          else
+            echo "Deploy role configured — proceeding."
+          fi
+
+      - uses: actions/checkout@v4
+        if: env.AWS_DEPLOY_ROLE_ARN != ''
+
+      - uses: actions/setup-node@v4
+        if: env.AWS_DEPLOY_ROLE_ARN != ''
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+        if: env.AWS_DEPLOY_ROLE_ARN != ''
+
+      - run: npm run build
+        if: env.AWS_DEPLOY_ROLE_ARN != ''
+
+      - name: Configure AWS credentials (OIDC assume-role)
+        if: env.AWS_DEPLOY_ROLE_ARN != ''
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Resolve stack outputs
+        if: env.AWS_DEPLOY_ROLE_ARN != ''
+        id: cfn
+        run: |
+          BUCKET=$(aws cloudformation describe-stacks --stack-name "$STACK_NAME" \
+            --query "Stacks[0].Outputs[?OutputKey=='BucketName'].OutputValue" --output text)
+          DIST=$(aws cloudformation describe-stacks --stack-name "$STACK_NAME" \
+            --query "Stacks[0].Outputs[?OutputKey=='DistributionId'].OutputValue" --output text)
+          echo "bucket=$BUCKET" >> "$GITHUB_OUTPUT"
+          echo "dist=$DIST" >> "$GITHUB_OUTPUT"
+
+      - name: Sync to S3 + invalidate CloudFront
+        if: env.AWS_DEPLOY_ROLE_ARN != ''
+        run: |
+          aws s3 sync dist/ "s3://${{ steps.cfn.outputs.bucket }}/" --delete
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ steps.cfn.outputs.dist }}" --paths '/*'

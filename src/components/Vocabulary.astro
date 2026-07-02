@@ -12,8 +12,8 @@ const groups = [
       {
         term: 'gameplan',
         meaning:
-          'A whole initiative: phases, decisions, exit criteria, a post-mortem. Comes in kinds — driven (build something), loop (standing maintenance), campaign (creative work with deliverables).',
-        say: '“Create a gameplan for X” triggers real planning — recorded decisions and verifiable exit criteria, not a bullet list.',
+          'A whole initiative: phases, decisions, exit criteria, a post-mortem. Comes in kinds: driven (build something), loop (standing maintenance), campaign (creative work with deliverables).',
+        say: '“Create a gameplan for X” triggers real planning: recorded decisions and verifiable exit criteria, not a bullet list.',
       },
       {
         term: 'phase',
@@ -23,24 +23,24 @@ const groups = [
       {
         term: 'handoff',
         meaning:
-          'The self-contained context bundle the next session reads — cumulative, carrying every still-relevant lesson.',
+          'The self-contained context bundle the next session reads, cumulative, carrying every still-relevant lesson.',
         say: '“Write the handoff” assembles it as an operation. If a session dies, the next one loses nothing.',
       },
       {
         term: 'focus / portfolio',
         meaning: 'Which gameplan is the current default target; the set of all open ones.',
-        say: '“Switch focus to the campaign” — several initiatives coexist without stepping on each other.',
+        say: '“Switch focus to the campaign.” Several initiatives coexist without stepping on each other.',
       },
       {
         term: 'entity',
         meaning:
           'A tracked subsystem, feature, or deliverable with a version, a status, and dependency edges in the project graph.',
-        say: '“Track the billing worker as an entity” puts it in the graph — which is what makes cascade possible.',
+        say: '“Track the billing worker as an entity” puts it in the graph, which is what makes cascade possible.',
       },
       {
         term: 'deliverable',
         meaning:
-          'A campaign’s execution unit — a film, a deck — moving through a lifecycle from concept to shipped. Never an individual rendered file.',
+          'A campaign’s execution unit (a film, a deck) moving through a lifecycle from concept to shipped. Never an individual rendered file.',
         say: '“Add the flagship film as a deliverable” gets you a board you can read the campaign from.',
       },
     ],
@@ -58,17 +58,17 @@ const groups = [
         term: 'cascade',
         meaning:
           'Nothing changes in isolation: after editing something tracked, walk everything that depends on it and reconcile.',
-        say: '“Cascade that change” walks the real dependency graph — each flagged dependent gets an explicit verdict, never a shrug.',
+        say: '“Cascade that change” walks the real dependency graph: each flagged dependent gets an explicit verdict, never a shrug.',
       },
       {
         term: 'pre-flight',
         meaning:
-          'Run the project’s actual checks — tests, build, a campaign’s QA gates — before starting work.',
+          'Run the project’s actual checks (tests, build, a campaign’s QA gates) before starting work.',
         say: '“Pre-flight it” runs the commands for real and reports measured results. Kills “session claims tests pass.”',
       },
       {
         term: 'baseline',
-        meaning: 'The measured number pre-flight tracks — a test count, or campaign gates.',
+        meaning: 'The measured number pre-flight tracks: a test count, or campaign gates.',
         say: '“What’s the baseline?” gets the tracked, auto-refreshed figure, not a stale note.',
       },
     ],
@@ -95,13 +95,13 @@ const groups = [
       },
       {
         term: 'correction',
-        meaning: 'The divergence log — what the plan said versus what turned out to be true.',
+        meaning: 'The divergence log: what the plan said versus what turned out to be true.',
         say: '“The plan said X, actually Y” keeps the plan honest without rewriting it.',
       },
       {
         term: 'open item',
-        meaning: 'A tracked unknown or blocker with a stable ID — resolved, never deleted.',
-        say: '“Open item: which auth provider?” — unknowns get tracked, never silently dropped.',
+        meaning: 'A tracked unknown or blocker with a stable ID, resolved, never deleted.',
+        say: '“Open item: which auth provider?” Unknowns get tracked, never silently dropped.',
       },
       {
         term: 'amend',
@@ -111,7 +111,7 @@ const groups = [
     ],
   },
   {
-    label: 'The gates — advisory, always',
+    label: 'The gates: advisory, always',
     terms: [
       {
         term: 'advisory',
@@ -127,13 +127,13 @@ const groups = [
       {
         term: 'approve',
         meaning:
-          'A human sign-off recorded as the artifact’s content hash — edit the file afterward and the approval visibly goes stale until re-approved.',
-        say: '“Approve the shot spec” — spend-gates that expire when the content changes.',
+          'A human sign-off recorded as the artifact’s content hash. Edit the file afterward and the approval visibly goes stale until re-approved.',
+        say: '“Approve the shot spec.” Spend-gates that expire when the content changes.',
       },
       {
         term: 'standing condition',
         meaning:
-          'A declared threshold probe checked whenever anyone asks for status; when it trips, an iteration is proposed — nothing runs by itself.',
+          'A declared threshold probe checked whenever anyone asks for status; when it trips, an iteration is proposed, and nothing runs by itself.',
         say: '“Watch the backlog: below three approved stills means a new iteration.”',
       },
     ],
@@ -149,7 +149,7 @@ const groups = [
       {
         term: 'onboard',
         meaning:
-          'Seed memory from a repo’s existing README and specs — the agent distills; the engine never writes that prose itself.',
+          'Seed memory from a repo’s existing README and specs, and the agent distills; the engine never writes that prose itself.',
         say: '“Onboard this repo” turns placeholder docs into a seeded memory graph.',
       },
       {
@@ -161,7 +161,7 @@ const groups = [
       {
         term: 'append-only',
         meaning: 'The house physics: nothing in memory is ever deleted.',
-        say: 'Say “obsolete it,” “supersede it,” or “resolve it” — never “delete it.”',
+        say: 'Say “obsolete it,” “supersede it,” or “resolve it,” never “delete it.”',
       },
     ],
   },
@@ -170,7 +170,7 @@ const groups = [
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'DefinedTermSet',
-  name: 'Clauderizer vocabulary — words that do things',
+  name: 'Clauderizer vocabulary: words that do things',
   hasDefinedTerm: groups.flatMap((g) =>
     g.terms.map((t) => ({
       '@type': 'DefinedTerm',
@@ -187,7 +187,7 @@ const jsonLd = {
     <h2 class="reveal">Words that do things.</h2>
     <p class="lede reveal">
       Clauderizer binds a handful of ordinary words to specific tools and disciplines. They
-      aren’t jargon — they’re handles. Use one, and your agent reaches for the exact machinery
+      aren’t jargon, they’re handles. Use one, and your agent reaches for the exact machinery
       instead of improvising. Tap a word.
     </p>
 

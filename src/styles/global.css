@@ -97,8 +97,11 @@ h2 {
 .kicker {
   font-family: var(--font-mono);
   font-size: 0.82rem;
-  letter-spacing: 0.06em;
-  color: var(--amber-400);
+  letter-spacing: 0.04em;
+  /* A quiet structural label, not a glowing chip: the accent is reserved for
+     the elements that earn it (graph, loop, CTAs), so the repeated section
+     kicker recedes and the heading carries the section. */
+  color: var(--muted);
   margin: 0 0 1rem;
 }
 

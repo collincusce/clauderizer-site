@@ -1,6 +1,6 @@
 ---
 const stats = [
-  { n: '38', l: 'MCP tools + 3 resources' },
+  { n: '42', l: 'MCP tools + 3 resources' },
   { n: '3×3', l: 'OS × Python, all passing' },
   { n: '0', l: 'runtime dependencies' },
   { n: 'Apache 2.0', l: 'licensed, explicit patent grant' },
@@ -64,7 +64,9 @@ const stats = [
     font-size: 2rem;
     font-weight: 800;
     letter-spacing: -0.02em;
-    color: var(--amber-400);
+    /* Solid, high-contrast figures instead of glowing accent numerals —
+       the receipts read as facts, not a marketing metric wall. */
+    color: var(--cream-50);
   }
   .stat .l {
     color: var(--cream-200);

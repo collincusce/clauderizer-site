@@ -123,3 +123,11 @@ deploy_identities: Keyless. One-time bootstrap+deploy via a dedicated assumed ad
 **What was actually correct**: Under the user's 'maximal spectacle' directive Phase 4 also recomposed the hero, reinstating the WebGL living memory-graph (subsys.memory-graph) as the hero backdrop; the Higgsfield poster is now its no-WebGL/reduced-motion fallback and hero-scrub.mp4 is unused in the hero.
 **Why**: The README static assets out-impressed the live site; the user explicitly chose to recompose the hero and adopt the GSAP+Three.js playbook stack, which made the original WebGL memory-graph the higher-impact hero.
 **Lesson**: A superseding pivot (C-03) can itself be re-pivoted when the quality bar moves - keep the superseded approach's reusable assets (here the poster) as the fallback so nothing is wasted.
+
+### C-05 — Phase post-launch capability upkeep
+
+**Phase**: post-launch capability upkeep
+**What gameplan said**: Lesson #24: in the headless Claude-Code-on-web session the cz_* MCP tools are NOT wired in even though the repo is clauderized; treated as the documented 'wiring broken' property of the environment.
+**What was actually correct**: The repo simply had not been re-init'd after the Clauderizer update, so the MCP wiring was stale/absent. Re-running init restores cz_* (confirmed: the maintainer re-initialized after the 1.6.0 update, which is exactly why the tools weren't found this session).
+**Why**: Conflated a forgotten post-upgrade re-init with an inherent limitation of the web environment, and stopped diagnosing at the first plausible explanation instead of asking whether init/upgrade had been run.
+**Lesson**: After upgrading Clauderizer, re-run `clauderize init` (or `clauderize upgrade`) so the MCP wiring is refreshed for the repo+host. If cz_* tools are missing, first check whether init/upgrade has been run for this repo before concluding the environment can't support them. Note: MCP servers bind at session start, so a mid-session re-init only takes effect next session; `uvx --from clauderizer clauderize ops` is the valid stopgap for tracked writes until then.

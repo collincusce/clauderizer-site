@@ -248,10 +248,10 @@ const phases = [
     overflow: hidden;
     border: 1px solid var(--edge-strong);
     background: #0c0f15;
+    /* Neutral elevation only — no colored glow ringing a hairline border. */
     box-shadow:
       0 40px 90px -50px rgba(0, 0, 0, 0.9),
-      0 0 0 1px rgba(255, 255, 255, 0.02),
-      0 0 70px -30px var(--clay-glow);
+      0 0 0 1px rgba(255, 255, 255, 0.02);
     max-width: 58rem;
   }
   .term-bar {

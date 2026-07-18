@@ -1,7 +1,7 @@
 # Chat Handoff Index — cinematic-site-redesign
 
 > Last updated: 2026-07-18
-> Status: Phase 9 ready
+> Status: All 10 phases complete
 
 ## How This Works
 
@@ -38,7 +38,7 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 | 6 | New pages + global navigation | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-6-HANDOFF.md |
 | 7 | Motion, media, and interaction polish | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-7-HANDOFF.md |
 | 8 | Performance, SEO, and accessibility hardening | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-8-HANDOFF.md |
-| 9 | Build, deploy, and close | ⬜ NOT STARTED | — | — | handoffs/PHASE-9-HANDOFF.md |
+| 9 | Build, deploy, and close | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-9-HANDOFF.md |
 
 **Status legend**: ⬜ NOT STARTED · 🟢 READY · 🟡 IN PROGRESS · ✅ COMPLETE · ⚠️ BLOCKED · 🔴 FAILED
 
@@ -79,6 +79,10 @@ Phase 7 polished motion and media. Section backdrop images were optimized from ~
 ### Phase 8 — completed 2026-07-18
 
 Phase 8 hardened SEO and structured data: the BaseLayout description and OG image alt were updated to the new emotional copy, canonical/OG/Twitter/JSON-LD are present, and the production build passes. Accessibility and Lighthouse scores require production measurement (no local Chrome); tracked as O-04.
+
+### Phase 9 — completed 2026-07-18
+
+Phase 9 deployed the redesigned site to production. Local AWS creds were insufficient, so commits were pushed to main and the existing GitHub Actions OIDC workflow built, synced to S3, and invalidated CloudFront. Smoke tests passed: clauderizer.com serves the redesigned HTML, and all non-canonical TLDs 301-redirect correctly. A post-mortem was captured.
 
 ## Accumulated Lessons
 

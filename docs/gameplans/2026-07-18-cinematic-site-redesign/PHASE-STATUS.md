@@ -16,7 +16,7 @@
 | 6 | New pages + global navigation | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-6-HANDOFF.md |
 | 7 | Motion, media, and interaction polish | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-7-HANDOFF.md |
 | 8 | Performance, SEO, and accessibility hardening | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-8-HANDOFF.md |
-| 9 | Build, deploy, and close | ⬜ NOT STARTED | — | — | handoffs/PHASE-9-HANDOFF.md |
+| 9 | Build, deploy, and close | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-9-HANDOFF.md |
 
 ## Outputs Registry
 
@@ -82,6 +82,15 @@ motion_polish: CSS scroll-driven reveals/parallax preserved; hover lifts on card
 seo_meta: BaseLayout description and OG image alt updated to new emotional copy; canonical, OG, Twitter, JSON-LD present
 build_test: npm run build and npm test both pass
 responsive: All sections use clamp() sizing and media-query fallbacks for 320px to ultra-wide
+```
+
+### Phase 9 Outputs
+
+```
+deploy_run: GitHub Actions deploy run 29660230610 completed successfully
+production_url: https://clauderizer.com serving redesigned site
+redirects: clauderizer.co/.io/.net/.org all 301-redirect to https://clauderizer.com
+post_mortem: docs/gameplans/2026-07-18-cinematic-site-redesign/POST-MORTEM.md
 ```
 
 ## Corrections Log

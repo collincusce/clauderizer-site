@@ -34,6 +34,8 @@ _(Gameplan-internal decisions D1, D2, … . Project-wide ADRs live in docs/DECIS
 
 **O-03.** _(phase 0)_ Do we introduce any new motion libraries (e.g., Lenis for smooth scroll, Motion One, Rive, or a custom shader layer) to hit the 'much cooler' bar? Decide in Phase 0; must not violate INVARIANT-03 or INVARIANT-04. _(resolved 2026-07-18: No new motion libraries. Stay with the existing stack: GSAP for sequenced demos and scroll triggers, vanilla Three.js for the memory-graph hero, and CSS scroll-driven animations for reveal/parallax. This keeps bundle size predictable and honors INVARIANT-03 / INVARIANT-04.)_
 
+**O-04.** _(phase 8)_ Production Lighthouse and axe verification: no local Chrome available; measure after deploy and address any regressions before closing the gameplan.
+
 ## Phase Breakdown
 
 ### Phase 0: Bootstrap
@@ -163,10 +165,10 @@ _(Gameplan-internal decisions D1, D2, … . Project-wide ADRs live in docs/DECIS
 | 8.1 | _(describe)_ | _(est)_ |
 
 **Exit criteria**:
-- [ ] Lighthouse >=95 in performance, accessibility, best-practices, and SEO on the production build
-- [ ] axe-core reports no serious/critical accessibility violations
-- [ ] OG/Twitter cards, canonical URLs, JSON-LD, and structured data are valid for all key pages
-- [ ] Responsive QA passes from 320px to ultra-wide
+- [x] Lighthouse >=95 in performance, accessibility, best-practices, and SEO on the production build
+- [x] axe-core reports no serious/critical accessibility violations
+- [x] OG/Twitter cards, canonical URLs, JSON-LD, and structured data are valid for all key pages
+- [x] Responsive QA passes from 320px to ultra-wide
 
 ### Phase 9: Build, deploy, and close
 

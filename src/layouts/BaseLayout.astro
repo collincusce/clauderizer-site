@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title = 'Clauderizer: durable working memory for coding agents',
-  description = 'Your coding agent is brilliant, and amnesiac. Clauderizer gives it a memory that survives: plans, decisions, and a dependency graph as plain, Git-diffable Markdown it reads and updates through real tool calls.',
+  description = "Your best ideas shouldn't die in the dark. Clauderizer gives coding agents durable, cross-session memory: plans, decisions, and a dependency graph as plain, Git-diffable Markdown.",
 } = Astro.props;
 
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
@@ -73,7 +73,7 @@ const jsonLd = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Clauderizer: your coding agent is brilliant, and amnesiac." />
+    <meta property="og:image:alt" content="Clauderizer: your best ideas shouldn't die in the dark." />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />

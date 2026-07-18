@@ -15,7 +15,7 @@
 | 5 | Trust + proof + conversion | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-5-HANDOFF.md |
 | 6 | New pages + global navigation | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-6-HANDOFF.md |
 | 7 | Motion, media, and interaction polish | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-7-HANDOFF.md |
-| 8 | Performance, SEO, and accessibility hardening | ⬜ NOT STARTED | — | — | handoffs/PHASE-8-HANDOFF.md |
+| 8 | Performance, SEO, and accessibility hardening | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-8-HANDOFF.md |
 | 9 | Build, deploy, and close | ⬜ NOT STARTED | — | — | handoffs/PHASE-9-HANDOFF.md |
 
 ## Outputs Registry
@@ -74,6 +74,14 @@ nav_footer: Nav polished with new tokens and transitions; Footer refreshed in Ph
 ```
 media_optimization: Section backdrops converted to optimized JPEGs (seedream21.jpg 147K, flux2.jpg 318K, soul_v2.jpg 319K, soul_v2b.jpg 318K, bf*.jpg ~30-110K)
 motion_polish: CSS scroll-driven reveals/parallax preserved; hover lifts on cards; reduced-motion fallbacks in place; BaseLayout governor still active
+```
+
+### Phase 8 Outputs
+
+```
+seo_meta: BaseLayout description and OG image alt updated to new emotional copy; canonical, OG, Twitter, JSON-LD present
+build_test: npm run build and npm test both pass
+responsive: All sections use clamp() sizing and media-query fallbacks for 320px to ultra-wide
 ```
 
 ## Corrections Log

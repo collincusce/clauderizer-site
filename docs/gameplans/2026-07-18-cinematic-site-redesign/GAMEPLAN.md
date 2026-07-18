@@ -1,7 +1,7 @@
 # cinematic-site-redesign Gameplan
 
 > Created: 2026-07-18
-> Status: Planning
+> Status: Executing
 > Kind: driven
 > Procedure: docs/gameplans/GAMEPLAN-PROCEDURE.md
 
@@ -28,11 +28,11 @@ _(Gameplan-internal decisions D1, D2, … . Project-wide ADRs live in docs/DECIS
 
 ## Open Items
 
-**O-01.** _(phase 0)_ Which new pages (if any) does the cinematic story need? Candidates: /story (long-form narrative), /for-teams (use-case), /why-clauderizer (problem deep-dive). Decide in Phase 0 before Phase 3-6 scope is locked.
+**O-01.** _(phase 0)_ Which new pages (if any) does the cinematic story need? Candidates: /story (long-form narrative), /for-teams (use-case), /why-clauderizer (problem deep-dive). Decide in Phase 0 before Phase 3-6 scope is locked. _(resolved 2026-07-18: Scope the redesign to the landing page only. The cinematic story will be told as a single-scroll narrative on /index.astro. No new pages in this phase; nav/footer stay focused on in-page anchors + outbound links.)_
 
-**O-02.** _(phase 0)_ Can the existing .hero-staging/ assets (seedream21.png, soul_v2.png, flux2.png, buildup.mp4, hero_video.mp4) carry the new cinematic hero and section moments, or do we need new Higgsfield/other media? Resolve in Phase 0.
+**O-02.** _(phase 0)_ Can the existing .hero-staging/ assets (seedream21.png, soul_v2.png, flux2.png, buildup.mp4, hero_video.mp4) carry the new cinematic hero and section moments, or do we need new Higgsfield/other media? Resolve in Phase 0. _(resolved 2026-07-18: Use the existing .hero-staging/ assets as the visual backbone: hero_video.mp4 / buildup.mp4 for the hero cinematic layer, seedream21.png / soul_v2.png / flux2.png for section backdrops and atmosphere, and bf0-2.png for a before/after micro-sequence. public/media/hero/poster.jpg remains the reduced-motion fallback. Generate new media only if a specific section cannot be composed from these.)_
 
-**O-03.** _(phase 0)_ Do we introduce any new motion libraries (e.g., Lenis for smooth scroll, Motion One, Rive, or a custom shader layer) to hit the 'much cooler' bar? Decide in Phase 0; must not violate INVARIANT-03 or INVARIANT-04.
+**O-03.** _(phase 0)_ Do we introduce any new motion libraries (e.g., Lenis for smooth scroll, Motion One, Rive, or a custom shader layer) to hit the 'much cooler' bar? Decide in Phase 0; must not violate INVARIANT-03 or INVARIANT-04. _(resolved 2026-07-18: No new motion libraries. Stay with the existing stack: GSAP for sequenced demos and scroll triggers, vanilla Three.js for the memory-graph hero, and CSS scroll-driven animations for reveal/parallax. This keeps bundle size predictable and honors INVARIANT-03 / INVARIANT-04.)_
 
 ## Phase Breakdown
 
@@ -46,9 +46,9 @@ _(Gameplan-internal decisions D1, D2, … . Project-wide ADRs live in docs/DECIS
 | 0.1 | _(describe)_ | _(est)_ |
 
 **Exit criteria**:
-- [ ] Gameplan reviewed and approved by the user
-- [ ] Open items O-01, O-02, and O-03 are resolved and recorded
-- [ ] Phase 1 handoff is written and ready for the next session
+- [x] Gameplan reviewed and approved by the user
+- [x] Open items O-01, O-02, and O-03 are resolved and recorded
+- [x] Phase 1 handoff is written and ready for the next session
 
 ### Phase 1: Discovery + creative direction
 

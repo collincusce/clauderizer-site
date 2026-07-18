@@ -7,7 +7,7 @@
 
 | Phase | Name | Status | Started | Completed | Handoff |
 |-------|------|--------|---------|-----------|---------|
-| 0 | Bootstrap | ⬜ READY | — | — | handoffs/PHASE-0-HANDOFF.md |
+| 0 | Bootstrap | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-0-HANDOFF.md |
 | 1 | Discovery + creative direction | ⬜ NOT STARTED | — | — | handoffs/PHASE-1-HANDOFF.md |
 | 2 | Design system refresh | ⬜ NOT STARTED | — | — | handoffs/PHASE-2-HANDOFF.md |
 | 3 | Hero + opening act | ⬜ NOT STARTED | — | — | handoffs/PHASE-3-HANDOFF.md |
@@ -20,7 +20,13 @@
 
 ## Outputs Registry
 
-_(Concrete values produced by completed phases that later phases need.)_
+### Phase 0 Outputs
+
+```
+scope_decision: Redesign limited to landing page only; no new pages.
+asset_plan: Use .hero-staging/ assets (hero_video.mp4, buildup.mp4, seedream21.png, soul_v2.png, flux2.png, bf0-2.png) as visual backbone; public/media/hero/poster.jpg as reduced-motion fallback.
+motion_stack: No new libraries; existing GSAP + Three.js + CSS scroll-driven animations.
+```
 
 ## Corrections Log
 

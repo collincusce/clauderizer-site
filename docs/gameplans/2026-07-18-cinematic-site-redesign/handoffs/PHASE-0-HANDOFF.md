@@ -1,5 +1,5 @@
 <!-- clauderizer:handoff:start -->
-# Phase 1 Handoff
+# Phase 0 Handoff
 
 > For: next Clauderizer session
 > Gameplan: 2026-07-18-cinematic-site-redesign
@@ -21,13 +21,9 @@ Run `cz_preflight` before touching code. All enabled checks must pass.
 
 ## Governing Invariants for This Phase
 
-_(5 of 7 surfaced — the must-hold rules whose text overlaps this phase (keyword + entity-id, no ML). Honor these; the full set is in `docs/INVARIANTS.md`.)_
+_(1 of 7 surfaced — the must-hold rules whose text overlaps this phase (keyword + entity-id, no ML). Honor these; the full set is in `docs/INVARIANTS.md`.)_
 
-- **INVARIANT-03** — Every visual or animation ships with a prefers-reduced-motion fallback and a no-WebGL/static fallback. Motion is an enhancement, never a requirement for content or accessibility.
-- **INVARIANT-01** — All AWS commands for this project use --profile clauderizer (account 063337706623). Pre-flight aws sts get-caller-identity --profile clauderizer must return 063337706623 before any AWS mutation.
 - **INVARIANT-05** — The CloudFront ACM certificate must be issued in us-east-1, because CloudFront only accepts certificates from us-east-1.
-- **INVARIANT-02** — No static AWS keys in the repo or CI. Deploy auth is GitHub -> AWS OIDC or a local least-privilege named profile only; never committed credentials, .env secrets, or long-lived access keys.
-- **INVARIANT-04** — Lighthouse >=95 in performance, accessibility, best-practices, and SEO is a launch gate, checked on the production build.
 
 ## Accumulated Lessons (Cumulative — All Prior Phases)
 
@@ -42,11 +38,11 @@ _(none yet)_
 
 _(5 of 10 shown — ranked by keyword + entity-id overlap with this phase, no ML. The full set is canonical in `docs/LESSONS.md`; the handoff focuses under memory pressure without dropping anything from canonical memory.)_
 
-**L-07.** Mobile-safe parallax = CSS scroll-driven animations (animation-timeline: view()/scroll()), gated on BOTH @media (prefers-reduced-motion: no-preference) AND @supports (animation-timeline: view()) so it degrades to clean static content. Motion rides decorative layers only (drifting blobs/dot-grid); content uses a 'reveal' fade-up whose DEFAULT state is fully visible. Avoid background-attachment: fixed (broken on iOS) and JS scroll handlers (jank on touch). Shrink --cz-shift at <=640px. *(evidence: Phase 1/3 parallax sections 2026-06-22; verified no horizontal overflow at 375px)* *(from 2026-06-22-marketing-site-launch)*
 **L-09.** CDK offline synth on perms-limited creds: import Route53 zones with HostedZone.fromHostedZoneAttributes (id from cdk context; placeholders synth fine) NOT fromLookup — fromLookup calls route53:ListHostedZones (denied here) and fails synth. Pin the stack env region (us-east-1) explicitly so synth needs no creds. Redirect every non-canonical host with ONE distribution + a viewer-request CloudFront Function (host !== canonical -> 301), not multiple distributions or S3 redirect buckets. *(evidence: Phase 7 infra/cdk synth exit 0, 2026-06-22)* *(from 2026-06-22-marketing-site-launch)*
-**L-03.** preview_screenshot can hang (30s) on pages doing continuous GPU/animation work: an autoplaying loop <video>, a live WebGL canvas (headless-over-WSL has no GPU to composite for capture, and the canvas persists in the DOM even when scrolled past the hero), or after heavy preview_eval/reload churn. Fallbacks: for video, the clean stop->start->resize->screenshot pattern with no eval between; for WebGL/heavy-motion pages, verify via preview_snapshot (a11y tree = content+structure+ARIA) + preview_eval computed styles + the production build instead of pixels. Real browsers/users are unaffected. *(from 2026-06-22-marketing-site-launch)*
+**L-05.** Fail-closed CI deploy via GitHub OIDC: gate every AWS step on `if: env.X != ''` where X = a repo VARIABLE (vars.AWS_DEPLOY_ROLE_ARN, not a secret) so the job no-ops cleanly until the role exists — it never deploys credential-less and never needs static keys (INVARIANT-02). Measure the Lighthouse launch gate in CI via @lhci/cli autorun + lighthouserc staticDistDir=./dist asserting categories>=0.95, since there's no local Chrome to measure it. *(evidence: Phase 8 .github/workflows + lighthouserc.json 2026-06-22)* *(from 2026-06-22-marketing-site-launch)*
 **L-10.** AWS explicit-deny bypass for a constrained shared IAM user: attaching AdministratorAccess does NOT override an explicit Deny in another attached policy (explicit deny always wins, e.g. a *-scoped guardrail denying s3:CreateBucket). If you can't detach that policy, create a DEDICATED role with the needed perms and ASSUME it — identity-based denies on the calling user do not apply to the assumed-role session (only SCPs/permission boundaries/session policies do). Keyless via role_arn + source_profile. *(evidence: Phase 9 launch 2026-06-22: lsatprep-deployer-scoped denied s3:CreateBucket; deployed via assumed role clauderizer-deploy.)* *(from 2026-06-22-marketing-site-launch)*
-**L-01.** On an Astro static site, use vanilla Three.js + GSAP in lazy client islands rather than React Three Fiber - R3F drags in the React runtime a non-React site otherwise avoids. Dynamically import three (code-split, boot on requestIdleCallback) so its ~600KB stays off the critical path; the static poster carries the hero until the graph boots. *(evidence: Phase 4 Hero.astro + src/lib/memoryGraph.ts 2026-06-22)* *(from 2026-06-22-marketing-site-launch)*
+**L-07.** Mobile-safe parallax = CSS scroll-driven animations (animation-timeline: view()/scroll()), gated on BOTH @media (prefers-reduced-motion: no-preference) AND @supports (animation-timeline: view()) so it degrades to clean static content. Motion rides decorative layers only (drifting blobs/dot-grid); content uses a 'reveal' fade-up whose DEFAULT state is fully visible. Avoid background-attachment: fixed (broken on iOS) and JS scroll handlers (jank on touch). Shrink --cz-shift at <=640px. *(evidence: Phase 1/3 parallax sections 2026-06-22; verified no horizontal overflow at 375px)* *(from 2026-06-22-marketing-site-launch)*
+**L-08.** Progressive-enhancement pattern for animated demos: put the full final content in the DOM (the no-JS static truth), then have JS cache it, clear it, and animate it in; reduced-motion leaves it shown and hides only the controls. One structure satisfies both 'degrade when JS off' and INVARIANT-03. Restore colored inline markup with cloned child nodes + replaceChildren, never innerHTML (the security hook blocks innerHTML on principle). *(evidence: Phase 4 SessionDemo.astro 2026-06-22)* *(from 2026-06-22-marketing-site-launch)*
 
 ## Ending Protocol
 

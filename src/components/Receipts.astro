@@ -8,6 +8,11 @@ const stats = [
 ---
 
 <section class="section receipts">
+  <div class="media-bg" aria-hidden="true">
+    <img src="/media/hero/soul_v2.png" alt="" loading="lazy" decoding="async" />
+    <div class="scrim"></div>
+  </div>
+
   <div class="container">
     <p class="kicker reveal reveal-sm">Maturity</p>
     <h2 class="reveal">Stable, with receipts.</h2>
@@ -40,11 +45,33 @@ const stats = [
   .receipts {
     background: var(--ink-800);
   }
+  .media-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .media-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 80% at 30% 50%, transparent 30%, rgba(7, 8, 12, 0.92) 100%),
+      linear-gradient(180deg, rgba(7, 8, 12, 0.5), rgba(7, 8, 12, 0.85));
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+  }
   .sub {
-    max-width: 48rem;
+    max-width: 50rem;
     color: var(--cream-200);
     font-size: clamp(1.02rem, 1.7vw, 1.18rem);
-    margin: 0 0 2.4rem;
+    margin: 0 0 2.6rem;
   }
   .stats {
     display: grid;
@@ -54,14 +81,22 @@ const stats = [
   .stat {
     border: 1px solid var(--edge);
     border-radius: var(--radius);
-    background: rgba(11, 13, 18, 0.5);
-    padding: 1.4rem;
+    background: rgba(11, 13, 18, 0.6);
+    backdrop-filter: blur(6px);
+    padding: 1.6rem;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.35rem;
+    transition:
+      transform 0.18s ease,
+      border-color 0.18s ease;
+  }
+  .stat:hover {
+    transform: translateY(-4px);
+    border-color: rgba(245, 158, 11, 0.35);
   }
   .stat .n {
-    font-size: 2rem;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
     font-weight: 800;
     letter-spacing: -0.02em;
     /* Solid, high-contrast figures instead of glowing accent numerals —
@@ -70,11 +105,11 @@ const stats = [
   }
   .stat .l {
     color: var(--cream-200);
-    font-size: 0.92rem;
+    font-size: 0.95rem;
   }
   .note {
-    margin-top: 2.2rem;
-    max-width: 44rem;
+    margin-top: 2.4rem;
+    max-width: 46rem;
     color: var(--muted);
     border-left: 2px solid var(--amber-500);
     padding-left: 1rem;

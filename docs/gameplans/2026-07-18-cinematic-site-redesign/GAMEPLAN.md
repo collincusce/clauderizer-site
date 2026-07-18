@@ -120,9 +120,9 @@ _(Gameplan-internal decisions D1, D2, … . Project-wide ADRs live in docs/DECIS
 | 5.1 | _(describe)_ | _(est)_ |
 
 **Exit criteria**:
-- [ ] Features, receipts/stats, quickstart, vocabulary, FAQ, and CTA sections are rebuilt with refreshed visuals
-- [ ] Copy is sharpened and conversion CTAs are prominent
-- [ ] All copy blocks render correctly at every breakpoint
+- [x] Features, receipts/stats, quickstart, vocabulary, FAQ, and CTA sections are rebuilt with refreshed visuals
+- [x] Copy is sharpened and conversion CTAs are prominent
+- [x] All copy blocks render correctly at every breakpoint
 
 ### Phase 6: New pages + global navigation
 

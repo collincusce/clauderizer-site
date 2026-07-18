@@ -1,9 +1,4 @@
 ---
-// FAQ — citeable Q&A in the served HTML (native <details>, no JS required) with
-// a matching FAQPage JSON-LD generated from the SAME array, so the structured
-// data always mirrors the visible text. Answers are drawn from real site copy.
-// High-leverage for generative-engine optimization: AI answer engines lean on
-// explicit question/answer pairs, and crawlers that don't run JS still see it.
 const faqs = [
   {
     q: 'What is Clauderizer?',
@@ -16,8 +11,7 @@ const faqs = [
   {
     q: 'Where does the memory live?',
     a: 'In your repository, as Markdown under docs/. It ships with the code, shows up in diffs, and is reviewed alongside changes. The dependency graph is a disposable cache rebuilt from that Markdown; if they ever disagree, Markdown wins.',
-    aHtml:
-      'In your repository, as Markdown under <code>docs/</code>. It ships with the code, shows up in diffs, and is reviewed alongside changes. The dependency graph is a disposable cache rebuilt from that Markdown; if they ever disagree, Markdown wins.',
+    aHtml: 'In your repository, as Markdown under <code>docs/</code>. It ships with the code, shows up in diffs, and is reviewed alongside changes. The dependency graph is a disposable cache rebuilt from that Markdown; if they ever disagree, Markdown wins.',
   },
   {
     q: 'Which AI coding tools does it work with?',
@@ -30,8 +24,7 @@ const faqs = [
   {
     q: 'How do I get started?',
     a: 'Run uvx --from clauderizer clauderize init in any repository, or pipx install "clauderizer[mcp]" for a permanent install. Then point your agent at a goal and say "do the next phase" each session.',
-    aHtml:
-      'Run <code>uvx --from clauderizer clauderize init</code> in any repository, or <code>pipx install "clauderizer[mcp]"</code> for a permanent install. Then point your agent at a goal and say "do the next phase" each session.',
+    aHtml: 'Run <code>uvx --from clauderizer clauderize init</code> in any repository, or <code>pipx install "clauderizer[mcp]"</code> for a permanent install. Then point your agent at a goal and say "do the next phase" each session.',
   },
 ];
 
@@ -59,14 +52,7 @@ const jsonLd = {
               <span class="q">{f.q}</span>
               <span class="chev" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="18" height="18">
-                  <path
-                    d="M6 9l6 6 6-6"
-                    stroke="currentColor"
-                    stroke-width="2.2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    fill="none"
-                  />
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
                 </svg>
               </span>
             </summary>
@@ -84,19 +70,19 @@ const jsonLd = {
 
 <style>
   .faq {
-    background: var(--ink-800);
+    background: linear-gradient(180deg, var(--ink-800), var(--ink-900));
   }
   .faq-list {
     margin-top: 2.6rem;
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 0.85rem;
     max-width: 52rem;
   }
   .faq-item {
     border: 1px solid var(--edge);
     border-radius: var(--radius);
-    background: rgba(18, 21, 29, 0.6);
+    background: rgba(11, 13, 18, 0.55);
     overflow: hidden;
     transition:
       border-color 0.18s ease,
@@ -107,27 +93,22 @@ const jsonLd = {
   }
   .faq-item[open] {
     border-color: rgba(245, 158, 11, 0.4);
-    background: rgba(20, 23, 31, 0.72);
+    background: rgba(14, 16, 22, 0.72);
   }
   summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1.15rem 1.3rem;
+    padding: 1.2rem 1.4rem;
     cursor: pointer;
     list-style: none;
     font-weight: 600;
     font-size: clamp(1rem, 1.6vw, 1.12rem);
     color: var(--cream-50);
   }
-  /* hide the default disclosure marker across engines */
-  summary::-webkit-details-marker {
-    display: none;
-  }
-  summary::marker {
-    content: '';
-  }
+  summary::-webkit-details-marker { display: none; }
+  summary::marker { content: ''; }
   summary:focus-visible {
     outline: 2px solid var(--clay);
     outline-offset: -2px;
@@ -138,11 +119,9 @@ const jsonLd = {
     color: var(--amber-400);
     transition: transform 0.2s ease;
   }
-  .faq-item[open] .chev {
-    transform: rotate(180deg);
-  }
+  .faq-item[open] .chev { transform: rotate(180deg); }
   .faq-a {
-    padding: 0 1.3rem 1.25rem;
+    padding: 0 1.4rem 1.25rem;
   }
   .faq-a p {
     margin: 0;

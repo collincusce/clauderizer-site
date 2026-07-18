@@ -47,7 +47,7 @@ const steps = [
     max-width: 46rem;
     color: var(--cream-200);
     font-size: clamp(1.02rem, 1.7vw, 1.18rem);
-    margin: 0 0 2.4rem;
+    margin: 0 0 2.6rem;
   }
   .steps {
     list-style: none;
@@ -56,6 +56,7 @@ const steps = [
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    max-width: 52rem;
   }
   .step {
     display: flex;
@@ -64,8 +65,8 @@ const steps = [
   }
   .step .idx {
     flex: none;
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 2.4rem;
+    height: 2.4rem;
     display: grid;
     place-items: center;
     border-radius: 50%;
@@ -73,6 +74,7 @@ const steps = [
     color: var(--amber-400);
     font-family: var(--font-mono);
     font-weight: 700;
+    font-size: 1rem;
   }
   .step .body {
     flex: 1;
@@ -81,6 +83,7 @@ const steps = [
   .step b {
     display: block;
     margin: 0.2rem 0 0.5rem;
+    font-size: 1.05rem;
   }
   .code {
     display: flex;
@@ -90,18 +93,19 @@ const steps = [
     width: 100%;
     text-align: left;
     cursor: pointer;
-    background: var(--ink-800);
+    background: var(--ink-850);
     border: 1px solid var(--edge);
-    border-radius: 10px;
-    padding: 0.75rem 0.95rem;
+    border-radius: var(--radius-sm);
+    padding: 0.8rem 1rem;
     color: var(--cream-50);
+    transition: border-color 0.16s ease;
   }
   .code:hover {
-    border-color: rgba(245, 158, 11, 0.4);
+    border-color: rgba(245, 158, 11, 0.45);
   }
   .code code {
     font-family: var(--font-mono);
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     overflow-x: auto;
   }
   .copy-hint {
@@ -113,8 +117,9 @@ const steps = [
     color: var(--amber-400);
   }
   .install-line {
-    margin-top: 2rem;
+    margin-top: 2.2rem;
     color: var(--cream-200);
+    max-width: 52rem;
   }
   .install-line code {
     font-family: var(--font-mono);

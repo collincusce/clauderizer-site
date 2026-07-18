@@ -1,9 +1,12 @@
 ---
-
 ---
 
 <section class="section cta">
-  <div class="glow parallax parallax-mid" aria-hidden="true"></div>
+  <div class="media-bg" aria-hidden="true">
+    <video src="/media/hero/buildup.mp4" autoplay muted loop playsinline poster="/media/hero/soul_v2b.png" aria-hidden="true"></video>
+    <div class="scrim"></div>
+  </div>
+
   <div class="container inner">
     <h2 class="reveal">Give your agent a memory that survives.</h2>
     <p class="sub reveal">
@@ -27,16 +30,28 @@
     position: relative;
     background: var(--ink-900);
     overflow: clip;
+    min-height: 70svh;
+    display: grid;
+    align-items: center;
   }
-  .glow {
+  .media-bg {
     position: absolute;
-    inset: auto 50% -40% 50%;
-    transform: translateX(-50%);
-    width: min(48rem, 90vw);
-    height: 40rem;
-    background: radial-gradient(circle, var(--amber-glow), transparent 62%);
-    filter: blur(40px);
+    inset: 0;
+    z-index: 0;
     pointer-events: none;
+  }
+  .media-bg video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.65;
+  }
+  .scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 80% at 50% 30%, transparent 25%, rgba(7, 8, 12, 0.92) 100%),
+      linear-gradient(180deg, rgba(7, 8, 12, 0.4), rgba(7, 8, 12, 0.9));
   }
   .inner {
     position: relative;
@@ -45,13 +60,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.3rem;
+    gap: 1.4rem;
   }
   .inner h2 {
-    max-width: 20ch;
+    max-width: 18ch;
+    margin: 0 auto;
   }
   .sub {
-    max-width: 42rem;
+    max-width: 44rem;
     color: var(--cream-200);
     font-size: clamp(1.05rem, 1.8vw, 1.25rem);
     margin: 0;
@@ -60,16 +76,22 @@
     display: inline-flex;
     align-items: center;
     gap: 1rem;
-    background: var(--ink-700);
-    border: 1px solid var(--edge);
-    border-radius: var(--radius);
-    padding: 0.9rem 1.2rem;
+    background: rgba(11, 13, 18, 0.82);
+    border: 1px solid var(--edge-strong);
+    border-radius: var(--radius-sm);
+    padding: 0.95rem 1.25rem;
     cursor: pointer;
     color: var(--cream-50);
+    backdrop-filter: blur(8px);
     box-shadow: 0 0 0 1px var(--amber-glow);
+    transition: border-color 0.16s ease;
+  }
+  .cmd:hover {
+    border-color: var(--amber-400);
   }
   .cmd code {
     font-family: var(--font-mono);
+    font-size: 0.95rem;
   }
   .copy-hint {
     font-family: var(--font-mono);
@@ -81,34 +103,39 @@
   .row {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem;
+    gap: 0.9rem;
     justify-content: center;
   }
   .btn {
     display: inline-flex;
     align-items: center;
-    padding: 0.8rem 1.4rem;
+    padding: 0.85rem 1.5rem;
     border-radius: 999px;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
     transition:
-      transform 0.15s ease,
-      background 0.15s ease,
-      border-color 0.15s ease;
+      transform 0.16s ease,
+      background 0.16s ease,
+      border-color 0.16s ease;
   }
   .btn-primary {
-    background: var(--amber-500);
+    background: linear-gradient(180deg, var(--amber-400), var(--amber-600));
     color: #1a1206;
   }
   .btn-primary:hover {
-    transform: translateY(-1px);
-    background: var(--amber-400);
+    transform: translateY(-2px);
   }
   .btn-ghost {
     color: var(--cream-50);
-    border: 1px solid var(--edge);
+    border: 1px solid var(--edge-strong);
+    background: rgba(7, 8, 12, 0.4);
+    backdrop-filter: blur(4px);
   }
   .btn-ghost:hover {
-    border-color: var(--amber-500);
+    border-color: var(--amber-400);
+    transform: translateY(-2px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .media-bg video { opacity: 0.5; }
   }
 </style>

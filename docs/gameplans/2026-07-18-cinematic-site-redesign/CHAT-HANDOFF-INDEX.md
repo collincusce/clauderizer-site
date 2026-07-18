@@ -1,7 +1,7 @@
 # Chat Handoff Index — cinematic-site-redesign
 
 > Last updated: 2026-07-18
-> Status: Phase 5 ready
+> Status: Phase 6 ready
 
 ## How This Works
 
@@ -34,7 +34,7 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 | 2 | Design system refresh | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-2-HANDOFF.md |
 | 3 | Hero + opening act | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-3-HANDOFF.md |
 | 4 | Narrative sections | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-4-HANDOFF.md |
-| 5 | Trust + proof + conversion | ⬜ NOT STARTED | — | — | handoffs/PHASE-5-HANDOFF.md |
+| 5 | Trust + proof + conversion | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-5-HANDOFF.md |
 | 6 | New pages + global navigation | ⬜ NOT STARTED | — | — | handoffs/PHASE-6-HANDOFF.md |
 | 7 | Motion, media, and interaction polish | ⬜ NOT STARTED | — | — | handoffs/PHASE-7-HANDOFF.md |
 | 8 | Performance, SEO, and accessibility hardening | ⬜ NOT STARTED | — | — | handoffs/PHASE-8-HANDOFF.md |
@@ -63,6 +63,10 @@ Phase 3 rebuilt the hero as a cinematic opening: a full-bleed video background (
 ### Phase 4 — completed 2026-07-18
 
 Phase 4 rebuilt the narrative sections with cinematic backdrops and stronger emotional copy. Problem uses seedream21.png; the before/after ledger uses bf0-2.png; HowItWorks uses flux2.png; SessionDemo keeps the terminal but frames it as momentum. Build passes.
+
+### Phase 5 — completed 2026-07-18
+
+Phase 5 rebuilt the trust and conversion sections: Features, Receipts (with soul_v2 backdrop), Quickstart, Vocabulary, FAQ, CTA (with buildup.mp4 backdrop), and Footer. Copy is sharper, CTAs are more prominent, and all sections use the refreshed design tokens. Build passes.
 
 ## Accumulated Lessons
 

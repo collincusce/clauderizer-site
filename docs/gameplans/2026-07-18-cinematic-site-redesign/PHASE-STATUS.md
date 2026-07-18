@@ -12,7 +12,7 @@
 | 2 | Design system refresh | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-2-HANDOFF.md |
 | 3 | Hero + opening act | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-3-HANDOFF.md |
 | 4 | Narrative sections | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-4-HANDOFF.md |
-| 5 | Trust + proof + conversion | ⬜ NOT STARTED | — | — | handoffs/PHASE-5-HANDOFF.md |
+| 5 | Trust + proof + conversion | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-5-HANDOFF.md |
 | 6 | New pages + global navigation | ⬜ NOT STARTED | — | — | handoffs/PHASE-6-HANDOFF.md |
 | 7 | Motion, media, and interaction polish | ⬜ NOT STARTED | — | — | handoffs/PHASE-7-HANDOFF.md |
 | 8 | Performance, SEO, and accessibility hardening | ⬜ NOT STARTED | — | — | handoffs/PHASE-8-HANDOFF.md |
@@ -54,6 +54,12 @@ hero_copy: Your best ideas shouldnt die in the dark — emotional hook framing t
 
 ```
 narrative_sections: Problem, AmnesiaMemory, HowItWorks, SessionDemo rebuilt with cinematic backdrops and emotional copy
+```
+
+### Phase 5 Outputs
+
+```
+conversion_sections: Features, Receipts, Quickstart, Vocabulary, FAQ, CTA, Footer refreshed with new tokens and cinematic backdrops
 ```
 
 ## Corrections Log

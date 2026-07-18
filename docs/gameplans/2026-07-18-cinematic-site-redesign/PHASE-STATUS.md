@@ -13,7 +13,7 @@
 | 3 | Hero + opening act | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-3-HANDOFF.md |
 | 4 | Narrative sections | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-4-HANDOFF.md |
 | 5 | Trust + proof + conversion | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-5-HANDOFF.md |
-| 6 | New pages + global navigation | ⬜ NOT STARTED | — | — | handoffs/PHASE-6-HANDOFF.md |
+| 6 | New pages + global navigation | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-6-HANDOFF.md |
 | 7 | Motion, media, and interaction polish | ⬜ NOT STARTED | — | — | handoffs/PHASE-7-HANDOFF.md |
 | 8 | Performance, SEO, and accessibility hardening | ⬜ NOT STARTED | — | — | handoffs/PHASE-8-HANDOFF.md |
 | 9 | Build, deploy, and close | ⬜ NOT STARTED | — | — | handoffs/PHASE-9-HANDOFF.md |
@@ -60,6 +60,13 @@ narrative_sections: Problem, AmnesiaMemory, HowItWorks, SessionDemo rebuilt with
 
 ```
 conversion_sections: Features, Receipts, Quickstart, Vocabulary, FAQ, CTA, Footer refreshed with new tokens and cinematic backdrops
+```
+
+### Phase 6 Outputs
+
+```
+page_decision: No new public pages; landing-page-only scope maintained. /styleguide exists as internal design reference.
+nav_footer: Nav polished with new tokens and transitions; Footer refreshed in Phase 5.
 ```
 
 ## Corrections Log

@@ -134,9 +134,9 @@ _(Gameplan-internal decisions D1, D2, … . Project-wide ADRs live in docs/DECIS
 | 6.1 | _(describe)_ | _(est)_ |
 
 **Exit criteria**:
-- [ ] Any new pages decided in Phase 0 are implemented as Astro pages
-- [ ] Nav and footer are updated to support the new site structure
-- [ ] Cross-links work and no 404s on internal navigation
+- [x] Any new pages decided in Phase 0 are implemented as Astro pages
+- [x] Nav and footer are updated to support the new site structure
+- [x] Cross-links work and no 404s on internal navigation
 
 ### Phase 7: Motion, media, and interaction polish
 

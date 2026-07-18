@@ -55,3 +55,24 @@ _(Add entries with `cz_add_decision`.)_
 **Consequences**: Much higher visual ceiling and product-true demos, but a ~600KB three chunk (lazy, off the critical path) and more continuous animation that Phase 6 must validate against Lighthouse >=95. Reinstates the WebGL hero that C-03 pivoted away from; the Higgsfield scroll-scrub video is now unused in the hero (its poster remains the no-WebGL fallback).
 **Evidence**: x.com/i/article/2067199898689081344 (paywalled, @zeuuss_01) + companion x.com/zeuuss_01/status/2067213248517017884; gsap 3.15.0 + three 0.184.0 installed; astro build green 2026-06-22.
 **Status**: active (2026-06-22)
+
+### D-007 — Redesign the marketing site for cinematic emotional storytelling
+
+**Context**: The current site is functionally complete (Astro 7, WebGL memory-graph hero, terminal demo, narrative sections, SEO, CDK infra) but reads as a feature list. The user wants a cooler, more emotionally compelling story that still shows the coding-agent memory experience and reuses the existing logo and provided graphics.
+**Decision**: Redesign the entire Clauderizer marketing site around a cinematic, emotional narrative arc, reusing the existing logo and graphics (public/ and .hero-staging/). Keep the Astro stack and existing AWS/CDK/CI infrastructure; this is a front-end + content redesign. The new story centers on the human cost of an agent that forgets and the relief/power of one that remembers, told with film-grade pacing, typography, and motion.
+**Consequences**: Scope is front-end + content + possible new pages; infra/CI stays as-is. The existing INVARIANT-03 (motion fallbacks), INVARIANT-04 (Lighthouse >=95), and INVARIANT-07 (public repo / no secrets) still bind the redesign. We may add new sections or pages (e.g., /story, /why-clauderizer, or /for-teams) if the narrative demands them.
+**Status**: active (2026-07-18)
+
+### D-008 — Keep Astro 7 static stack; refresh design system and components in place
+
+**Context**: The site already runs on Astro 7 with TypeScript, GSAP, and three.js. A redesign could justify a new framework, but that would add migration risk and infra work for no user-facing gain.
+**Decision**: Stay on Astro 7, MDX, TypeScript, and the existing island architecture. Refresh the global design tokens and rebuild section components in place rather than starting a parallel codebase. Continue to lazy-load heavy motion libraries and honor prefers-reduced-motion.
+**Consequences**: Faster iteration; no infra or build pipeline changes. New components must follow the existing island pattern and accessibility conventions.
+**Status**: active (2026-07-18)
+
+### D-009 — Anchor the redesign on existing logo, favicon, and Higgsfield assets; generate new media only if the story demands it
+
+**Context**: The repo already contains a logo mark (public/favicon.svg), icon set, OG image, Higgsfield poster (public/media/hero/poster.jpg), and .hero-staging/ stills/video clips. The user explicitly wants to use the logo and graphics provided.
+**Decision**: Use the existing logo/graphics as the visual anchor for the redesign. Repurpose .hero-staging/ assets where they fit the new cinematic narrative. Generate or source new media only if a specific section's story cannot be told with current assets, and only after Phase 0 creative sign-off.
+**Consequences**: Limits scope creep and asset-delivery risk. The new design must look compelling even if no new media is produced.
+**Status**: active (2026-07-18)

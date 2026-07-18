@@ -2,10 +2,12 @@
 id: subsys.site
 type: subsystem
 status: active
-last_verified: 2026-06-22
-framework: Astro 7 + MDX + TypeScript 6
+last_verified: 2026-07-18
+framework: Astro 7 + MDX + TypeScript
 build_runtime: Node v24.13.1
-note: scaffold builds green; design + content land in phases 1-6
+note: Undergoing cinematic redesign (gameplan 2026-07-18-cinematic-site-redesign). Front-end + content refresh; infra/CI unchanged.
+version: 2
+depends_on:
 ---
 
 # Site

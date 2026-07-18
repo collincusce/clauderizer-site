@@ -22,3 +22,5 @@ Thumbs.db
 
 # Local preview launch config (machine path)
 .claude/launch.json
+.clauderizer/abstract_index.json
+.clauderizer/proposals.local.toml

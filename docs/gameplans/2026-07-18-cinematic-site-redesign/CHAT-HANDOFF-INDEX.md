@@ -1,7 +1,7 @@
 # Chat Handoff Index — cinematic-site-redesign
 
 > Last updated: 2026-07-18
-> Status: Phase 3 ready
+> Status: Phase 4 ready
 
 ## How This Works
 
@@ -32,7 +32,7 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 | 0 | Bootstrap | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-0-HANDOFF.md |
 | 1 | Discovery + creative direction | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-1-HANDOFF.md |
 | 2 | Design system refresh | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-2-HANDOFF.md |
-| 3 | Hero + opening act | ⬜ NOT STARTED | — | — | handoffs/PHASE-3-HANDOFF.md |
+| 3 | Hero + opening act | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-3-HANDOFF.md |
 | 4 | Narrative sections | ⬜ NOT STARTED | — | — | handoffs/PHASE-4-HANDOFF.md |
 | 5 | Trust + proof + conversion | ⬜ NOT STARTED | — | — | handoffs/PHASE-5-HANDOFF.md |
 | 6 | New pages + global navigation | ⬜ NOT STARTED | — | — | handoffs/PHASE-6-HANDOFF.md |
@@ -55,6 +55,10 @@ Phase 1 produced the creative brief, content map, asset map, and wireframe direc
 ### Phase 2 — completed 2026-07-18
 
 Phase 2 refreshed the design system: global.css now carries richer ink/cream/amber/clay/rose tokens, an editorial type scale, cinematic easing, and reusable primitives (media-bg, cards, buttons). A new /styleguide route renders every primitive, and the reduced-motion/no-JS baselines remain intact.
+
+### Phase 3 — completed 2026-07-18
+
+Phase 3 rebuilt the hero as a cinematic opening: a full-bleed video background (hero.mp4) with the living memory-graph overlaid, a stronger emotional headline, and preserved poster/reduced-motion fallbacks. Build passes and performance is stable.
 
 ## Accumulated Lessons
 

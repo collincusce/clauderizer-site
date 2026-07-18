@@ -1,32 +1,42 @@
 ---
-// Hero — recomposed around the living memory-graph (the site's signature WebGL
-// centerpiece). Scattered "amnesia" memories bloom into a structured, glowing
-// dependency graph as the page loads. The Higgsfield poster is the static
-// fallback for no-WebGL / reduced-motion (INVARIANT-03).
+// Hero — cinematic opening. Full-bleed video background with the living
+// memory-graph layered on top. The poster image is the static / reduced-motion
+// fallback (INVARIANT-03).
 ---
 
 <section class="hero" aria-label="Clauderizer: durable working memory for coding agents">
   <div class="hero-bg" aria-hidden="true">
-    <img class="hero-poster" src="/media/hero/poster.jpg" alt="" decoding="async" fetchpriority="high" />
+    <video
+      class="hero-video"
+      src="/media/hero/hero.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="/media/hero/poster.jpg"
+      aria-hidden="true"
+    ></video>
     <canvas class="hero-graph" data-graph></canvas>
     <div class="hero-labels" data-graph-labels></div>
     <div class="hero-scrim"></div>
   </div>
 
   <div class="hero-content container">
+    <span class="eyebrow">Durable working memory for coding agents</span>
     <h1>
-      Your coding agent is brilliant,<br />
-      <span class="amnesiac">and amnesiac.</span>
+      Your best ideas<br />
+      <span class="amnesiac">shouldn't die in the dark.</span>
     </h1>
     <p class="lede">
-      Clauderizer gives it a memory that survives: plans, decisions, and a dependency graph as
-      plain, Git-diffable Markdown it reads and updates through real tool calls.
+      Every session your agent forgets. The architecture. The decision. The momentum.
+      Clauderizer gives it a memory that survives — plain Markdown in <code>docs/</code>,
+      updated through real tool calls.
     </p>
     <div class="cta-row">
       <a class="btn btn-primary" href="https://github.com/collincusce/Clauderizer">
         Get started on GitHub
       </a>
-      <a class="btn btn-ghost" href="#session">Watch a session →</a>
+      <a class="btn btn-ghost" href="#session">See a session come alive →</a>
     </div>
     <button
       class="install"
@@ -46,7 +56,7 @@
     </ul>
   </div>
 
-  <div class="scroll-cue" aria-hidden="true"><span>scroll to remember</span></div>
+  <div class="scroll-cue" aria-hidden="true"><span>scroll</span></div>
 </section>
 
 <script>
@@ -56,9 +66,6 @@
   const canvas = document.querySelector<HTMLCanvasElement>('.hero-graph');
   const labels = document.querySelector<HTMLElement>('.hero-labels');
 
-  // Three.js is heavy, so it's dynamically imported — code-split into its own
-  // chunk that only loads when the enhanced path will actually run. The static
-  // poster carries the hero until (and unless) the graph is ready.
   if (section && canvas && supportsWebGL() && !prefersReducedMotion()) {
     const boot = () =>
       import('@/lib/memoryGraph')
@@ -66,7 +73,6 @@
           const graph = initMemoryGraph({ canvas, labelLayer: labels, compact: isCompact() });
           requestAnimationFrame(() => {
             section.classList.add('graph-live');
-            // small delay so the first frame paints at "fog" before blooming
             setTimeout(() => graph.setCoherence(1), 220);
           });
         })
@@ -89,31 +95,31 @@
     display: grid;
     align-items: center;
     overflow: clip;
+    background: var(--ink-950);
   }
   .hero-bg {
     position: absolute;
     inset: 0;
     z-index: 0;
   }
-  .hero-poster,
+  .hero-video,
   .hero-graph {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
   }
-  .hero-poster {
+  .hero-video {
     object-fit: cover;
-    opacity: 0.9;
-    transition: opacity 1.1s ease;
+    opacity: 0.85;
+    transition: opacity 1.2s ease;
   }
   .hero-graph {
     opacity: 0;
-    transition: opacity 1.4s ease;
+    transition: opacity 1.6s ease;
   }
-  /* When the live graph is running, fade the poster down to a faint base glow. */
-  .hero.graph-live .hero-poster {
-    opacity: 0.16;
+  .hero.graph-live .hero-video {
+    opacity: 0.55;
   }
   .hero.graph-live .hero-graph {
     opacity: 1;
@@ -129,12 +135,12 @@
     inset: 0;
     z-index: 1;
     background:
-      radial-gradient(115% 90% at 78% 38%, transparent 36%, rgba(8, 9, 13, 0.5) 100%),
+      radial-gradient(120% 90% at 78% 30%, transparent 26%, rgba(7, 8, 12, 0.7) 100%),
       linear-gradient(
-        90deg,
-        rgba(8, 9, 13, 0.94) 0%,
-        rgba(8, 9, 13, 0.66) 42%,
-        rgba(8, 9, 13, 0.08) 78%
+        100deg,
+        rgba(7, 8, 12, 0.96) 0%,
+        rgba(7, 8, 12, 0.72) 40%,
+        rgba(7, 8, 12, 0.18) 78%
       );
   }
   .hero-content {
@@ -142,37 +148,50 @@
     z-index: 2;
     display: flex;
     flex-direction: column;
-    gap: 1.4rem;
-    padding-block: clamp(6rem, 14vh, 9rem);
+    gap: 1.5rem;
+    padding-block: clamp(6rem, 16vh, 10rem);
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--amber-400);
   }
   h1 {
-    font-size: clamp(2.5rem, 6.6vw, 5.1rem);
-    line-height: 1.03;
+    font-size: clamp(2.8rem, 7.5vw, 6rem);
+    line-height: 1.02;
     margin: 0;
     font-weight: 800;
-    letter-spacing: -0.025em;
-    max-width: 18ch;
+    letter-spacing: -0.035em;
+    max-width: 16ch;
   }
   .amnesiac {
-    color: var(--muted);
-    -webkit-text-stroke: 0.4px rgba(139, 145, 161, 0.3);
+    color: var(--clay-200);
+    -webkit-text-stroke: 0.4px rgba(240, 184, 154, 0.25);
   }
   .lede {
-    font-size: clamp(1.05rem, 2vw, 1.32rem);
+    font-size: clamp(1.08rem, 2.1vw, 1.4rem);
     color: var(--cream-200);
-    max-width: 40rem;
+    max-width: 44rem;
     margin: 0;
+    line-height: 1.55;
+  }
+  .lede code {
+    font-family: var(--font-mono);
+    color: var(--amber-400);
+    font-size: 0.92em;
   }
   .cta-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem;
-    margin-top: 0.3rem;
+    gap: 0.9rem;
+    margin-top: 0.4rem;
   }
   .btn {
     display: inline-flex;
     align-items: center;
-    padding: 0.82rem 1.4rem;
+    padding: 0.9rem 1.6rem;
     border-radius: 999px;
     font-weight: 600;
     text-decoration: none;
@@ -183,56 +202,59 @@
       box-shadow 0.16s ease;
   }
   .btn-primary {
-    background: linear-gradient(180deg, var(--amber-400), var(--clay));
-    color: #20140a;
-    box-shadow: 0 12px 34px -12px var(--clay-glow);
+    background: linear-gradient(180deg, var(--amber-400), var(--amber-600));
+    color: #1a1206;
+    box-shadow: 0 14px 38px -12px var(--amber-glow-strong);
   }
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 18px 44px -14px var(--clay-glow);
+    box-shadow: 0 20px 48px -14px var(--amber-glow-strong);
   }
   .btn-ghost {
     color: var(--cream-50);
     border: 1px solid var(--edge-strong);
+    background: rgba(7, 8, 12, 0.35);
+    backdrop-filter: blur(4px);
   }
   .btn-ghost:hover {
-    border-color: var(--clay);
+    border-color: var(--amber-400);
     transform: translateY(-2px);
   }
   .install {
-    margin-top: 0.5rem;
+    margin-top: 0.6rem;
     display: inline-flex;
     align-items: center;
     gap: 0.9rem;
-    background: rgba(14, 17, 23, 0.72);
-    border: 1px solid var(--edge);
-    border-radius: var(--radius);
+    background: rgba(11, 13, 18, 0.72);
+    border: 1px solid var(--edge-strong);
+    border-radius: var(--radius-sm);
     padding: 0.85rem 1.1rem;
     cursor: pointer;
     color: var(--cream-50);
     backdrop-filter: blur(8px);
     width: fit-content;
+    transition: border-color 0.16s ease;
   }
   .install:hover {
-    border-color: var(--clay);
+    border-color: var(--amber-400);
   }
   .install code {
     font-family: var(--font-mono);
     font-size: 0.92rem;
   }
   .install .prompt {
-    color: var(--clay);
+    color: var(--amber-400);
   }
   .copy-hint {
     font-family: var(--font-mono);
     font-size: 0.72rem;
-    color: var(--clay);
+    color: var(--amber-400);
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
   .hero-legend {
     list-style: none;
-    margin: 0.6rem 0 0;
+    margin: 0.8rem 0 0;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
@@ -267,13 +289,13 @@
   }
   .scroll-cue {
     position: absolute;
-    bottom: 1.5rem;
+    bottom: 1.6rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
     font-family: var(--font-mono);
     font-size: 0.72rem;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--muted);
   }
@@ -295,10 +317,15 @@
   }
   @media (max-width: 640px) {
     .hero-scrim {
-      background: linear-gradient(180deg, rgba(8, 9, 13, 0.5), rgba(8, 9, 13, 0.88));
+      background: linear-gradient(180deg, rgba(7, 8, 12, 0.45), rgba(7, 8, 12, 0.92));
     }
     .hero-legend {
       gap: 0.9rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video {
+      opacity: 0.7;
     }
   }
 </style>

@@ -90,10 +90,10 @@ _(Gameplan-internal decisions D1, D2, … . Project-wide ADRs live in docs/DECIS
 | 3.1 | _(describe)_ | _(est)_ |
 
 **Exit criteria**:
-- [ ] New Hero component renders the cinematic opening with the existing logo/graphics integrated
-- [ ] Hero copy + primary CTA communicate the emotional conflict and payoff
-- [ ] Static fallback works when WebGL is unavailable or reduced-motion is preferred
-- [ ] No layout shift on first paint; Lighthouse performance is not regressed vs. baseline
+- [x] New Hero component renders the cinematic opening with the existing logo/graphics integrated
+- [x] Hero copy + primary CTA communicate the emotional conflict and payoff
+- [x] Static fallback works when WebGL is unavailable or reduced-motion is preferred
+- [x] No layout shift on first paint; Lighthouse performance is not regressed vs. baseline
 
 ### Phase 4: Narrative sections
 

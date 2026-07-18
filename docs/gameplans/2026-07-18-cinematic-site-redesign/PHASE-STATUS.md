@@ -10,7 +10,7 @@
 | 0 | Bootstrap | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-0-HANDOFF.md |
 | 1 | Discovery + creative direction | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-1-HANDOFF.md |
 | 2 | Design system refresh | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-2-HANDOFF.md |
-| 3 | Hero + opening act | ⬜ NOT STARTED | — | — | handoffs/PHASE-3-HANDOFF.md |
+| 3 | Hero + opening act | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-3-HANDOFF.md |
 | 4 | Narrative sections | ⬜ NOT STARTED | — | — | handoffs/PHASE-4-HANDOFF.md |
 | 5 | Trust + proof + conversion | ⬜ NOT STARTED | — | — | handoffs/PHASE-5-HANDOFF.md |
 | 6 | New pages + global navigation | ⬜ NOT STARTED | — | — | handoffs/PHASE-6-HANDOFF.md |
@@ -41,6 +41,13 @@ asset_map: hero_video.mp4/poster.jpg (hero), seedream21.png (problem), bf0-2.png
 ```
 design_tokens: global.css refreshed with ink/cream/amber/clay/rose tokens, editorial type scale, cinematic easing, media-bg and card primitives
 styleguide_route: /styleguide renders colors, type, buttons, cards, code, motion notes
+```
+
+### Phase 3 Outputs
+
+```
+hero_video: public/media/hero/hero.mp4 with poster.jpg fallback and WebGL graph overlay
+hero_copy: Your best ideas shouldnt die in the dark — emotional hook framing the agents forgetting as the villain
 ```
 
 ## Corrections Log

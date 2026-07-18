@@ -1,7 +1,7 @@
 # Chat Handoff Index — cinematic-site-redesign
 
 > Last updated: 2026-07-18
-> Status: Phase 7 ready
+> Status: Phase 8 ready
 
 ## How This Works
 
@@ -36,7 +36,7 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 | 4 | Narrative sections | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-4-HANDOFF.md |
 | 5 | Trust + proof + conversion | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-5-HANDOFF.md |
 | 6 | New pages + global navigation | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-6-HANDOFF.md |
-| 7 | Motion, media, and interaction polish | ⬜ NOT STARTED | — | — | handoffs/PHASE-7-HANDOFF.md |
+| 7 | Motion, media, and interaction polish | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-7-HANDOFF.md |
 | 8 | Performance, SEO, and accessibility hardening | ⬜ NOT STARTED | — | — | handoffs/PHASE-8-HANDOFF.md |
 | 9 | Build, deploy, and close | ⬜ NOT STARTED | — | — | handoffs/PHASE-9-HANDOFF.md |
 
@@ -71,6 +71,10 @@ Phase 5 rebuilt the trust and conversion sections: Features, Receipts (with soul
 ### Phase 6 — completed 2026-07-18
 
 Phase 6 confirmed the site structure: no new public pages needed. The nav was polished with refreshed tokens and hover transitions; the footer was already updated in Phase 5. Internal /styleguide remains for design reference. Build passes.
+
+### Phase 7 — completed 2026-07-18
+
+Phase 7 polished motion and media. Section backdrop images were optimized from ~25MB PNGs to ~1.2MB JPEGs. Scroll-driven reveals, parallax, hover states, and reduced-motion fallbacks are intact. The WebGL hero and terminal demo still gate on supportsWebGL and prefersReducedMotion.
 
 ## Accumulated Lessons
 

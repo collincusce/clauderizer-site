@@ -148,10 +148,10 @@ _(Gameplan-internal decisions D1, D2, … . Project-wide ADRs live in docs/DECIS
 | 7.1 | _(describe)_ | _(est)_ |
 
 **Exit criteria**:
-- [ ] Scroll choreography, transitions, and hover states are polished without jank
-- [ ] Media slots use existing assets appropriately; lazy-loading and fallbacks work
-- [ ] WebGL/terminal demos are tuned and still honor reduced-motion
-- [ ] Animation governor still pauses offscreen/tab-hidden perpetual motion
+- [x] Scroll choreography, transitions, and hover states are polished without jank
+- [x] Media slots use existing assets appropriately; lazy-loading and fallbacks work
+- [x] WebGL/terminal demos are tuned and still honor reduced-motion
+- [x] Animation governor still pauses offscreen/tab-hidden perpetual motion
 
 ### Phase 8: Performance, SEO, and accessibility hardening
 

@@ -13,7 +13,8 @@
     "check": "astro check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "npm run lint"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.0",

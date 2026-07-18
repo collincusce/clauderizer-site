@@ -1,45 +1,67 @@
 /*
- * Clauderizer brand tokens + scroll-motion system — Phase 1.
- * Art direction: "living memory-graph" — deep ink canvas, warm cream text, amber "memory" accent.
+ * Clauderizer brand tokens + cinematic motion system — redesign refresh.
+ * Art direction: "memory made visible" — deep ink canvas, warm cream text,
+ * richer amber memory-gold, and a clay/rose warmth for emotional beats.
  */
 :root {
-  --ink-900: #0b0d12; /* deep ink background */
-  --ink-850: #0e1117; /* card ink (matches the README assets) */
+  /* ---- ink canvas ---- */
+  --ink-950: #07080c;
+  --ink-900: #0b0d12;
+  --ink-850: #0e1117;
   --ink-800: #11141c;
+  --ink-750: #151922;
   --ink-700: #1a1f2b;
-  --cream-50: #f4efe6; /* warm cream text */
-  --cream-200: #d8d2c4;
-  --muted: #8b91a1; /* 6.1:1 on --ink-900 — AA for normal text */
-  --dim: #868d9b; /* ~5.8:1 — the dimmest text that still clears AA */
-  --amber-400: #ffb454; /* warm "memory" accent */
-  --amber-500: #f59e0b;
-  --amber-glow: rgba(245, 158, 11, 0.35);
+  --ink-650: #202633;
 
-  /* Refined clay accent + semantic states — the README's own palette,
-     which the live site never used. Clay carries the cinematic/graph moments;
-     green = remembered/passing, red = forgotten/failing. */
+  /* ---- warm cream text ---- */
+  --cream-50: #f4efe6;
+  --cream-100: #e8e2d6;
+  --cream-200: #d8d2c4;
+  --cream-300: #b9b3a7;
+  --muted: #8b91a1;
+  --dim: #868d9b;
+
+  /* ---- memory gold + clay accents ---- */
+  --amber-300: #ffd27a;
+  --amber-400: #ffb454;
+  --amber-500: #f59e0b;
+  --amber-600: #d97706;
+  --amber-glow: rgba(245, 158, 11, 0.35);
+  --amber-glow-strong: rgba(245, 158, 11, 0.55);
+
   --clay: #e08a5e;
   --clay-200: #f0b89a;
+  --clay-300: #f6d4c4;
   --clay-soft: rgba(224, 138, 94, 0.16);
-  --clay-glow: rgba(224, 138, 94, 0.4);
-  --ok: #57c24a; /* remembered / preflight green */
+  --clay-glow: rgba(224, 138, 94, 0.45);
+
+  --rose: #c97b7b;
+  --rose-soft: rgba(201, 123, 123, 0.12);
+
+  --ok: #57c24a;
   --ok-soft: rgba(87, 194, 74, 0.14);
   --ok-line: rgba(87, 194, 74, 0.4);
-  --bad: #e5685c; /* amnesia / failing */
-  --bad-soft: rgba(229, 104, 92, 0.1);
+  --bad: #e5685c;
+  --bad-soft: rgba(229, 104, 92, 0.12);
   --bad-line: rgba(229, 104, 92, 0.34);
 
   --edge: rgba(255, 255, 255, 0.08);
   --edge-strong: rgba(255, 255, 255, 0.15);
+  --edge-subtle: rgba(255, 255, 255, 0.05);
 
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-mono:
     ui-monospace, 'JetBrains Mono', 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace;
 
-  --maxw: 72rem;
-  --radius: 14px;
-  --section-pad: clamp(4rem, 12vh, 9rem);
+  --maxw: 74rem;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --section-pad: clamp(5rem, 14vh, 10rem);
+
+  /* cinematic easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-sine: cubic-bezier(0.37, 0, 0.63, 1);
 }
 
 * {
@@ -59,12 +81,13 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden; /* parallax layers never cause horizontal scroll */
+  overflow-x: hidden;
 }
 
 a {
   color: inherit;
 }
+
 img,
 svg,
 video {
@@ -72,37 +95,68 @@ video {
   max-width: 100%;
 }
 
-h2 {
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+/* ---- Editorial type scale ---- */
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
   font-weight: 800;
-  margin: 0 0 0.6rem;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+h2 {
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
   max-width: 18ch;
+}
+
+h3 {
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  letter-spacing: -0.02em;
 }
 
 .container {
   max-width: var(--maxw);
   width: 100%;
   margin: 0 auto;
-  padding-inline: 1.5rem;
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
 }
 
 .section {
   position: relative;
   padding-block: var(--section-pad);
-  overflow: clip; /* contain parallax layers */
+  overflow: clip;
 }
 
 .kicker {
   font-family: var(--font-mono);
-  font-size: 0.82rem;
-  letter-spacing: 0.04em;
-  /* A quiet structural label, not a glowing chip: the accent is reserved for
-     the elements that earn it (graph, loop, CTAs), so the repeated section
-     kicker recedes and the heading carries the section. */
-  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--amber-400);
   margin: 0 0 1rem;
+}
+
+/* ---- Cinematic media backdrops ---- */
+.media-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.media-bg img,
+.media-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.media-bg .scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 80% at 70% 20%, transparent 30%, rgba(7, 8, 12, 0.85) 100%),
+    linear-gradient(180deg, rgba(7, 8, 12, 0.2), rgba(7, 8, 12, 0.7));
 }
 
 /* ---- Scroll-driven motion: compositor-based, mobile-friendly, opt-in ----
@@ -117,19 +171,38 @@ h2 {
     .reveal {
       animation: cz-reveal linear both;
       animation-timeline: view();
-      animation-range: entry 8% entry 64%;
+      animation-range: entry 6% entry 55%;
     }
     .reveal-sm {
-      animation-range: entry 0% entry 48%;
+      animation-range: entry 0% entry 40%;
+    }
+    .reveal-slow {
+      animation-range: entry 10% entry 70%;
     }
     @keyframes cz-reveal {
       from {
         opacity: 0;
-        transform: translateY(36px);
+        transform: translateY(40px);
       }
       to {
         opacity: 1;
         transform: translateY(0);
+      }
+    }
+
+    .reveal-scale {
+      animation: cz-reveal-scale linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 50%;
+    }
+    @keyframes cz-reveal-scale {
+      from {
+        opacity: 0;
+        transform: scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
       }
     }
 
@@ -140,13 +213,13 @@ h2 {
       animation-range: cover;
     }
     .parallax-slow {
-      --cz-shift: 5%;
+      --cz-shift: 6%;
     }
     .parallax-mid {
-      --cz-shift: 11%;
+      --cz-shift: 13%;
     }
     .parallax-fast {
-      --cz-shift: 20%;
+      --cz-shift: 22%;
     }
     @keyframes cz-parallax {
       from {
@@ -174,9 +247,7 @@ h2 {
   }
 }
 
-/* ---- Cinematic film layer: a global overlay for the "studio" look ----
-   Grain + warm grade + vignette + drifting embers. All pointer-events:none,
-   compositor-friendly, and dialed back / stilled under reduced-motion. */
+/* ---- Cinematic film layer: global overlay for the "studio" look ---- */
 .fx {
   position: fixed;
   inset: 0;
@@ -189,24 +260,24 @@ h2 {
   inset: 0;
 }
 .fx-particles {
-  opacity: 0.55;
+  opacity: 0.5;
   mix-blend-mode: screen;
 }
 .fx-grade {
   background:
-    radial-gradient(120% 80% at 70% 12%, rgba(245, 158, 11, 0.1), transparent 55%),
-    linear-gradient(180deg, rgba(11, 13, 18, 0) 58%, rgba(11, 13, 18, 0.4) 100%);
+    radial-gradient(120% 80% at 70% 8%, rgba(245, 158, 11, 0.12), transparent 55%),
+    linear-gradient(180deg, rgba(11, 13, 18, 0) 55%, rgba(11, 13, 18, 0.5) 100%);
   mix-blend-mode: soft-light;
 }
 .fx-vignette {
-  background: radial-gradient(130% 110% at 50% 44%, transparent 54%, rgba(0, 0, 0, 0.55) 100%);
+  background: radial-gradient(140% 120% at 50% 42%, transparent 50%, rgba(0, 0, 0, 0.6) 100%);
   mix-blend-mode: multiply;
 }
 .fx-grain {
   inset: -12%;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 160px 160px;
-  opacity: 0.05;
+  opacity: 0.045;
   mix-blend-mode: soft-light;
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -229,7 +300,7 @@ h2 {
   }
 }
 
-/* ---- Memory-graph DOM labels (JS-positioned over projected node coords) ---- */
+/* ---- Memory-graph DOM labels ---- */
 .mg-label {
   position: absolute;
   top: 0;
@@ -238,12 +309,12 @@ h2 {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.01em;
-  padding: 0.18rem 0.5rem;
+  padding: 0.2rem 0.55rem;
   border-radius: 6px;
-  background: rgba(12, 15, 21, 0.72);
+  background: rgba(12, 15, 21, 0.76);
   border: 1px solid var(--edge);
   color: var(--cream-200);
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(4px);
   will-change: transform, opacity;
   transition: opacity 0.4s ease;
   pointer-events: none;
@@ -279,9 +350,7 @@ h2 {
   color: var(--muted);
 }
 
-/* Perf governor (O-07): pause perpetual animations when the tab is hidden or
-   the animated block is scrolled offscreen — saves battery + main-thread work
-   without affecting content (toggled by the BaseLayout governor script). */
+/* Perf governor: pause perpetual animations when tab hidden or offscreen. */
 .anim-paused *,
 .anim-paused *::before,
 .anim-paused *::after,

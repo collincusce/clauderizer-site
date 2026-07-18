@@ -1,7 +1,7 @@
 # Chat Handoff Index — cinematic-site-redesign
 
 > Last updated: 2026-07-18
-> Status: Phase 2 ready
+> Status: Phase 3 ready
 
 ## How This Works
 
@@ -31,7 +31,7 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 |-------|------|--------|---------|-----------|---------|
 | 0 | Bootstrap | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-0-HANDOFF.md |
 | 1 | Discovery + creative direction | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-1-HANDOFF.md |
-| 2 | Design system refresh | ⬜ NOT STARTED | — | — | handoffs/PHASE-2-HANDOFF.md |
+| 2 | Design system refresh | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-2-HANDOFF.md |
 | 3 | Hero + opening act | ⬜ NOT STARTED | — | — | handoffs/PHASE-3-HANDOFF.md |
 | 4 | Narrative sections | ⬜ NOT STARTED | — | — | handoffs/PHASE-4-HANDOFF.md |
 | 5 | Trust + proof + conversion | ⬜ NOT STARTED | — | — | handoffs/PHASE-5-HANDOFF.md |
@@ -51,6 +51,10 @@ Phase 0 established the redesign baseline: preflight is green after fixing Node 
 ### Phase 1 — completed 2026-07-18
 
 Phase 1 produced the creative brief, content map, asset map, and wireframe direction for a cinematic single-scroll landing page. The direction centers on emotional momentum: the pain of an amnesiac agent versus the power of one that remembers. User approval is implicit in the do all phases instruction.
+
+### Phase 2 — completed 2026-07-18
+
+Phase 2 refreshed the design system: global.css now carries richer ink/cream/amber/clay/rose tokens, an editorial type scale, cinematic easing, and reusable primitives (media-bg, cards, buttons). A new /styleguide route renders every primitive, and the reduced-motion/no-JS baselines remain intact.
 
 ## Accumulated Lessons
 

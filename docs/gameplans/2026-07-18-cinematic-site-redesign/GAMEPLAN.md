@@ -75,10 +75,10 @@ _(Gameplan-internal decisions D1, D2, … . Project-wide ADRs live in docs/DECIS
 | 2.1 | _(describe)_ | _(est)_ |
 
 **Exit criteria**:
-- [ ] global.css carries the refreshed token set (color, type, space, radii, motion) without breaking existing components
-- [ ] A living /styleguide route renders all primitives: colors, type scale, buttons, cards, code blocks, motion samples
-- [ ] Typography choices and font-loading strategy are documented
-- [ ] prefers-reduced-motion and no-JS baselines are preserved
+- [x] global.css carries the refreshed token set (color, type, space, radii, motion) without breaking existing components
+- [x] A living /styleguide route renders all primitives: colors, type scale, buttons, cards, code blocks, motion samples
+- [x] Typography choices and font-loading strategy are documented
+- [x] prefers-reduced-motion and no-JS baselines are preserved
 
 ### Phase 3: Hero + opening act
 

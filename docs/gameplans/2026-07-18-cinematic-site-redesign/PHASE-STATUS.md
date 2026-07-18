@@ -11,7 +11,7 @@
 | 1 | Discovery + creative direction | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-1-HANDOFF.md |
 | 2 | Design system refresh | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-2-HANDOFF.md |
 | 3 | Hero + opening act | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-3-HANDOFF.md |
-| 4 | Narrative sections | ⬜ NOT STARTED | — | — | handoffs/PHASE-4-HANDOFF.md |
+| 4 | Narrative sections | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-4-HANDOFF.md |
 | 5 | Trust + proof + conversion | ⬜ NOT STARTED | — | — | handoffs/PHASE-5-HANDOFF.md |
 | 6 | New pages + global navigation | ⬜ NOT STARTED | — | — | handoffs/PHASE-6-HANDOFF.md |
 | 7 | Motion, media, and interaction polish | ⬜ NOT STARTED | — | — | handoffs/PHASE-7-HANDOFF.md |
@@ -48,6 +48,12 @@ styleguide_route: /styleguide renders colors, type, buttons, cards, code, motion
 ```
 hero_video: public/media/hero/hero.mp4 with poster.jpg fallback and WebGL graph overlay
 hero_copy: Your best ideas shouldnt die in the dark — emotional hook framing the agents forgetting as the villain
+```
+
+### Phase 4 Outputs
+
+```
+narrative_sections: Problem, AmnesiaMemory, HowItWorks, SessionDemo rebuilt with cinematic backdrops and emotional copy
 ```
 
 ## Corrections Log

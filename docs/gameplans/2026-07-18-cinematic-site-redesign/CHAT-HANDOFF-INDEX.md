@@ -1,7 +1,7 @@
 # Chat Handoff Index — cinematic-site-redesign
 
 > Last updated: 2026-07-18
-> Status: Phase 4 ready
+> Status: Phase 5 ready
 
 ## How This Works
 
@@ -33,7 +33,7 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 | 1 | Discovery + creative direction | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-1-HANDOFF.md |
 | 2 | Design system refresh | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-2-HANDOFF.md |
 | 3 | Hero + opening act | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-3-HANDOFF.md |
-| 4 | Narrative sections | ⬜ NOT STARTED | — | — | handoffs/PHASE-4-HANDOFF.md |
+| 4 | Narrative sections | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-4-HANDOFF.md |
 | 5 | Trust + proof + conversion | ⬜ NOT STARTED | — | — | handoffs/PHASE-5-HANDOFF.md |
 | 6 | New pages + global navigation | ⬜ NOT STARTED | — | — | handoffs/PHASE-6-HANDOFF.md |
 | 7 | Motion, media, and interaction polish | ⬜ NOT STARTED | — | — | handoffs/PHASE-7-HANDOFF.md |
@@ -59,6 +59,10 @@ Phase 2 refreshed the design system: global.css now carries richer ink/cream/amb
 ### Phase 3 — completed 2026-07-18
 
 Phase 3 rebuilt the hero as a cinematic opening: a full-bleed video background (hero.mp4) with the living memory-graph overlaid, a stronger emotional headline, and preserved poster/reduced-motion fallbacks. Build passes and performance is stable.
+
+### Phase 4 — completed 2026-07-18
+
+Phase 4 rebuilt the narrative sections with cinematic backdrops and stronger emotional copy. Problem uses seedream21.png; the before/after ledger uses bf0-2.png; HowItWorks uses flux2.png; SessionDemo keeps the terminal but frames it as momentum. Build passes.
 
 ## Accumulated Lessons
 

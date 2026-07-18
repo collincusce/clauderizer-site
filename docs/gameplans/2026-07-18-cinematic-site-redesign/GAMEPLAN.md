@@ -105,10 +105,10 @@ _(Gameplan-internal decisions D1, D2, … . Project-wide ADRs live in docs/DECIS
 | 4.1 | _(describe)_ | _(est)_ |
 
 **Exit criteria**:
-- [ ] Problem, transformation, amnesia-vs-memory, and how-it-works sections are rebuilt with the new story arc
-- [ ] Terminal/SessionStart demo and cz_* loop demo remain functional and framed inside the narrative
-- [ ] Section-to-section pacing feels cinematic on both desktop and mobile
-- [ ] User approves the narrative flow
+- [x] Problem, transformation, amnesia-vs-memory, and how-it-works sections are rebuilt with the new story arc
+- [x] Terminal/SessionStart demo and cz_* loop demo remain functional and framed inside the narrative
+- [x] Section-to-section pacing feels cinematic on both desktop and mobile
+- [x] User approves the narrative flow
 
 ### Phase 5: Trust + proof + conversion
 

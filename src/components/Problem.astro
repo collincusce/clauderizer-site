@@ -1,12 +1,11 @@
 ---
-// The problem: "long-running AI work hits two walls" (from the README).
-// Parallax lives on decorative blobs; content reveals on scroll.
+// The failure mode: make it personal. Full-bleed cinematic backdrop.
 ---
 
 <section class="section problem" id="why">
-  <div class="backdrop" aria-hidden="true">
-    <div class="blob blob-a parallax parallax-slow"></div>
-    <div class="blob blob-b parallax parallax-mid"></div>
+  <div class="media-bg parallax parallax-slow" aria-hidden="true">
+    <img src="/media/hero/seedream21.png" alt="" loading="lazy" decoding="async" />
+    <div class="scrim"></div>
   </div>
 
   <div class="container">
@@ -18,15 +17,15 @@
         <span class="num">01</span>
         <h3>A fresh session starts blank.</h3>
         <p>
-          Every "where were we?" is re-derived from scratch, or re-explained by you, for the tenth
-          time.
+          You re-explain the architecture. Again. The agent re-discovers what it already knew,
+          burning context and patience on ground you covered yesterday.
         </p>
       </article>
       <article class="card reveal">
         <span class="num">02</span>
         <h3>A long session fills its context.</h3>
         <p>
-          Mid-task the window overflows and the agent forgets its own earlier decisions, then
+          Mid-task the window overflows. The agent forgets its own earlier decisions, then
           confidently contradicts them an hour later.
         </p>
       </article>
@@ -42,32 +41,25 @@
 
 <style>
   .problem {
-    background: linear-gradient(180deg, var(--ink-900), var(--ink-800));
+    background: var(--ink-900);
   }
-  .backdrop {
+  .media-bg {
     position: absolute;
     inset: 0;
     z-index: 0;
     pointer-events: none;
   }
-  .blob {
+  .media-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .scrim {
     position: absolute;
-    border-radius: 50%;
-    filter: blur(64px);
-  }
-  .blob-a {
-    width: 42rem;
-    height: 42rem;
-    left: -12rem;
-    top: -10rem;
-    background: radial-gradient(circle, rgba(139, 145, 161, 0.16), transparent 65%);
-  }
-  .blob-b {
-    width: 40rem;
-    height: 40rem;
-    right: -14rem;
-    bottom: -12rem;
-    background: radial-gradient(circle, var(--amber-glow), transparent 62%);
+    inset: 0;
+    background:
+      radial-gradient(120% 80% at 30% 20%, transparent 30%, rgba(7, 8, 12, 0.92) 100%),
+      linear-gradient(180deg, rgba(7, 8, 12, 0.3), rgba(7, 8, 12, 0.8));
   }
   .container {
     position: relative;
@@ -77,32 +69,39 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
     gap: 1.2rem;
-    margin-top: 2.6rem;
+    margin-top: 2.8rem;
   }
   .card {
-    background: rgba(18, 21, 29, 0.66);
+    background: rgba(11, 13, 18, 0.72);
     border: 1px solid var(--edge);
     border-radius: var(--radius);
-    padding: 1.7rem;
-    backdrop-filter: blur(6px);
+    padding: 1.9rem;
+    backdrop-filter: blur(8px);
+    transition:
+      transform 0.18s ease,
+      border-color 0.18s ease;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(245, 158, 11, 0.35);
   }
   .card .num {
     font-family: var(--font-mono);
-    color: var(--amber-400);
+    color: var(--clay);
     font-size: 0.85rem;
   }
   .card h3 {
-    margin: 0.6rem 0 0.5rem;
-    font-size: 1.3rem;
+    margin: 0.7rem 0 0.55rem;
   }
   .card p {
     margin: 0;
     color: var(--cream-200);
+    line-height: 1.65;
   }
   .closer {
-    margin-top: 2.6rem;
-    max-width: 48rem;
-    font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+    margin-top: 2.8rem;
+    max-width: 50rem;
+    font-size: clamp(1.05rem, 1.8vw, 1.22rem);
     color: var(--cream-200);
   }
   .closer strong {

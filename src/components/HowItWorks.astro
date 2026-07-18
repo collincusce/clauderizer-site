@@ -1,12 +1,9 @@
 ---
-// How it works: markdown source of truth -> engine -> MCP + hooks -> your agent,
-// shown as a connected pipeline; then the cz_* phase loop as a live, perpetually
-// cycling animation (CSS-driven so it runs without JS and stills under
-// reduced-motion). A drifting dot-grid backdrop parallaxes.
+// How it works: reframe Markdown-in-docs as durability and permanence.
 const stages = [
   {
     t: 'Markdown in docs/',
-    d: 'Plans, decisions, invariants, a dependency graph, all diffable, reviewable, and shipped with the code.',
+    d: 'Plans, decisions, invariants, a dependency graph — all diffable, reviewable, and shipped with the code.',
   },
   {
     t: 'The engine',
@@ -33,16 +30,17 @@ const loop = [
 ---
 
 <section class="section how" id="how-it-works">
-  <div class="dotgrid parallax parallax-fast" aria-hidden="true"></div>
+  <div class="media-bg parallax parallax-mid" aria-hidden="true">
+    <img src="/media/hero/flux2.png" alt="" loading="lazy" decoding="async" />
+    <div class="scrim"></div>
+  </div>
 
   <div class="container">
     <p class="kicker reveal reveal-sm">How it works</p>
-    <h2 class="reveal">Markdown is the source of truth.</h2>
+    <h2 class="reveal">Your memory is just readable files in docs/.</h2>
     <p class="sub reveal">
-      The graph index is a disposable cache, rebuilt from the Markdown on demand. If they ever
-      disagree, Markdown wins. No database, no lock-in. Your memory is just readable files in <code
-        >docs/</code
-      >.
+      No database. No proprietary cloud. The graph index is a disposable cache, rebuilt from the
+      Markdown on demand. If they ever disagree, Markdown wins. Your ideas survive as plain text.
     </p>
 
     <ol class="pipeline reveal">
@@ -90,54 +88,62 @@ const loop = [
   .how {
     background: var(--ink-900);
   }
-  .dotgrid {
+  .media-bg {
     position: absolute;
-    inset: -10% 0;
+    inset: 0;
     z-index: 0;
     pointer-events: none;
-    opacity: 0.5;
-    background-image: radial-gradient(rgba(245, 158, 11, 0.16) 1px, transparent 1.4px);
-    background-size: 26px 26px;
-    -webkit-mask-image: radial-gradient(120% 70% at 50% 30%, #000 30%, transparent 75%);
-    mask-image: radial-gradient(120% 70% at 50% 30%, #000 30%, transparent 75%);
+  }
+  .media-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 90% at 80% 40%, transparent 25%, rgba(7, 8, 12, 0.92) 100%),
+      linear-gradient(180deg, rgba(7, 8, 12, 0.4), rgba(7, 8, 12, 0.85));
   }
   .container {
     position: relative;
     z-index: 1;
   }
   .sub {
-    max-width: 46rem;
+    max-width: 48rem;
     color: var(--cream-200);
-    font-size: clamp(1.02rem, 1.7vw, 1.18rem);
-    margin: 0 0 2.6rem;
+    font-size: clamp(1.05rem, 1.8vw, 1.22rem);
+    margin: 0 0 2.8rem;
+    line-height: 1.6;
   }
   .sub code,
   .loop code {
     font-family: var(--font-mono);
   }
 
-  /* ---- connected pipeline ---- */
   .pipeline {
     list-style: none;
-    margin: 0 0 3rem;
+    margin: 0 0 3.2rem;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
-    gap: 1.1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 1.2rem;
   }
   .stage {
     position: relative;
-    padding: 1.4rem;
+    padding: 1.6rem;
     border: 1px solid var(--edge);
     border-radius: var(--radius);
-    background: rgba(17, 20, 28, 0.6);
+    background: rgba(11, 13, 18, 0.72);
+    backdrop-filter: blur(6px);
     transition:
       border-color 0.2s ease,
       transform 0.2s ease;
   }
   .stage:hover {
     border-color: var(--clay-soft);
-    transform: translateY(-3px);
+    transform: translateY(-4px);
   }
   .stage .idx {
     font-family: var(--font-mono);
@@ -146,17 +152,18 @@ const loop = [
   }
   .stage b {
     display: block;
-    margin: 0.4rem 0 0.5rem;
-    font-size: 1.12rem;
+    margin: 0.45rem 0 0.55rem;
+    font-size: 1.14rem;
   }
   .stage p {
     margin: 0;
     color: var(--cream-200);
-    font-size: 0.96rem;
+    font-size: 0.97rem;
+    line-height: 1.6;
   }
   .stage .flow {
     position: absolute;
-    right: -0.95rem;
+    right: -1rem;
     top: 50%;
     transform: translateY(-50%);
     color: var(--clay);
@@ -167,26 +174,26 @@ const loop = [
     .stage .flow {
       right: 50%;
       top: auto;
-      bottom: -0.95rem;
+      bottom: -1rem;
       transform: translateX(50%) rotate(90deg);
     }
   }
 
-  /* ---- the live cz_* loop ---- */
   .loop {
     margin: 0;
     border: 1px solid var(--edge);
     border-radius: var(--radius);
-    background: var(--ink-850);
+    background: rgba(11, 13, 18, 0.82);
+    backdrop-filter: blur(6px);
     overflow: hidden;
-    max-width: 46rem;
+    max-width: 48rem;
   }
   .loop figcaption {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     gap: 1rem;
-    padding: 0.9rem 1.2rem;
+    padding: 0.95rem 1.25rem;
     border-bottom: 1px solid var(--edge);
   }
   .loop-title {
@@ -203,15 +210,14 @@ const loop = [
   .loop-track {
     list-style: none;
     margin: 0;
-    padding: 1.1rem 1.2rem 1.3rem;
+    padding: 1.2rem 1.3rem 1.4rem;
     position: relative;
   }
-  /* the connector rail */
   .loop-track::before {
     content: '';
     position: absolute;
-    left: calc(1.2rem + 6px);
-    top: 1.7rem;
+    left: calc(1.3rem + 6px);
+    top: 1.8rem;
     bottom: 2.2rem;
     width: 2px;
     background: var(--edge-strong);
@@ -222,8 +228,8 @@ const loop = [
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: baseline;
-    column-gap: 0.85rem;
-    padding: 0.46rem 0;
+    column-gap: 0.9rem;
+    padding: 0.48rem 0;
     padding-left: 0.1rem;
   }
   .loop-dot {
@@ -252,8 +258,6 @@ const loop = [
     color: var(--muted);
     font-style: italic;
   }
-  /* Output line always reserves its space (no layout animation) — only
-     opacity/transform animate, so the perpetual loop stays compositor-only. */
   .loop-out {
     grid-column: 2;
     font-size: 0.8rem;
@@ -273,8 +277,6 @@ const loop = [
     background: var(--clay-soft);
   }
 
-  /* perpetual activation: each step fires in turn via negative-delay stagger.
-     CSS-only -> runs with JS off; the @media block below stills it. */
   @media (prefers-reduced-motion: no-preference) {
     .loop-step {
       animation: loop-fire 9s linear infinite;
@@ -336,7 +338,6 @@ const loop = [
         transform: translateY(-2px);
       }
     }
-    /* active call brightens while its slot is lit */
     .loop-step .loop-call {
       animation: loop-call 9s linear infinite;
       animation-delay: calc(var(--i) * -1.5s);

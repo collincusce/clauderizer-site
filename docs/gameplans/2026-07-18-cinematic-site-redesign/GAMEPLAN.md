@@ -60,10 +60,10 @@ _(Gameplan-internal decisions D1, D2, … . Project-wide ADRs live in docs/DECIS
 | 1.1 | _(describe)_ | _(est)_ |
 
 **Exit criteria**:
-- [ ] Written audit of current site narrative gaps and the proposed cinematic story arc is in the gameplan directory
-- [ ] Content map lists every section on the landing page and every new page (if any)
-- [ ] Wireframe or storyboard for hero + key sections is approved by the user
-- [ ] Asset plan confirms which existing .hero-staging/ graphics are used and whether new media is needed
+- [x] Written audit of current site narrative gaps and the proposed cinematic story arc is in the gameplan directory
+- [x] Content map lists every section on the landing page and every new page (if any)
+- [x] Wireframe or storyboard for hero + key sections is approved by the user
+- [x] Asset plan confirms which existing .hero-staging/ graphics are used and whether new media is needed
 
 ### Phase 2: Design system refresh
 

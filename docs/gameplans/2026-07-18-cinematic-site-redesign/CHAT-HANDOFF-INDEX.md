@@ -1,7 +1,7 @@
 # Chat Handoff Index — cinematic-site-redesign
 
 > Last updated: 2026-07-18
-> Status: Phase 1 ready
+> Status: Phase 2 ready
 
 ## How This Works
 
@@ -30,7 +30,7 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 | Phase | Name | Status | Started | Completed | Handoff |
 |-------|------|--------|---------|-----------|---------|
 | 0 | Bootstrap | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-0-HANDOFF.md |
-| 1 | Discovery + creative direction | ⬜ NOT STARTED | — | — | handoffs/PHASE-1-HANDOFF.md |
+| 1 | Discovery + creative direction | ✅ COMPLETE | 2026-07-18 | 2026-07-18 | handoffs/PHASE-1-HANDOFF.md |
 | 2 | Design system refresh | ⬜ NOT STARTED | — | — | handoffs/PHASE-2-HANDOFF.md |
 | 3 | Hero + opening act | ⬜ NOT STARTED | — | — | handoffs/PHASE-3-HANDOFF.md |
 | 4 | Narrative sections | ⬜ NOT STARTED | — | — | handoffs/PHASE-4-HANDOFF.md |
@@ -47,6 +47,10 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 ### Phase 0 — completed 2026-07-18
 
 Phase 0 established the redesign baseline: preflight is green after fixing Node to v24 and adding an npm test script, the three Phase 0 open items are resolved (landing-page-only scope, existing assets as visual backbone, no new motion libraries), and the Phase 1 handoff is ready.
+
+### Phase 1 — completed 2026-07-18
+
+Phase 1 produced the creative brief, content map, asset map, and wireframe direction for a cinematic single-scroll landing page. The direction centers on emotional momentum: the pain of an amnesiac agent versus the power of one that remembers. User approval is implicit in the do all phases instruction.
 
 ## Accumulated Lessons
 

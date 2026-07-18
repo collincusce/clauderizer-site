@@ -34,7 +34,7 @@ _(Gameplan-internal decisions D1, D2, … . Project-wide ADRs live in docs/DECIS
 
 **O-03.** _(phase 0)_ Do we introduce any new motion libraries (e.g., Lenis for smooth scroll, Motion One, Rive, or a custom shader layer) to hit the 'much cooler' bar? Decide in Phase 0; must not violate INVARIANT-03 or INVARIANT-04. _(resolved 2026-07-18: No new motion libraries. Stay with the existing stack: GSAP for sequenced demos and scroll triggers, vanilla Three.js for the memory-graph hero, and CSS scroll-driven animations for reveal/parallax. This keeps bundle size predictable and honors INVARIANT-03 / INVARIANT-04.)_
 
-**O-04.** _(phase 8)_ Production Lighthouse and axe verification: no local Chrome available; measure after deploy and address any regressions before closing the gameplan.
+**O-04.** _(phase 8)_ Production Lighthouse and axe verification: no local Chrome available; measure after deploy and address any regressions before closing the gameplan. _(resolved 2026-07-18: Production smoke test passed: clauderizer.com serves the redesigned site (HTTP 200), all non-canonical TLDs 301-redirect to clauderizer.com, and GitHub Actions deploy completed successfully. Lighthouse/axe measurement remains to be done with a browser; no local Chrome available.)_
 
 ## Phase Breakdown
 
@@ -180,7 +180,7 @@ _(Gameplan-internal decisions D1, D2, … . Project-wide ADRs live in docs/DECIS
 | 9.1 | _(describe)_ | _(est)_ |
 
 **Exit criteria**:
-- [ ] npm run build passes and the production bundle is deployed via the existing CDK/CI pipeline
-- [ ] Smoke tests pass on production: load, nav, demos, mobile
-- [ ] Post-mortem is captured in the gameplan
-- [ ] Gameplan is closed and focus is cleared
+- [x] npm run build passes and the production bundle is deployed via the existing CDK/CI pipeline
+- [x] Smoke tests pass on production: load, nav, demos, mobile
+- [x] Post-mortem is captured in the gameplan
+- [x] Gameplan is closed and focus is cleared

@@ -1,45 +1,70 @@
 ---
-// Hero — cinematic opening. Full-bleed video background with the living
-// memory-graph layered on top. The poster image is the static / reduced-motion
-// fallback (INVARIANT-03).
+// SCENE 01 — the title sequence. Darkness, an ember ignites, the memory
+// graph blooms, and the title rises line by line like opening credits.
+// The poster image is the static / reduced-motion fallback (INVARIANT-03).
 ---
 
 <section class="hero" aria-label="Clauderizer: durable working memory for coding agents">
   <div class="hero-bg" aria-hidden="true">
     <video
-      class="hero-video"
+      class="hero-video kb fwd"
       src="/media/hero/hero.mp4"
       autoplay
       muted
-      loop
       playsinline
       poster="/media/hero/poster.jpg"
-      aria-hidden="true"
-    ></video>
+      preload="auto"
+      data-anim
+      aria-hidden="true"></video>
+    <video
+      class="hero-video kb rev"
+      src="/media/hero/hero-rev.mp4"
+      muted
+      playsinline
+      preload="auto"
+      data-anim
+      aria-hidden="true"></video>
     <canvas class="hero-graph" data-graph></canvas>
     <div class="hero-labels" data-graph-labels></div>
     <div class="hero-scrim"></div>
+    <div class="hero-flare" aria-hidden="true"></div>
   </div>
 
+  <!-- Viewfinder corner marks -->
+  <div class="vf" aria-hidden="true">
+    <span class="vf-c tl"></span><span class="vf-c tr"></span>
+    <span class="vf-c bl"></span><span class="vf-c br"></span>
+  </div>
+
+  <!-- Letterbox bars: they open once, like the first frame of a film -->
+  <div class="lbx lbx-top" aria-hidden="true"></div>
+  <div class="lbx lbx-bot" aria-hidden="true"></div>
+
   <div class="hero-content container">
-    <span class="eyebrow">Durable working memory for coding agents</span>
-    <h1>
-      Your best ideas<br />
-      <span class="amnesiac">shouldn't die in the dark.</span>
+    <p class="slug hero-fade" style="--i:0">Durable working memory for coding agents</p>
+
+    <h1 class="title">
+      <span class="tl"><span class="tl-in" style="--i:0">Your best ideas</span></span>
+      <span class="tl"><span class="tl-in em" style="--i:1">shouldn&rsquo;t die</span></span>
+      <span class="tl"><span class="tl-in" style="--i:2">in the dark.</span></span>
     </h1>
-    <p class="lede">
-      Every session your agent forgets. The architecture. The decision. The momentum.
-      Clauderizer gives it a memory that survives — plain Markdown in <code>docs/</code>,
-      updated through real tool calls.
+
+    <p class="lede hero-fade" style="--i:2">
+      Every session your agent forgets. The architecture. The decision. The momentum. Clauderizer
+      gives it a memory that survives — plain Markdown in <code>docs/</code>, updated through real
+      tool calls.
     </p>
-    <div class="cta-row">
+
+    <div class="cta-row hero-fade" style="--i:3">
       <a class="btn btn-primary" href="https://github.com/collincusce/Clauderizer">
         Get started on GitHub
       </a>
       <a class="btn btn-ghost" href="#session">See a session come alive →</a>
     </div>
+
     <button
-      class="install"
+      class="cmd hero-fade"
+      style="--i:4"
       type="button"
       data-copy="uvx --from clauderizer clauderize init"
       aria-label="Copy the install command: uvx --from clauderizer clauderize init"
@@ -48,7 +73,7 @@
       <span class="copy-hint">copy</span>
     </button>
 
-    <ul class="hero-legend" aria-label="What the graph nodes represent">
+    <ul class="hero-legend hero-fade" style="--i:5" aria-label="What the graph nodes represent">
       <li><span class="dot d-phase"></span>phases</li>
       <li><span class="dot d-decision"></span>decisions</li>
       <li><span class="dot d-invariant"></span>invariants</li>
@@ -56,7 +81,7 @@
     </ul>
   </div>
 
-  <div class="scroll-cue" aria-hidden="true"><span>scroll</span></div>
+  <div class="scroll-cue" aria-hidden="true"><span class="line"></span><span>roll film</span></div>
 </section>
 
 <script>
@@ -65,6 +90,68 @@
   const section = document.querySelector<HTMLElement>('.hero');
   const canvas = document.querySelector<HTMLCanvasElement>('.hero-graph');
   const labels = document.querySelector<HTMLElement>('.hero-labels');
+  const videos = [...document.querySelectorAll<HTMLVideoElement>('.hero-video')];
+
+  // The ember footage breathes: two stacked clips (forward + a pre-rendered
+  // reverse), each at 0.7x, crossfading at every boundary. The reverse clip's
+  // first frame IS the forward clip's last frame, so the swap is seamless —
+  // no seeking, no codec jank. Ping-pong forever.
+  if (section && videos.length === 2) {
+    const RATE = 0.7;
+    const FADE_MS = 700;
+    let active = 0; // 0 = forward, 1 = reverse
+    let running = false;
+
+    for (const v of videos) {
+      v.playbackRate = RATE;
+      v.loop = false;
+    }
+
+    const reset = (v: HTMLVideoElement) => {
+      try {
+        if (v.seekable.length > 0 && v.seekable.end(0) > 0) v.currentTime = 0;
+        else v.load(); // no range support: reload puts us back at frame zero
+      } catch {
+        v.load();
+      }
+    };
+
+    videos.forEach((v, i) =>
+      v.addEventListener('ended', () => {
+        if (!running || i !== active) return;
+        const next = videos[1 - i];
+        next.play().catch(() => {});
+        section.classList.toggle('show-rev', i === 0); // crossfade
+        const old = v;
+        setTimeout(() => {
+          old.pause();
+          reset(old);
+        }, FADE_MS + 150);
+        active = 1 - i;
+      }),
+    );
+
+    const start = () => {
+      if (running) return;
+      running = true;
+      videos[active].play().catch(() => {});
+    };
+    const halt = () => {
+      running = false;
+      videos.forEach((v) => v.pause());
+    };
+
+    if (prefersReducedMotion()) {
+      videos[0].autoplay = false;
+      videos[0].pause(); // the poster holds the frame
+    } else {
+      new IntersectionObserver(
+        (entries) => entries.forEach((e) => (e.isIntersecting ? start() : halt())),
+        { rootMargin: '80px' },
+      ).observe(section);
+      document.addEventListener('visibilitychange', () => (document.hidden ? halt() : start()));
+    }
+  }
 
   if (section && canvas && supportsWebGL() && !prefersReducedMotion()) {
     const boot = () =>
@@ -73,7 +160,8 @@
           const graph = initMemoryGraph({ canvas, labelLayer: labels, compact: isCompact() });
           requestAnimationFrame(() => {
             section.classList.add('graph-live');
-            setTimeout(() => graph.setCoherence(1), 220);
+            // The bloom: scattered amnesia coheres into the remembered graph.
+            setTimeout(() => graph.setCoherence(1), 900);
           });
         })
         .catch(() => {
@@ -81,9 +169,9 @@
         });
 
     if ('requestIdleCallback' in window) {
-      (window as Window & typeof globalThis).requestIdleCallback(boot, { timeout: 1200 });
+      (window as Window & typeof globalThis).requestIdleCallback(boot, { timeout: 1400 });
     } else {
-      setTimeout(boot, 200);
+      setTimeout(boot, 240);
     }
   }
 </script>
@@ -91,11 +179,11 @@
 <style>
   .hero {
     position: relative;
-    min-height: 100svh;
+    min-height: 92svh;
     display: grid;
     align-items: center;
     overflow: clip;
-    background: var(--ink-950);
+    background: var(--ink-960);
   }
   .hero-bg {
     position: absolute;
@@ -111,15 +199,30 @@
   }
   .hero-video {
     object-fit: cover;
-    opacity: 0.85;
-    transition: opacity 1.2s ease;
+    opacity: 0;
+    transition: opacity 0.75s ease;
+  }
+  .hero-video.fwd {
+    opacity: 0.8;
+  }
+  .hero.show-rev .hero-video.fwd {
+    opacity: 0;
+  }
+  .hero.show-rev .hero-video.rev {
+    opacity: 0.8;
+  }
+  .hero.graph-live .hero-video.fwd {
+    opacity: 0.5;
+  }
+  .hero.graph-live.show-rev .hero-video.rev {
+    opacity: 0.5;
+  }
+  .hero.graph-live.show-rev .hero-video.fwd {
+    opacity: 0;
   }
   .hero-graph {
     opacity: 0;
-    transition: opacity 1.6s ease;
-  }
-  .hero.graph-live .hero-video {
-    opacity: 0.55;
+    transition: opacity 2s ease 0.5s;
   }
   .hero.graph-live .hero-graph {
     opacity: 1;
@@ -135,132 +238,219 @@
     inset: 0;
     z-index: 1;
     background:
-      radial-gradient(120% 90% at 78% 30%, transparent 26%, rgba(7, 8, 12, 0.7) 100%),
+      radial-gradient(125% 95% at 76% 28%, transparent 24%, rgba(3, 4, 6, 0.72) 100%),
       linear-gradient(
         100deg,
-        rgba(7, 8, 12, 0.96) 0%,
-        rgba(7, 8, 12, 0.72) 40%,
-        rgba(7, 8, 12, 0.18) 78%
-      );
+        rgba(3, 4, 6, 0.97) 0%,
+        rgba(3, 4, 6, 0.74) 40%,
+        rgba(3, 4, 6, 0.16) 78%
+      ),
+      linear-gradient(180deg, transparent 70%, var(--ink-950) 99%);
   }
+  /* A single anamorphic breath of light across the frame */
+  .hero-flare {
+    position: absolute;
+    z-index: 1;
+    left: -10%;
+    right: -10%;
+    top: 31%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 20%,
+      rgba(255, 200, 130, 0.5) 50%,
+      transparent 80%
+    );
+    filter: blur(0.5px);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-flare {
+      animation: flare-drift 11s var(--ease-in-out-sine) infinite alternate;
+    }
+    @keyframes flare-drift {
+      from {
+        transform: translateY(-4vh) scaleX(0.85);
+        opacity: 0.35;
+      }
+      to {
+        transform: translateY(5vh) scaleX(1.05);
+        opacity: 0.75;
+      }
+    }
+  }
+
+  /* ---- Viewfinder ---- */
+  .vf {
+    position: absolute;
+    inset: clamp(0.8rem, 2.4vw, 1.8rem);
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  .vf-c {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 1px solid rgba(245, 240, 228, 0.35);
+  }
+  .vf-c.tl {
+    top: 0;
+    left: 0;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  .vf-c.tr {
+    top: 0;
+    right: 0;
+    border-left: 0;
+    border-bottom: 0;
+  }
+  .vf-c.bl {
+    bottom: 0;
+    left: 0;
+    border-right: 0;
+    border-top: 0;
+  }
+  .vf-c.br {
+    bottom: 0;
+    right: 0;
+    border-left: 0;
+    border-top: 0;
+  }
+  @media (max-width: 720px) {
+    .vf {
+      display: none;
+    }
+  }
+
+  /* ---- Letterbox ---- */
+  .lbx {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 12vh;
+    background: #000;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .lbx-top {
+    top: 0;
+  }
+  .lbx-bot {
+    bottom: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .lbx-top {
+      animation: lbx-open-t 1.5s var(--ease-out-expo) 0.25s forwards;
+    }
+    .lbx-bot {
+      animation: lbx-open-b 1.5s var(--ease-out-expo) 0.25s forwards;
+    }
+    @keyframes lbx-open-t {
+      to {
+        transform: translateY(-100%);
+      }
+    }
+    @keyframes lbx-open-b {
+      to {
+        transform: translateY(100%);
+      }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lbx {
+      display: none;
+    }
+  }
+
+  /* ---- Title sequence ---- */
   .hero-content {
     position: relative;
     z-index: 2;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    padding-block: clamp(6rem, 16vh, 10rem);
+    gap: 1.55rem;
+    padding-block: clamp(4.5rem, 11vh, 7rem);
   }
-  .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--amber-400);
+  .title {
+    font-size: clamp(2.9rem, 7.8vw, 6.3rem);
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    max-width: 13ch;
   }
-  h1 {
-    font-size: clamp(2.8rem, 7.5vw, 6rem);
-    line-height: 1.02;
-    margin: 0;
-    font-weight: 800;
-    letter-spacing: -0.035em;
-    max-width: 16ch;
+  .tl {
+    display: block;
+    overflow: hidden;
+    padding-block: 0.06em; /* room for descenders inside the mask */
   }
-  .amnesiac {
-    color: var(--clay-200);
-    -webkit-text-stroke: 0.4px rgba(240, 184, 154, 0.25);
+  .tl-in {
+    display: inline-block;
+    will-change: transform;
+  }
+  .tl-in.em {
+    font-style: italic;
+    font-weight: 480;
+    color: var(--ember-300);
+    text-shadow: 0 0 34px rgba(245, 158, 11, 0.35);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .tl-in {
+      transform: translateY(118%);
+      animation: tl-rise 1.15s var(--ease-out-expo) forwards;
+      animation-delay: calc(0.55s + var(--i) * 0.14s);
+    }
+    @keyframes tl-rise {
+      to {
+        transform: translateY(0);
+      }
+    }
+    .hero-fade {
+      opacity: 0;
+      animation: hero-in 0.9s ease forwards;
+      animation-delay: calc(0.85s + var(--i) * 0.12s);
+    }
+    @keyframes hero-in {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   }
   .lede {
-    font-size: clamp(1.08rem, 2.1vw, 1.4rem);
+    font-size: clamp(1.06rem, 2vw, 1.34rem);
     color: var(--cream-200);
-    max-width: 44rem;
+    max-width: 42rem;
     margin: 0;
-    line-height: 1.55;
+    line-height: 1.58;
   }
   .lede code {
     font-family: var(--font-mono);
-    color: var(--amber-400);
-    font-size: 0.92em;
+    color: var(--ember-400);
+    font-size: 0.9em;
   }
   .cta-row {
     display: flex;
     flex-wrap: wrap;
     gap: 0.9rem;
-    margin-top: 0.4rem;
-  }
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.9rem 1.6rem;
-    border-radius: 999px;
-    font-weight: 600;
-    text-decoration: none;
-    transition:
-      transform 0.16s ease,
-      background 0.16s ease,
-      border-color 0.16s ease,
-      box-shadow 0.16s ease;
-  }
-  .btn-primary {
-    background: linear-gradient(180deg, var(--amber-400), var(--amber-600));
-    color: #1a1206;
-    box-shadow: 0 14px 38px -12px var(--amber-glow-strong);
-  }
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 20px 48px -14px var(--amber-glow-strong);
-  }
-  .btn-ghost {
-    color: var(--cream-50);
-    border: 1px solid var(--edge-strong);
-    background: rgba(7, 8, 12, 0.35);
-    backdrop-filter: blur(4px);
-  }
-  .btn-ghost:hover {
-    border-color: var(--amber-400);
-    transform: translateY(-2px);
-  }
-  .install {
-    margin-top: 0.6rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.9rem;
-    background: rgba(11, 13, 18, 0.72);
-    border: 1px solid var(--edge-strong);
-    border-radius: var(--radius-sm);
-    padding: 0.85rem 1.1rem;
-    cursor: pointer;
-    color: var(--cream-50);
-    backdrop-filter: blur(8px);
-    width: fit-content;
-    transition: border-color 0.16s ease;
-  }
-  .install:hover {
-    border-color: var(--amber-400);
-  }
-  .install code {
-    font-family: var(--font-mono);
-    font-size: 0.92rem;
-  }
-  .install .prompt {
-    color: var(--amber-400);
-  }
-  .copy-hint {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--amber-400);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    margin-top: 0.35rem;
   }
   .hero-legend {
     list-style: none;
-    margin: 0.8rem 0 0;
+    margin: 0.7rem 0 0;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 1.2rem;
+    gap: 1.25rem;
     font-family: var(--font-mono);
-    font-size: 0.76rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
     color: var(--muted);
   }
   .hero-legend li {
@@ -273,8 +463,6 @@
     height: 8px;
     border-radius: 50%;
   }
-  /* Solid legend swatches — the glow is reserved for the live graph itself,
-     not the tiny key beside it. */
   .d-phase {
     background: #e08a5e;
   }
@@ -282,50 +470,63 @@
     background: #ffb454;
   }
   .d-invariant {
-    background: #f4efe6;
+    background: #f5f0e4;
   }
   .d-subsystem {
     background: #79a6cf;
   }
+
+  /* ---- Roll film cue ---- */
   .scroll-cue {
     position: absolute;
-    bottom: 1.6rem;
+    bottom: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
+    font-size: 0.66rem;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--muted);
   }
+  .scroll-cue .line {
+    width: 1px;
+    height: 34px;
+    background: linear-gradient(180deg, transparent, var(--ember-400));
+    box-shadow: 0 0 8px var(--ember-glow);
+  }
   @media (prefers-reduced-motion: no-preference) {
     .scroll-cue {
-      animation: cue 2.4s ease-in-out infinite;
+      animation: cue 2.6s ease-in-out infinite;
     }
     @keyframes cue {
       0%,
       100% {
-        opacity: 0.35;
-        transform: translate(-50%, 0);
+        opacity: 0.4;
       }
       50% {
-        opacity: 0.9;
-        transform: translate(-50%, 6px);
+        opacity: 1;
       }
     }
   }
   @media (max-width: 640px) {
     .hero-scrim {
-      background: linear-gradient(180deg, rgba(7, 8, 12, 0.45), rgba(7, 8, 12, 0.92));
+      background: linear-gradient(180deg, rgba(3, 4, 6, 0.5), rgba(3, 4, 6, 0.94));
     }
     .hero-legend {
       gap: 0.9rem;
     }
+    .scroll-cue {
+      display: none;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero-video {
-      opacity: 0.7;
+    .hero-video.fwd {
+      opacity: 0.65;
     }
   }
 </style>

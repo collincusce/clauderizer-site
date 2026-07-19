@@ -1,52 +1,163 @@
 ---
+// SCENE 08 — the production glossary: a sidebar of the five headings, one
+// group's dictionary printed at a time on the right. CSS-only (radio
+// :checked), keyboard-navigable, collapses to a tab strip on mobile.
+import FAQ from '@/components/FAQ.astro';
+
 const groups = [
   {
     label: 'The structures',
     terms: [
-      { term: 'gameplan', meaning: 'A whole initiative: phases, decisions, exit criteria, a post-mortem. Comes in kinds: driven, loop, campaign.', say: '“Create a gameplan for X” triggers real planning: recorded decisions and verifiable exit criteria, not a bullet list.' },
-      { term: 'phase', meaning: 'One session-sized chunk of a gameplan.', say: '“Do the next phase” runs the full discipline: pre-flight, the work, then the ending protocol.' },
-      { term: 'handoff', meaning: 'The self-contained context bundle the next session reads, cumulative, carrying every still-relevant lesson.', say: '“Write the handoff” assembles it as an operation. If a session dies, the next one loses nothing.' },
-      { term: 'focus / portfolio', meaning: 'Which gameplan is the current default target; the set of all open ones.', say: '“Switch focus to the campaign.” Several initiatives coexist without stepping on each other.' },
-      { term: 'entity', meaning: 'A tracked subsystem, feature, or deliverable with a version, a status, and dependency edges in the project graph.', say: '“Track the billing worker as an entity” puts it in the graph, which is what makes cascade possible.' },
-      { term: 'deliverable', meaning: 'A campaign’s execution unit (a film, a deck) moving through a lifecycle from concept to shipped.', say: '“Add the flagship film as a deliverable” gets you a board you can read the campaign from.' },
+      {
+        term: 'gameplan',
+        meaning:
+          'A whole initiative: phases, decisions, exit criteria, a post-mortem. Comes in kinds: driven, loop, campaign.',
+        say: '“Create a gameplan for X” triggers real planning: recorded decisions and verifiable exit criteria, not a bullet list.',
+      },
+      {
+        term: 'phase',
+        meaning: 'One session-sized chunk of a gameplan.',
+        say: '“Do the next phase” runs the full discipline: pre-flight, the work, then the ending protocol.',
+      },
+      {
+        term: 'handoff',
+        meaning:
+          'The self-contained context bundle the next session reads, cumulative, carrying every still-relevant lesson.',
+        say: '“Write the handoff” assembles it as an operation. If a session dies, the next one loses nothing.',
+      },
+      {
+        term: 'focus / portfolio',
+        meaning: 'Which gameplan is the current default target; the set of all open ones.',
+        say: '“Switch focus to the campaign.” Several initiatives coexist without stepping on each other.',
+      },
+      {
+        term: 'entity',
+        meaning:
+          'A tracked subsystem, feature, or deliverable with a version, a status, and dependency edges in the project graph.',
+        say: '“Track the billing worker as an entity” puts it in the graph, which is what makes cascade possible.',
+      },
+      {
+        term: 'deliverable',
+        meaning:
+          'A campaign’s execution unit (a film, a deck) moving through a lifecycle from concept to shipped.',
+        say: '“Add the flagship film as a deliverable” gets you a board you can read the campaign from.',
+      },
     ],
   },
   {
     label: 'The rituals',
     terms: [
-      { term: 'ritual', meaning: 'The umbrella word: a discipline that executes instead of a convention someone has to remember.', say: 'Cascade, pre-flight, and handoff assembly are tool calls, not reminders.' },
-      { term: 'cascade', meaning: 'Nothing changes in isolation: after editing something tracked, walk everything that depends on it and reconcile.', say: '“Cascade that change” walks the real dependency graph: each flagged dependent gets an explicit verdict.' },
-      { term: 'pre-flight', meaning: 'Run the project’s actual checks (tests, build, QA gates) before starting work.', say: '“Pre-flight it” runs the commands for real and reports measured results. Kills “session claims tests pass.”' },
-      { term: 'baseline', meaning: 'The measured number pre-flight tracks: a test count, or campaign gates.', say: '“What’s the baseline?” gets the tracked, auto-refreshed figure, not a stale note.' },
+      {
+        term: 'ritual',
+        meaning:
+          'The umbrella word: a discipline that executes instead of a convention someone has to remember.',
+        say: 'Cascade, pre-flight, and handoff assembly are tool calls, not reminders.',
+      },
+      {
+        term: 'cascade',
+        meaning:
+          'Nothing changes in isolation: after editing something tracked, walk everything that depends on it and reconcile.',
+        say: '“Cascade that change” walks the real dependency graph: each flagged dependent gets an explicit verdict.',
+      },
+      {
+        term: 'pre-flight',
+        meaning: 'Run the project’s actual checks (tests, build, QA gates) before starting work.',
+        say: '“Pre-flight it” runs the commands for real and reports measured results. Kills “session claims tests pass.”',
+      },
+      {
+        term: 'baseline',
+        meaning: 'The measured number pre-flight tracks: a test count, or campaign gates.',
+        say: '“What’s the baseline?” gets the tracked, auto-refreshed figure, not a stale note.',
+      },
     ],
   },
   {
     label: 'The memory words',
     terms: [
-      { term: 'decision', meaning: 'A numbered, append-only decision record with its reasoning.', say: '“We decided X because Y” gets recorded; supersede a decision with a new one, never rewrite history.' },
-      { term: 'invariant', meaning: 'A rule that must always hold, honored by every session.', say: '“Make it an invariant: the logo is never AI-generated.”' },
-      { term: 'lesson', meaning: 'A reusable learning that rides in every future handoff. Curated with three verbs: consolidate, promote, obsolete.', say: '“Lesson learned: build the adversarial fixture first.”' },
-      { term: 'correction', meaning: 'The divergence log: what the plan said versus what turned out to be true.', say: '“The plan said X, actually Y” keeps the plan honest without rewriting it.' },
-      { term: 'open item', meaning: 'A tracked unknown or blocker with a stable ID, resolved, never deleted.', say: '“Open item: which auth provider?” Unknowns get tracked, never silently dropped.' },
-      { term: 'amend', meaning: 'A tracked mid-flight change to a gameplan.', say: '“Amend the gameplan” puts scope changes on the record instead of letting them drift.' },
+      {
+        term: 'decision',
+        meaning: 'A numbered, append-only decision record with its reasoning.',
+        say: '“We decided X because Y” gets recorded; supersede a decision with a new one, never rewrite history.',
+      },
+      {
+        term: 'invariant',
+        meaning: 'A rule that must always hold, honored by every session.',
+        say: '“Make it an invariant: the logo is never AI-generated.”',
+      },
+      {
+        term: 'lesson',
+        meaning:
+          'A reusable learning that rides in every future handoff. Curated with three verbs: consolidate, promote, obsolete.',
+        say: '“Lesson learned: build the adversarial fixture first.”',
+      },
+      {
+        term: 'correction',
+        meaning: 'The divergence log: what the plan said versus what turned out to be true.',
+        say: '“The plan said X, actually Y” keeps the plan honest without rewriting it.',
+      },
+      {
+        term: 'open item',
+        meaning: 'A tracked unknown or blocker with a stable ID, resolved, never deleted.',
+        say: '“Open item: which auth provider?” Unknowns get tracked, never silently dropped.',
+      },
+      {
+        term: 'amend',
+        meaning: 'A tracked mid-flight change to a gameplan.',
+        say: '“Amend the gameplan” puts scope changes on the record instead of letting them drift.',
+      },
     ],
   },
   {
-    label: 'The gates: advisory, always',
+    label: 'The gates',
     terms: [
-      { term: 'advisory', meaning: 'The governing posture: gates surface, they never block. The engine proposes; you decide.', say: 'Every check below follows this rule.' },
-      { term: 'exit criteria', meaning: 'Verifiable done-conditions each phase carries.', say: '“Check off the criterion” marks it; completing a phase surfaces any left unchecked.' },
-      { term: 'approve', meaning: 'A human sign-off recorded as the artifact’s content hash. Edit the file afterward and the approval goes stale.', say: '“Approve the shot spec.” Spend-gates that expire when the content changes.' },
-      { term: 'standing condition', meaning: 'A declared threshold probe checked whenever anyone asks for status.', say: '“Watch the backlog: below three approved stills means a new iteration.”' },
+      {
+        term: 'advisory',
+        meaning:
+          'The governing posture: gates surface, they never block. The engine proposes; you decide.',
+        say: 'Every check below follows this rule.',
+      },
+      {
+        term: 'exit criteria',
+        meaning: 'Verifiable done-conditions each phase carries.',
+        say: '“Check off the criterion” marks it; completing a phase surfaces any left unchecked.',
+      },
+      {
+        term: 'approve',
+        meaning:
+          'A human sign-off recorded as the artifact’s content hash. Edit the file afterward and the approval goes stale.',
+        say: '“Approve the shot spec.” Spend-gates that expire when the content changes.',
+      },
+      {
+        term: 'standing condition',
+        meaning: 'A declared threshold probe checked whenever anyone asks for status.',
+        say: '“Watch the backlog: below three approved stills means a new iteration.”',
+      },
     ],
   },
   {
     label: 'The lifecycle words',
     terms: [
-      { term: 'status / digest', meaning: 'The compact where-things-stand block every session opens with.', say: '“Where do we stand?”' },
-      { term: 'onboard', meaning: 'Seed memory from a repo’s existing README and specs; the agent distills.', say: '“Onboard this repo” turns placeholder docs into a seeded memory graph.' },
-      { term: 'upgrade', meaning: 'Deliver a newer engine’s improvements: mechanical changes applied, memory-shaped changes proposed.', say: '“Upgrade the repo” after updating the package.' },
-      { term: 'append-only', meaning: 'The house physics: nothing in memory is ever deleted.', say: 'Say “obsolete it,” “supersede it,” or “resolve it,” never “delete it.”' },
+      {
+        term: 'status / digest',
+        meaning: 'The compact where-things-stand block every session opens with.',
+        say: '“Where do we stand?”',
+      },
+      {
+        term: 'onboard',
+        meaning: 'Seed memory from a repo’s existing README and specs; the agent distills.',
+        say: '“Onboard this repo” turns placeholder docs into a seeded memory graph.',
+      },
+      {
+        term: 'upgrade',
+        meaning:
+          'Deliver a newer engine’s improvements: mechanical changes applied, memory-shaped changes proposed.',
+        say: '“Upgrade the repo” after updating the package.',
+      },
+      {
+        term: 'append-only',
+        meaning: 'The house physics: nothing in memory is ever deleted.',
+        say: 'Say “obsolete it,” “supersede it,” or “resolve it,” never “delete it.”',
+      },
     ],
   },
 ];
@@ -60,131 +171,263 @@ const jsonLd = {
       '@type': 'DefinedTerm',
       name: t.term,
       description: `${t.meaning} ${t.say}`,
-    }))
+    })),
   ),
 };
+
+const wiring = groups
+  .map(
+    (_, i) =>
+      `#vg-${i}:checked ~ .panels .pg-${i}{visibility:visible;opacity:1;transform:none;}` +
+      `#vg-${i}:checked ~ .side label[for="vg-${i}"]{border-color:var(--ember-line);background:var(--ember-soft);}` +
+      `#vg-${i}:checked ~ .side label[for="vg-${i}"] .side-name{color:var(--ember-300);}` +
+      `#vg-${i}:checked ~ .side label[for="vg-${i}"] .side-idx{color:var(--ember-400);}` +
+      `#vg-${i}:focus-visible ~ .side label[for="vg-${i}"]{outline:1px solid var(--ember-500);outline-offset:2px;}`,
+  )
+  .join('\n');
 ---
 
 <section class="section vocabulary" id="vocabulary">
   <div class="container">
-    <p class="kicker reveal reveal-sm">Speak the language</p>
-    <h2 class="reveal">Words that do things.</h2>
-    <p class="lede reveal">
+    <p class="slug reveal reveal-sm"><span class="no">Scene 08</span> Speak the language</p>
+    <h2 class="reveal">Words that <em>do things.</em></h2>
+    <p class="sub reveal">
       Clauderizer binds a handful of ordinary words to specific tools and disciplines. They
-      aren’t jargon, they’re handles. Use one, and your agent reaches for the exact machinery
-      instead of improvising. Tap a word.
+      aren&rsquo;t jargon, they&rsquo;re handles — use one in plain English and your agent reaches
+      for the exact machinery instead of improvising.
     </p>
 
-    {
-      groups.map((g) => (
-        <div class="vocab-group">
-          <h3 class="group-label reveal reveal-sm">{g.label}</h3>
-          <div class="chips">
-            {g.terms.map((t) => (
-              <details class="chip reveal">
-                <summary>
-                  <span class="term">{t.term}</span>
-                  <span class="plus" aria-hidden="true">+</span>
-                </summary>
-                <div class="card">
-                  <p class="meaning">{t.meaning}</p>
-                  <p class="say">{t.say}</p>
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
-      ))
-    }
+    <div class="glossary reveal">
+      {
+        groups.map((_, i) => (
+          <input class="sr" type="radio" name="vg" id={`vg-${i}`} checked={i === 0} />
+        ))
+      }
+
+      <aside class="side" aria-label="Vocabulary groups">
+        {
+          groups.map((g, i) => (
+            <label class="side-item" for={`vg-${i}`}>
+              <span class="side-idx" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span class="side-name">{g.label}</span>
+              <span class="side-count">{g.terms.length} words</span>
+            </label>
+          ))
+        }
+      </aside>
+
+      <div class="panels" aria-live="polite">
+        {
+          groups.map((g, i) => (
+            <section class={`panel pg-${i}`} aria-label={g.label}>
+              <h3 class="group-label">
+                <span>{g.label}</span>
+              </h3>
+              <dl class="entries">
+                {g.terms.map((t) => (
+                  <div class="entry">
+                    <dt>{t.term}</dt>
+                    <dd>
+                      <p class="meaning">{t.meaning}</p>
+                      <p class="say">{t.say}</p>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="faq-part">
+      <FAQ />
+    </div>
   </div>
 </section>
 
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+<style is:inline set:html={wiring}></style>
 
 <style>
   .vocabulary {
-    background: var(--ink-800);
+    background: var(--ink-950);
   }
-  .lede {
-    margin-top: 1rem;
-    max-width: 48rem;
-    color: var(--cream-200);
-    line-height: 1.65;
+  .sub {
+    margin-bottom: 0;
   }
-  .vocab-group {
-    margin-top: 2.6rem;
-  }
-  .group-label {
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 0 0 0.9rem;
-  }
-  .chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.65rem;
-    align-items: flex-start;
-  }
-  .chip {
-    border: 1px solid var(--edge);
-    border-radius: var(--radius);
-    background: rgba(11, 13, 18, 0.55);
-    transition:
-      border-color 0.18s ease,
-      background 0.18s ease;
-    max-width: 100%;
-  }
-  .chip:hover {
-    border-color: var(--clay-soft);
-  }
-  .chip[open] {
-    border-color: rgba(245, 158, 11, 0.4);
-    background: rgba(14, 16, 22, 0.72);
-    flex-basis: 100%;
-  }
-  .chip summary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    padding: 0.6rem 1rem;
-    cursor: pointer;
-    list-style: none;
-    font-family: var(--font-mono);
-    font-size: 0.96rem;
-    font-weight: 600;
-    color: var(--cream-50);
+  .sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
     white-space: nowrap;
   }
-  .chip summary::-webkit-details-marker { display: none; }
-  .chip summary::marker { content: ''; }
-  .chip summary:focus-visible {
-    outline: 2px solid var(--clay);
-    outline-offset: -2px;
-    border-radius: var(--radius);
+
+  .glossary {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(14rem, 17rem) 1fr;
+    gap: clamp(1.6rem, 4vw, 3rem);
+    margin-top: 2.4rem;
+    align-items: start;
   }
-  .plus {
-    color: var(--amber-400);
-    font-weight: 700;
-    transition: transform 0.2s ease;
+
+  /* ---- The sidebar ---- */
+  .side {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
   }
-  .chip[open] .plus { transform: rotate(45deg); }
-  .card {
-    padding: 0 1rem 1rem;
-    max-width: 48rem;
+  .side-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: 0.7rem;
+    padding: 0.75rem 0.95rem;
+    border: 1px solid var(--edge);
+    border-radius: 10px;
+    background: rgba(7, 9, 13, 0.5);
+    cursor: pointer;
+    transition:
+      border-color 0.16s ease,
+      background 0.16s ease;
   }
-  .card p {
+  .side-item:hover {
+    border-color: var(--ember-line);
+  }
+  .side-idx {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--dim);
+    transition: color 0.16s ease;
+  }
+  .side-name {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cream-100);
+    transition: color 0.16s ease;
+  }
+  .side-count {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    color: var(--dim);
+    white-space: nowrap;
+  }
+
+  /* ---- The printed panels: stacked in one grid cell, so the container is
+     always as tall as the tallest group — the page never resizes on switch. ---- */
+  .panels {
+    display: grid;
+  }
+  .panel {
+    grid-area: 1 / 1;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s var(--ease-out-expo),
+      visibility 0.25s;
+  }
+  .group-label {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin: 0 0 1.1rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ember-400);
+  }
+  .group-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--ember-line), transparent);
+  }
+
+  .entries {
     margin: 0;
-    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: 1.05rem;
+  }
+  .entry {
+    padding-left: 1rem;
+    border-left: 1px solid var(--edge);
+  }
+  dt {
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--cream-50);
+    margin-bottom: 0.25rem;
+  }
+  dd {
+    margin: 0;
   }
   .meaning {
+    margin: 0;
     color: var(--cream-200);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 44rem;
   }
   .say {
-    margin-top: 0.5rem !important;
-    color: var(--amber-400);
-    font-size: 0.96rem;
+    margin: 0.35rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.55;
+    color: var(--muted);
+    max-width: 42rem;
+  }
+  .say::before {
+    content: '→ ';
+    color: var(--ember-400);
+  }
+
+  .faq-part {
+    margin-top: 2.6rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--edge-subtle);
+  }
+
+  @media (max-width: 860px) {
+    .glossary {
+      grid-template-columns: 1fr;
+      gap: 1.4rem;
+    }
+    .side {
+      flex-direction: row;
+      overflow-x: auto;
+      padding-bottom: 0.4rem;
+      scrollbar-width: thin;
+      scroll-snap-type: x proximity;
+    }
+    .side-item {
+      flex: none;
+      scroll-snap-align: start;
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+      padding: 0.55rem 0.85rem;
+      border-radius: 999px;
+    }
+    .side-idx,
+    .side-count {
+      display: none;
+    }
+    .side-name {
+      font-size: 0.72rem;
+    }
   }
 </style>

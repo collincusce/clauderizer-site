@@ -1,4 +1,5 @@
 ---
+// SCENE 07 — the receipts, framed as festival laurels: publicly verifiable.
 const stats = [
   { n: '42', l: 'MCP tools + 3 resources' },
   { n: '3×3', l: 'OS × Python, all passing' },
@@ -7,15 +8,22 @@ const stats = [
 ];
 ---
 
-<section class="section receipts">
-  <div class="media-bg" aria-hidden="true">
-    <img src="/media/hero/soul_v2.jpg" alt="" loading="lazy" decoding="async" />
+<section class="section receipts clip">
+  <div class="media-bg parallax parallax-slow" aria-hidden="true">
+    <img
+      class="kb"
+      src="/media/hero/soul_v2.jpg"
+      alt=""
+      loading="lazy"
+      decoding="async"
+      data-anim
+    />
     <div class="scrim"></div>
   </div>
 
   <div class="container">
-    <p class="kicker reveal reveal-sm">Maturity</p>
-    <h2 class="reveal">Stable, with receipts.</h2>
+    <p class="slug reveal reveal-sm"><span class="no">Scene 06</span> Maturity</p>
+    <h2 class="reveal">Stable, with <em>receipts.</em></h2>
     <p class="sub reveal">
       Every quality gate is publicly verifiable: the test suite passes on Ubuntu, macOS, and Windows
       across Python 3.11–3.13; the Windows wrapper is <em>executed</em>, not simulated; cold starts
@@ -23,12 +31,100 @@ const stats = [
       clean CI environment on every push.
     </p>
 
-    <div class="stats">
+    <div class="laurels">
       {
         stats.map((s) => (
-          <div class="stat reveal">
-            <span class="n">{s.n}</span>
-            <span class="l">{s.l}</span>
+          <div class="laurel reveal reveal-scale">
+            <svg class="branch" viewBox="0 0 80 140" aria-hidden="true">
+              <path
+                d="M58 8 C 28 28, 15 66, 25 132"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.6"
+                stroke-linecap="round"
+              />
+              <g fill="currentColor">
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(50 18) rotate(-28)"
+                />
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(40 31) rotate(-45)"
+                />
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(32 46) rotate(-62)"
+                />
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(27 63) rotate(-78)"
+                />
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(24 81) rotate(-94)"
+                />
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(24 99) rotate(-110)"
+                />
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(27 116) rotate(-126)"
+                />
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(31 129) rotate(-142)"
+                />
+              </g>
+            </svg>
+            <div class="l-body">
+              <span class="n">{s.n}</span>
+              <span class="l">{s.l}</span>
+            </div>
+            <svg class="branch flip" viewBox="0 0 80 140" aria-hidden="true">
+              <path
+                d="M58 8 C 28 28, 15 66, 25 132"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.6"
+                stroke-linecap="round"
+              />
+              <g fill="currentColor">
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(50 18) rotate(-28)"
+                />
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(40 31) rotate(-45)"
+                />
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(32 46) rotate(-62)"
+                />
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(27 63) rotate(-78)"
+                />
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(24 81) rotate(-94)"
+                />
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(24 99) rotate(-110)"
+                />
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(27 116) rotate(-126)"
+                />
+                <path
+                  d="M0 0 C -8 -2 -16 -8 -20 -18 C -9 -15 -2 -8 0 0 Z"
+                  transform="translate(31 129) rotate(-142)"
+                />
+              </g>
+            </svg>
           </div>
         ))
       }
@@ -43,75 +139,79 @@ const stats = [
 
 <style>
   .receipts {
-    background: var(--ink-800);
-  }
-  .media-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
+    background: var(--ink-950);
   }
   .media-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .scrim {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(120% 80% at 30% 50%, transparent 30%, rgba(7, 8, 12, 0.92) 100%),
-      linear-gradient(180deg, rgba(7, 8, 12, 0.5), rgba(7, 8, 12, 0.85));
+    opacity: 0.6;
   }
   .container {
     position: relative;
     z-index: 1;
   }
   .sub {
-    max-width: 50rem;
-    color: var(--cream-200);
-    font-size: clamp(1.02rem, 1.7vw, 1.18rem);
-    margin: 0 0 2.6rem;
+    margin: 0 0 2.4rem;
   }
-  .stats {
+  .sub em {
+    color: var(--ember-300);
+    font-style: italic;
+  }
+
+  .laurels {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: 1.4rem;
   }
-  .stat {
-    border: 1px solid var(--edge);
-    border-radius: var(--radius);
-    background: rgba(11, 13, 18, 0.6);
-    backdrop-filter: blur(6px);
-    padding: 1.6rem;
+  .laurel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.9rem 0.6rem;
+    color: var(--ember-400);
+    filter: drop-shadow(0 0 14px rgba(245, 158, 11, 0.22));
+  }
+  .branch {
+    width: 42px;
+    height: 76px;
+    flex: none;
+    opacity: 0.95;
+  }
+  .branch.flip {
+    transform: scaleX(-1);
+  }
+  .l-body {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
-    transition:
-      transform 0.18s ease,
-      border-color 0.18s ease;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    max-width: 11rem;
   }
-  .stat:hover {
-    transform: translateY(-4px);
-    border-color: rgba(245, 158, 11, 0.35);
-  }
-  .stat .n {
-    font-size: clamp(1.8rem, 4vw, 2.4rem);
-    font-weight: 800;
+  .n {
+    font-family: var(--font-display);
+    font-weight: 520;
+    font-size: clamp(2rem, 3.4vw, 2.7rem);
+    line-height: 1;
     letter-spacing: -0.02em;
-    /* Solid, high-contrast figures instead of glowing accent numerals —
-       the receipts read as facts, not a marketing metric wall. */
     color: var(--cream-50);
   }
-  .stat .l {
+  .l {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     color: var(--cream-200);
-    font-size: 0.95rem;
+    line-height: 1.5;
   }
+
   .note {
-    margin-top: 2.4rem;
-    max-width: 46rem;
-    color: var(--muted);
-    border-left: 2px solid var(--amber-500);
-    padding-left: 1rem;
+    margin: 1.8rem auto 0;
+    max-width: 40rem;
+    text-align: center;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    color: var(--cream-100);
+    line-height: 1.6;
   }
 </style>

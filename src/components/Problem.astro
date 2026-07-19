@@ -1,110 +1,327 @@
 ---
-// The failure mode: make it personal. Full-bleed cinematic backdrop.
+// SCENE 03 — the failure mode, graded cold: the two walls, then the ledger —
+// same agent, same repo; one of them remembers.
+const walls = [
+  {
+    n: '01',
+    t: 'A fresh session starts blank.',
+    d: 'You re-explain the architecture. Again. The agent re-discovers what it already knew, burning context and patience on ground you covered yesterday.',
+  },
+  {
+    n: '02',
+    t: 'A long session fills its context.',
+    d: 'Mid-task the window overflows. The agent forgets its own earlier decisions, then confidently contradicts them an hour later.',
+  },
+];
+const without = [
+  'You re-explain the architecture. Again.',
+  'A decision from an hour ago, contradicted.',
+  '“Wait… did we already build this?”',
+  'The plan drifts from reality, silently.',
+];
+const withCz = [
+  'The digest greets the agent at session start.',
+  'Decisions & invariants surface, not re-derived.',
+  '“Phase 3 of 6, preflight passed, building.”',
+  'The plan is the live state.',
+];
 ---
 
-<section class="section problem" id="why">
+<section class="section problem clip" id="why">
   <div class="media-bg parallax parallax-slow" aria-hidden="true">
-    <img src="/media/hero/seedream21.jpg" alt="" loading="lazy" decoding="async" />
+    <img
+      class="kb"
+      src="/media/hero/seedream21.jpg"
+      alt=""
+      loading="lazy"
+      decoding="async"
+      data-anim
+    />
     <div class="scrim"></div>
+    <div class="cold-grade"></div>
   </div>
 
   <div class="container">
-    <p class="kicker reveal reveal-sm">The failure mode</p>
-    <h2 class="reveal">Long-running AI work hits two walls.</h2>
+    <p class="slug cold reveal reveal-sm"><span class="no">Scene 03</span> The failure mode</p>
+    <h2 class="reveal">Long-running AI work hits <em class="cold-em">two walls.</em></h2>
 
     <div class="cards">
-      <article class="card reveal">
-        <span class="num">01</span>
-        <h3>A fresh session starts blank.</h3>
-        <p>
-          You re-explain the architecture. Again. The agent re-discovers what it already knew,
-          burning context and patience on ground you covered yesterday.
-        </p>
-      </article>
-      <article class="card reveal">
-        <span class="num">02</span>
-        <h3>A long session fills its context.</h3>
-        <p>
-          Mid-task the window overflows. The agent forgets its own earlier decisions, then
-          confidently contradicts them an hour later.
-        </p>
-      </article>
+      {
+        walls.map((w) => (
+          <article class="card reveal">
+            <span class="num">{w.n}</span>
+            <h3>{w.t}</h3>
+            <p>{w.d}</p>
+          </article>
+        ))
+      }
     </div>
 
     <p class="closer reveal">
-      The usual answer is <em>conventions</em>: "keep a decisions log," "write a handoff." But
-      conventions rot, because nothing executes them. Clauderizer keeps the proven model and makes
-      it a <strong>system</strong>, not a hope.
+      The usual answer is <em>conventions</em> — but conventions rot, because nothing executes them. Clauderizer
+      makes memory a <strong>system</strong>, not a hope.
     </p>
+
+    <div class="ledger reveal">
+      <article class="panel forget">
+        <header><span class="tag">Without Clauderizer</span></header>
+        <ul>
+          {
+            without.map((t) => (
+              <li>
+                <span class="mark bad" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="13" height="13">
+                    <path
+                      d="M7 7l10 10M17 7L7 17"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      fill="none"
+                    />
+                  </svg>
+                </span>
+                <span>{t}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="foot">every session starts from zero</p>
+      </article>
+
+      <article class="panel remember">
+        <header><span class="tag">With Clauderizer</span></header>
+        <ul>
+          {
+            withCz.map((t) => (
+              <li>
+                <span class="mark ok" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="13" height="13">
+                    <path
+                      d="M5 12.5l4.5 4.5L19 7.5"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      fill="none"
+                    />
+                  </svg>
+                </span>
+                <span>{t}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="foot ok-foot">every session is momentum →</p>
+      </article>
+    </div>
   </div>
 </section>
 
 <style>
   .problem {
-    background: var(--ink-900);
+    background: var(--ink-950);
   }
-  .media-bg {
+  /* The amnesia grade: pull the warmth out of the frame. */
+  .cold-grade {
     position: absolute;
     inset: 0;
-    z-index: 0;
-    pointer-events: none;
+    background: linear-gradient(160deg, rgba(84, 118, 156, 0.22), rgba(3, 4, 6, 0.2) 60%);
+    mix-blend-mode: soft-light;
   }
-  .media-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .scrim {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(120% 80% at 30% 20%, transparent 30%, rgba(7, 8, 12, 0.92) 100%),
-      linear-gradient(180deg, rgba(7, 8, 12, 0.3), rgba(7, 8, 12, 0.8));
+  .cold-em {
+    color: var(--steel-300) !important;
+    text-shadow: 0 0 30px rgba(121, 166, 207, 0.3);
   }
   .container {
     position: relative;
     z-index: 1;
   }
+
   .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
-    gap: 1.2rem;
-    margin-top: 2.8rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr));
+    gap: 1.1rem;
+    margin-top: 2.4rem;
   }
   .card {
-    background: rgba(11, 13, 18, 0.72);
-    border: 1px solid var(--edge);
+    position: relative;
+    border: 1px solid var(--steel-line);
     border-radius: var(--radius);
-    padding: 1.9rem;
-    backdrop-filter: blur(8px);
+    background: rgba(5, 7, 10, 0.62);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    overflow: hidden;
     transition:
-      transform 0.18s ease,
-      border-color 0.18s ease;
+      transform 0.2s var(--ease-out-expo),
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--steel-400), transparent);
+    opacity: 0.5;
   }
   .card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(245, 158, 11, 0.35);
+    transform: translateY(-3px);
+    border-color: rgba(121, 166, 207, 0.55);
+    box-shadow: 0 24px 60px -30px rgba(121, 166, 207, 0.35);
   }
-  .card .num {
-    font-family: var(--font-mono);
-    color: var(--clay);
-    font-size: 0.85rem;
+  .num {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--steel-400);
+    display: block;
+    margin-bottom: 0.8rem;
   }
   .card h3 {
-    margin: 0.7rem 0 0.55rem;
+    margin: 0 0 0.5rem;
+    font-weight: 560;
   }
   .card p {
     margin: 0;
     color: var(--cream-200);
-    line-height: 1.65;
+    font-size: 0.97rem;
+    line-height: 1.62;
   }
   .closer {
-    margin-top: 2.8rem;
-    max-width: 50rem;
-    font-size: clamp(1.05rem, 1.8vw, 1.22rem);
-    color: var(--cream-200);
+    max-width: 46rem;
+    margin: 1.8rem 0 0;
+    font-size: clamp(1.02rem, 1.7vw, 1.18rem);
+    line-height: 1.65;
+    color: var(--cream-100);
+  }
+  .closer em {
+    color: var(--steel-300);
   }
   .closer strong {
-    color: var(--amber-400);
+    color: var(--ember-300);
+    font-weight: 600;
+  }
+
+  /* ---- The ledger: cold versus warm ---- */
+  .ledger {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+    margin-top: 2rem;
+  }
+  .panel {
+    border-radius: var(--radius);
+    border: 1px solid var(--edge);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+    transition:
+      transform 0.18s ease,
+      border-color 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  .panel:hover {
+    transform: translateY(-3px);
+  }
+  .panel header {
+    margin-bottom: 1.1rem;
+  }
+  .panel .tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .panel ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    flex: 1;
+  }
+  .panel li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    align-items: start;
+    line-height: 1.5;
+  }
+  .mark {
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin-top: 0.05rem;
+  }
+  .foot {
+    margin: 1.4rem 0 0;
+    font-size: 0.88rem;
+    font-style: italic;
+  }
+
+  .forget {
+    background: rgba(8, 11, 16, 0.6);
+    filter: saturate(0.55);
+    border-color: var(--steel-line);
+  }
+  .forget:hover {
+    border-color: rgba(121, 166, 207, 0.5);
+    box-shadow: 0 24px 60px -34px rgba(121, 166, 207, 0.3);
+  }
+  .forget .tag {
+    color: var(--steel-400);
+  }
+  .mark.bad {
+    color: var(--steel-300);
+    background: var(--steel-soft);
+    border: 1px solid var(--steel-line);
+  }
+  .forget li span:last-child {
+    color: var(--muted);
+  }
+  .forget .foot {
+    color: var(--dim);
+  }
+
+  .remember {
+    background:
+      radial-gradient(130% 120% at 100% 0%, var(--ember-soft), transparent 60%),
+      rgba(12, 10, 6, 0.68);
+    border-color: var(--ember-line);
+    box-shadow: 0 28px 80px -44px var(--ember-glow);
+  }
+  .remember:hover {
+    border-color: rgba(255, 180, 84, 0.55);
+    box-shadow: 0 32px 90px -44px var(--ember-glow-strong);
+  }
+  .remember .tag {
+    color: var(--ember-400);
+  }
+  .mark.ok {
+    color: var(--ember-300);
+    background: var(--ember-soft);
+    border: 1px solid var(--ember-line);
+  }
+  .remember li span:last-child {
+    color: var(--cream-50);
+  }
+  .remember .ok-foot {
+    color: var(--ember-300);
+    font-weight: 600;
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 820px) {
+    .ledger {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

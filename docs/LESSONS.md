@@ -30,3 +30,9 @@
 **L-06.** Pin the build runtime to the framework's real engines field, verified at install time - not a remembered version. Astro 7 needs Node >=22.12; this project builds on Node 24. *(from 2026-06-22-marketing-site-launch)*
 
 **L-10.** AWS explicit-deny bypass for a constrained shared IAM user: attaching AdministratorAccess does NOT override an explicit Deny in another attached policy (explicit deny always wins, e.g. a *-scoped guardrail denying s3:CreateBucket). If you can't detach that policy, create a DEDICATED role with the needed perms and ASSUME it — identity-based denies on the calling user do not apply to the assumed-role session (only SCPs/permission boundaries/session policies do). Keyless via role_arn + source_profile. *(evidence: Phase 9 launch 2026-06-22: lsatprep-deployer-scoped denied s3:CreateBucket; deployed via assumed role clauderizer-deploy.)* *(from 2026-06-22-marketing-site-launch)*
+
+### Category: Design
+
+**L-11.** Cinematic full-bleed pages: every scrim must fade to the EXACT flat section background at fold edges (never generic dark rgba), and overflow:clip belongs only on media/parallax sections — blanket clipping amputates card glows and reads as glitchy borders. *(from 2026-07-18-second-look-density-pass)*
+
+**L-12.** Reference content (glossaries, FAQs) should be printed beautifully, not hidden behind interaction. Interactive structures cost clicks and leave voids; spend the effort on typography. Group-level tabs are acceptable when the corpus overflows one fold — but stack panels in one grid cell so the page never resizes on switch. *(from 2026-07-18-second-look-density-pass)*

@@ -1,4 +1,5 @@
 ---
+// End credits. Every good film rolls them.
 const cols = [
   {
     h: 'Product',
@@ -14,21 +15,30 @@ const cols = [
     links: [
       { t: 'GitHub', href: 'https://github.com/collincusce/Clauderizer' },
       { t: 'PyPI', href: 'https://pypi.org/project/clauderizer/' },
-      { t: 'License (Apache 2.0)', href: 'https://github.com/collincusce/Clauderizer/blob/main/LICENSE' },
+      {
+        t: 'License (Apache 2.0)',
+        href: 'https://github.com/collincusce/Clauderizer/blob/main/LICENSE',
+      },
     ],
   },
 ];
 ---
 
 <footer class="footer">
+  <div class="container credits">
+    <p class="slug"><span class="no">End credits</span></p>
+    <p class="wordmark">Clauderizer</p>
+    <ul class="roll" aria-label="Production credits">
+      <li><span class="role">Directed by</span><span class="name">dogfooding itself</span></li>
+      <li><span class="role">Starring</span><span class="name">your coding agent</span></li>
+      <li><span class="role">Memory by</span><span class="name">Markdown in docs/</span></li>
+      <li>
+        <span class="role">Shot on location in</span><span class="name">your repository</span>
+      </li>
+    </ul>
+  </div>
+
   <div class="container top">
-    <a class="brand" href="#top" aria-label="Clauderizer home">
-      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
-        <circle cx="16" cy="16" r="8" fill="none" stroke="var(--amber-500)" stroke-width="3"></circle>
-        <circle cx="16" cy="16" r="2.6" fill="var(--amber-400)"></circle>
-      </svg>
-      <span>Clauderizer</span>
-    </a>
     {
       cols.map((c) => (
         <nav class="col" aria-label={c.h}>
@@ -40,75 +50,132 @@ const cols = [
       ))
     }
   </div>
+
   <div class="container bottom">
-    <span>Durable working memory for coding agents, built by dogfooding itself.</span>
-    <span>Apache 2.0 licensed</span>
+    <span>Durable working memory for coding agents · Apache 2.0</span>
+    <span class="fin">fin. <i aria-hidden="true">◼</i></span>
   </div>
 </footer>
 
 <style>
   .footer {
-    border-top: 1px solid var(--edge);
     background: var(--ink-950);
-    padding-block: 3.5rem 2.5rem;
+    padding-block: 3.2rem 2rem;
   }
-  .top {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr;
-    gap: 2rem;
-    align-items: start;
-  }
-  .brand {
-    display: inline-flex;
+  .credits {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 0.55rem;
-    font-weight: 700;
-    text-decoration: none;
-    color: var(--cream-50);
+    text-align: center;
+    margin-bottom: 2rem;
   }
-  .mark {
-    width: 24px;
-    height: 24px;
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 520;
+    font-size: clamp(2.3rem, 5vw, 3.5rem);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin: 0.3rem 0 1.3rem;
+    background: linear-gradient(180deg, var(--cream-50), var(--cream-300));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .roll {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .roll li {
+    display: flex;
+    gap: 0.9rem;
+    align-items: baseline;
+    font-size: 0.92rem;
+  }
+  .role {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--dim);
+    min-width: 15ch;
+    text-align: right;
+  }
+  .name {
+    color: var(--cream-200);
+    text-align: left;
+  }
+
+  .top {
+    display: flex;
+    justify-content: center;
+    gap: clamp(2.5rem, 10vw, 7rem);
+    padding-top: 1.7rem;
+    border-top: 1px solid var(--edge-subtle);
   }
   .col {
     display: flex;
     flex-direction: column;
     gap: 0.55rem;
+    align-items: center;
+    text-align: center;
   }
   .col h3 {
     margin: 0 0 0.3rem;
-    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.2em;
     color: var(--muted);
     font-weight: 500;
   }
   .col a {
     text-decoration: none;
     color: var(--cream-200);
-    font-size: 0.95rem;
+    font-size: 0.94rem;
     transition: color 0.15s ease;
   }
   .col a:hover {
-    color: var(--amber-400);
+    color: var(--ember-300);
   }
   .bottom {
-    margin-top: 2.8rem;
-    padding-top: 1.6rem;
-    border-top: 1px solid var(--edge);
+    margin-top: 2rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--edge-subtle);
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
     gap: 1rem;
     flex-wrap: wrap;
     color: var(--muted);
-    font-size: 0.88rem;
+    font-size: 0.85rem;
   }
-  @media (max-width: 640px) {
-    .top {
-      grid-template-columns: 1fr 1fr;
+  .fin {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--cream-300);
+    letter-spacing: 0.02em;
+  }
+  .fin i {
+    font-style: normal;
+    font-size: 0.6em;
+    color: var(--ember-400);
+    vertical-align: 0.12em;
+    margin-left: 0.2rem;
+  }
+  @media (max-width: 560px) {
+    .roll li {
+      flex-direction: column;
+      gap: 0.05rem;
+      align-items: center;
     }
-    .brand {
-      grid-column: 1 / -1;
+    .role,
+    .name {
+      text-align: center;
+      min-width: 0;
     }
   }
 </style>

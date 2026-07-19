@@ -1,26 +1,24 @@
 ---
-// "This is what momentum feels like" — the SessionStart terminal demo.
+// SCENE 02 — "This is what momentum feels like": the SessionStart digest,
+// played out in a terminal. This is the digest for this very site.
 const phases = [
-  { n: 0, name: 'Foundation', done: true },
-  { n: 1, name: 'Design system', done: true },
-  { n: 2, name: 'Memory-graph hero', done: true },
-  { n: 3, name: 'Narrative sections', done: true },
-  { n: 4, name: 'Interactive demos', done: false, current: true },
-  { n: 5, name: 'Media + Higgsfield', done: true },
-  { n: 6, name: 'SEO / a11y', done: false },
-  { n: 7, name: 'Infra (CDK)', done: false },
-  { n: 8, name: 'CI/CD', done: false },
-  { n: 9, name: 'Launch', done: false },
+  { n: 0, name: 'Design system', done: true },
+  { n: 1, name: 'Title sequence', done: true },
+  { n: 2, name: 'Scene language', done: true },
+  { n: 3, name: 'WebGL bloom', done: false, current: true },
+  { n: 4, name: 'Proof + polish', done: false },
+  { n: 5, name: 'Premiere', done: false },
 ];
 ---
 
 <section class="section session" id="session">
   <div class="container">
-    <p class="kicker reveal reveal-sm">This is what momentum feels like</p>
-    <h2 class="reveal">Your agent starts oriented, not blank.</h2>
+    <p class="slug reveal reveal-sm"><span class="no">Scene 02</span> Int. fresh session — night</p>
+    <h2 class="reveal">Your agent starts <em>oriented</em>, not blank.</h2>
     <p class="sub reveal">
       Before you type a word, the SessionStart hook has already told the agent exactly where things
-      stand. No prescribed reading order, no re-briefing. <strong>This is the digest for this very site.</strong>
+      stand. No prescribed reading order, no re-briefing.
+      <strong>This is the digest for this very site.</strong>
     </p>
 
     <div class="terminal reveal" data-term>
@@ -42,16 +40,32 @@ const phases = [
 
         <div class="digest" data-line>
           <span class="digest-bar" aria-hidden="true"></span>
-          <p class="ln" data-type><span class="t-clay">[Clauderizer]</span> gameplan <span class="t-cream">marketing-site-launch</span> · phase <span class="t-cream">4 / 10</span></p>
-          <p class="ln" data-type><span class="t-mut">baseline</span> 0 tests <span class="t-mut">·</span> <span class="t-clay">10 lessons</span> <span class="t-mut">· 0 pending cascades</span></p>
-          <p class="ln" data-type><span class="t-mut">next:</span> <span class="t-cream">cz_next_phase_context → cz_preflight</span></p>
-          <p class="ln note" data-line>↑ injected automatically: no prescribed reading order, no re-briefing</p>
+          <p class="ln" data-type>
+            <span class="t-ember">[Clauderizer]</span> gameplan <span class="t-cream"
+              >directors-cut</span
+            > · phase <span class="t-cream">3 / 6</span>
+          </p>
+          <p class="ln" data-type>
+            <span class="t-mut">baseline</span> 0 tests <span class="t-mut">·</span>
+            <span class="t-ember">10 lessons</span>
+            <span class="t-mut">· 0 pending cascades</span>
+          </p>
+          <p class="ln" data-type>
+            <span class="t-mut">next:</span>
+            <span class="t-cream">cz_next_phase_context → cz_preflight</span>
+          </p>
+          <p class="ln note" data-line>
+            ↑ injected automatically: no prescribed reading order, no re-briefing
+          </p>
         </div>
 
-        <p class="ln agent" data-line><span class="caret-cursor">▸</span> I see where we are: phase 4 of 10. Preflight passed. Building the interactive demos now.</p>
+        <p class="ln agent" data-line>
+          <span class="caret-cursor">▸</span> I see where we are: phase 3 of 6. Preflight passed. Rolling
+          the title sequence now.
+        </p>
 
         <figure class="rail" data-line>
-          <figcaption>phase 4 of 10 · this very site, built by dogfooding itself</figcaption>
+          <figcaption>phase 3 of 6 · this very site, built by dogfooding itself</figcaption>
           <ol class="rail-track" role="list">
             {
               phases.map((p) => (
@@ -70,7 +84,7 @@ const phases = [
         </figure>
 
         <p class="ln punch" data-line>Every session picks up exactly where you left off.</p>
-        <p class="ln tag" data-line>That's how you fly. ✦</p>
+        <p class="ln tag" data-line>That&rsquo;s how you fly. ✦</p>
       </div>
     </div>
   </div>
@@ -140,7 +154,7 @@ const phases = [
                       restore(tw);
                     },
                   },
-                  '>'
+                  '>',
                 );
               });
           } else if (line.matches('.rail')) {
@@ -154,7 +168,7 @@ const phases = [
                   ease: 'power2.out',
                   onStart: () => node.classList.remove('armed'),
                 },
-                idx === 0 ? '>' : '>-0.16'
+                idx === 0 ? '>' : '>-0.16',
               );
             });
           } else if (!ownTyped) {
@@ -169,6 +183,10 @@ const phases = [
       };
 
       const start = async () => {
+        // Pin the measured height before any line is emptied for the typing
+        // effect — the terminal, and the page below it, never reflows.
+        const body = term.querySelector<HTMLElement>('.term-body');
+        if (body) body.style.minHeight = `${body.offsetHeight}px`;
         const mod = await import('gsap');
         gsapRef = mod.gsap;
         setStart();
@@ -184,7 +202,7 @@ const phases = [
           started = true;
           start();
         },
-        '-10% 0px'
+        '-10% 0px',
       );
 
       toggleBtn?.addEventListener('click', () => {
@@ -221,26 +239,24 @@ const phases = [
 
 <style>
   .session {
-    background: linear-gradient(180deg, var(--ink-800), var(--ink-900));
+    background: var(--ink-950);
   }
   .sub {
-    max-width: 48rem;
-    color: var(--cream-200);
-    font-size: clamp(1.02rem, 1.7vw, 1.18rem);
-    margin: 0 0 2.6rem;
+    margin: 0 0 2.2rem;
   }
   .sub strong {
-    color: var(--clay-200);
+    color: var(--ember-300);
     font-weight: 600;
   }
 
   .terminal {
     border-radius: var(--radius);
     overflow: hidden;
-    border: 1px solid var(--edge-strong);
-    background: #0a0c10;
+    border: 1px solid var(--edge);
+    background: #06080b;
     box-shadow:
-      0 40px 90px -50px rgba(0, 0, 0, 0.9),
+      0 50px 110px -55px rgba(0, 0, 0, 0.95),
+      0 0 90px -40px var(--ember-glow),
       0 0 0 1px rgba(255, 255, 255, 0.02);
     max-width: 58rem;
   }
@@ -249,7 +265,7 @@ const phases = [
     align-items: center;
     gap: 0.9rem;
     padding: 0.75rem 1rem;
-    background: linear-gradient(180deg, #161b23, #11151c);
+    background: linear-gradient(180deg, #12161d, #0b0e14);
     border-bottom: 1px solid var(--edge);
   }
   .lights {
@@ -262,12 +278,19 @@ const phases = [
     border-radius: 50%;
     display: block;
   }
-  .lights i:nth-child(1) { background: #e5685c; }
-  .lights i:nth-child(2) { background: #e0a93f; }
-  .lights i:nth-child(3) { background: #57c24a; }
+  .lights i:nth-child(1) {
+    background: #e5685c;
+  }
+  .lights i:nth-child(2) {
+    background: #e0a93f;
+  }
+  .lights i:nth-child(3) {
+    background: #57c24a;
+  }
   .term-title {
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.76rem;
+    letter-spacing: 0.04em;
     color: var(--muted);
   }
   .term-controls {
@@ -275,7 +298,9 @@ const phases = [
     display: flex;
     gap: 0.5rem;
   }
-  .term-controls[hidden] { display: none; }
+  .term-controls[hidden] {
+    display: none;
+  }
   .term-btn {
     font-family: var(--font-mono);
     font-size: 0.72rem;
@@ -294,11 +319,11 @@ const phases = [
       background 0.15s ease;
   }
   .term-btn:hover {
-    border-color: var(--clay);
-    color: var(--clay-200);
+    border-color: var(--ember-500);
+    color: var(--ember-300);
   }
   .term-btn:focus-visible {
-    outline: 2px solid var(--clay);
+    outline: 2px solid var(--ember-500);
     outline-offset: 2px;
   }
   .ico-pause {
@@ -317,14 +342,16 @@ const phases = [
   }
 
   .term-body {
-    padding: 1.3rem 1.4rem 1.5rem;
+    padding: 1.15rem 1.4rem 1.3rem;
     font-family: var(--font-mono);
     font-size: 0.86rem;
     line-height: 1.72;
     color: var(--cream-200);
-    min-height: 340px;
+    min-height: 280px;
   }
-  .ln { margin: 0; }
+  .ln {
+    margin: 0;
+  }
   .ctx {
     color: var(--muted);
     font-style: italic;
@@ -332,8 +359,8 @@ const phases = [
   }
   .digest {
     position: relative;
-    background: #18130f;
-    border: 1px solid #3a2a20;
+    background: rgba(245, 158, 11, 0.05);
+    border: 1px solid rgba(255, 180, 84, 0.22);
     border-radius: 8px;
     padding: 0.9rem 1rem 0.95rem 1.15rem;
     margin-bottom: 1rem;
@@ -343,19 +370,22 @@ const phases = [
     left: 0;
     top: 0;
     bottom: 0;
-    width: 3.5px;
+    width: 3px;
     border-radius: 2px;
-    background: var(--clay);
+    background: var(--ember-500);
+    box-shadow: 0 0 12px var(--ember-glow);
   }
-  .t-clay {
-    color: var(--clay);
+  .t-ember {
+    color: var(--ember-400);
     font-weight: 600;
   }
   .t-cream {
     color: var(--cream-50);
     font-weight: 600;
   }
-  .t-mut { color: var(--muted); }
+  .t-mut {
+    color: var(--muted);
+  }
   .note {
     color: var(--dim);
     font-style: italic;
@@ -366,7 +396,7 @@ const phases = [
     color: var(--cream-50);
   }
   .agent .caret-cursor {
-    color: var(--clay);
+    color: var(--ember-400);
     font-weight: 700;
   }
 
@@ -377,11 +407,13 @@ const phases = [
     height: 1.05em;
     transform: translateY(0.18em);
     margin-left: 1px;
-    background: var(--clay);
+    background: var(--ember-400);
     animation: term-caret 0.9s steps(1) infinite;
   }
   @keyframes term-caret {
-    50% { opacity: 0; }
+    50% {
+      opacity: 0;
+    }
   }
 
   .rail {
@@ -411,8 +443,8 @@ const phases = [
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    border: 1.5px solid #2a3340;
-    background: #12161d;
+    border: 1.5px solid #232b38;
+    background: #0d1117;
     display: grid;
     place-items: center;
     transition:
@@ -436,37 +468,51 @@ const phases = [
     font-weight: 700;
   }
   .phase-node.current:not(.armed) .node-dot {
-    border-color: var(--clay);
-    background: var(--clay-soft);
-    box-shadow: 0 0 0 4px var(--clay-soft);
+    border-color: var(--ember-500);
+    background: var(--ember-soft);
+    box-shadow: 0 0 0 4px var(--ember-soft);
     animation: node-pulse 2s ease-in-out infinite;
   }
   .phase-node.current:not(.armed) .node-n {
-    color: var(--clay-200);
+    color: var(--ember-300);
   }
   @keyframes node-pulse {
-    0%, 100% { box-shadow: 0 0 0 4px var(--clay-soft); }
-    50% { box-shadow: 0 0 0 7px rgba(224, 138, 94, 0.08); }
+    0%,
+    100% {
+      box-shadow: 0 0 0 4px var(--ember-soft);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(245, 158, 11, 0.07);
+    }
   }
 
   .punch {
-    font-family: var(--font-sans);
-    font-size: clamp(1.15rem, 2.2vw, 1.5rem);
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 480;
+    font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+    letter-spacing: -0.01em;
     color: var(--cream-50);
-    margin-top: 0.4rem;
+    margin-top: 0.5rem;
   }
   .tag {
-    font-family: var(--font-sans);
-    color: var(--clay);
-    margin-top: 0.2rem;
+    color: var(--ember-400);
+    margin-top: 0.25rem;
+    font-size: 0.92rem;
   }
 
   @media (max-width: 560px) {
-    .term-body { font-size: 0.78rem; }
-    .node-dot { width: 19px; height: 19px; }
+    .term-body {
+      font-size: 0.78rem;
+    }
+    .node-dot {
+      width: 19px;
+      height: 19px;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
-    .phase-node.current .node-dot { animation: none; }
+    .phase-node.current .node-dot {
+      animation: none;
+    }
   }
 </style>

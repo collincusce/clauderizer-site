@@ -1,5 +1,5 @@
 ---
-// How it works: reframe Markdown-in-docs as durability and permanence.
+// SCENE 05 — how it works: Markdown in docs/ as durability and permanence.
 const stages = [
   {
     t: 'Markdown in docs/',
@@ -29,15 +29,15 @@ const loop = [
 ];
 ---
 
-<section class="section how" id="how-it-works">
+<section class="section how clip" id="how-it-works">
   <div class="media-bg parallax parallax-mid" aria-hidden="true">
-    <img src="/media/hero/flux2.jpg" alt="" loading="lazy" decoding="async" />
+    <img class="kb" src="/media/hero/flux2.jpg" alt="" loading="lazy" decoding="async" data-anim />
     <div class="scrim"></div>
   </div>
 
   <div class="container">
-    <p class="kicker reveal reveal-sm">How it works</p>
-    <h2 class="reveal">Your memory is just readable files in docs/.</h2>
+    <p class="slug reveal reveal-sm"><span class="no">Scene 04</span> How it works</p>
+    <h2 class="reveal">Your memory is just <em>readable files</em> in docs/.</h2>
     <p class="sub reveal">
       No database. No proprietary cloud. The graph index is a disposable cache, rebuilt from the
       Markdown on demand. If they ever disagree, Markdown wins. Your ideas survive as plain text.
@@ -60,7 +60,10 @@ const loop = [
       }
     </ol>
 
-    <figure class="loop reveal" aria-label="A typical phase loop: the cz_* tool calls a session runs, in order">
+    <figure
+      class="loop reveal"
+      aria-label="A typical phase loop: the cz_* tool calls a session runs, in order"
+    >
       <figcaption>
         <span class="loop-title">A typical phase loop</span>
         <span class="loop-hint">runs every session →</span>
@@ -76,7 +79,7 @@ const loop = [
           ))
         }
         <li class="loop-return" aria-hidden="true">
-          <span class="loop-dot return" />
+          <span class="loop-dot return"></span>
           <span class="loop-out">↺ next session picks up exactly here</span>
         </li>
       </ol>
@@ -86,36 +89,17 @@ const loop = [
 
 <style>
   .how {
-    background: var(--ink-900);
-  }
-  .media-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
+    background: var(--ink-950);
   }
   .media-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .scrim {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(120% 90% at 80% 40%, transparent 25%, rgba(7, 8, 12, 0.92) 100%),
-      linear-gradient(180deg, rgba(7, 8, 12, 0.4), rgba(7, 8, 12, 0.85));
+    opacity: 0.55;
   }
   .container {
     position: relative;
     z-index: 1;
   }
   .sub {
-    max-width: 48rem;
-    color: var(--cream-200);
-    font-size: clamp(1.05rem, 1.8vw, 1.22rem);
-    margin: 0 0 2.8rem;
-    line-height: 1.6;
+    margin: 0 0 2.2rem;
   }
   .sub code,
   .loop code {
@@ -124,7 +108,7 @@ const loop = [
 
   .pipeline {
     list-style: none;
-    margin: 0 0 3.2rem;
+    margin: 0 0 2.2rem;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
@@ -132,33 +116,37 @@ const loop = [
   }
   .stage {
     position: relative;
-    padding: 1.6rem;
+    padding: 1.3rem;
     border: 1px solid var(--edge);
     border-radius: var(--radius);
-    background: rgba(11, 13, 18, 0.72);
-    backdrop-filter: blur(6px);
+    background: rgba(5, 7, 10, 0.72);
+    backdrop-filter: blur(8px);
     transition:
       border-color 0.2s ease,
-      transform 0.2s ease;
+      transform 0.2s var(--ease-out-expo),
+      box-shadow 0.2s ease;
   }
   .stage:hover {
-    border-color: var(--clay-soft);
+    border-color: var(--ember-line);
     transform: translateY(-4px);
+    box-shadow: 0 24px 60px -34px var(--ember-glow);
   }
   .stage .idx {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--clay);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--ember-400);
   }
   .stage b {
     display: block;
-    margin: 0.45rem 0 0.55rem;
-    font-size: 1.14rem;
+    margin: 0.5rem 0 0.55rem;
+    font-size: 1.1rem;
+    font-weight: 600;
   }
   .stage p {
     margin: 0;
     color: var(--cream-200);
-    font-size: 0.97rem;
+    font-size: 0.95rem;
     line-height: 1.6;
   }
   .stage .flow {
@@ -166,9 +154,10 @@ const loop = [
     right: -1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--clay);
+    color: var(--ember-400);
     font-size: 1.2rem;
     z-index: 2;
+    text-shadow: 0 0 12px var(--ember-glow);
   }
   @media (max-width: 640px) {
     .stage .flow {
@@ -183,10 +172,11 @@ const loop = [
     margin: 0;
     border: 1px solid var(--edge);
     border-radius: var(--radius);
-    background: rgba(11, 13, 18, 0.82);
-    backdrop-filter: blur(6px);
+    background: rgba(4, 5, 8, 0.85);
+    backdrop-filter: blur(8px);
     overflow: hidden;
     max-width: 48rem;
+    box-shadow: 0 40px 100px -50px rgba(0, 0, 0, 0.9);
   }
   .loop figcaption {
     display: flex;
@@ -200,7 +190,7 @@ const loop = [
     font-family: var(--font-mono);
     font-size: 0.82rem;
     letter-spacing: 0.04em;
-    color: var(--clay);
+    color: var(--ember-400);
   }
   .loop-hint {
     font-family: var(--font-mono);
@@ -210,7 +200,7 @@ const loop = [
   .loop-track {
     list-style: none;
     margin: 0;
-    padding: 1.2rem 1.3rem 1.4rem;
+    padding: 1rem 1.3rem 1.15rem;
     position: relative;
   }
   .loop-track::before {
@@ -229,7 +219,7 @@ const loop = [
     grid-template-columns: auto 1fr;
     align-items: baseline;
     column-gap: 0.9rem;
-    padding: 0.48rem 0;
+    padding: 0.38rem 0;
     padding-left: 0.1rem;
   }
   .loop-dot {
@@ -239,7 +229,7 @@ const loop = [
     height: 14px;
     margin-top: 0.18rem;
     border-radius: 50%;
-    border: 2px solid #2a3340;
+    border: 2px solid #232b38;
     background: var(--ink-900);
     transition:
       background 0.3s ease,
@@ -268,20 +258,16 @@ const loop = [
   .loop-return .loop-out {
     grid-column: 2;
     opacity: 1;
-    color: var(--clay);
+    color: var(--ember-400);
     font-family: var(--font-mono);
     font-size: 0.78rem;
   }
   .loop-return .loop-dot.return {
-    border-color: var(--clay);
-    background: var(--clay-soft);
+    border-color: var(--ember-500);
+    background: var(--ember-soft);
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .loop-step {
-      animation: loop-fire 9s linear infinite;
-      animation-delay: calc(var(--i) * -1.5s);
-    }
     .loop-step .loop-dot {
       animation: loop-dot 9s linear infinite;
       animation-delay: calc(var(--i) * -1.5s);
@@ -294,31 +280,25 @@ const loop = [
       0%,
       3% {
         background: var(--ink-900);
-        border-color: #2a3340;
+        border-color: #232b38;
         box-shadow: none;
         transform: scale(1);
       }
       8%,
       14% {
-        background: var(--clay);
-        border-color: var(--clay);
-        box-shadow: 0 0 0 5px var(--clay-soft);
+        background: var(--ember-500);
+        border-color: var(--ember-400);
+        box-shadow:
+          0 0 0 5px var(--ember-soft),
+          0 0 16px var(--ember-glow);
         transform: scale(1.18);
       }
       22%,
       100% {
         background: var(--ink-900);
-        border-color: #2a3340;
+        border-color: #232b38;
         box-shadow: none;
         transform: scale(1);
-      }
-    }
-    @keyframes loop-fire {
-      0%,
-      3%,
-      22%,
-      100% {
-        color: inherit;
       }
     }
     @keyframes loop-out {
@@ -349,7 +329,7 @@ const loop = [
       }
       9%,
       18% {
-        color: var(--clay-200);
+        color: var(--ember-300);
       }
       24%,
       100% {

@@ -76,3 +76,17 @@ _(Add entries with `cz_add_decision`.)_
 **Decision**: Use the existing logo/graphics as the visual anchor for the redesign. Repurpose .hero-staging/ assets where they fit the new cinematic narrative. Generate or source new media only if a specific section's story cannot be told with current assets, and only after Phase 0 creative sign-off.
 **Consequences**: Limits scope creep and asset-delivery risk. The new design must look compelling even if no new media is produced.
 **Status**: active (2026-07-18)
+
+### D-010 — Director's-cut rebuild of the marketing site (K3)
+
+**Context**: The 10-phase cinematic-site-redesign shipped a solid site, but the owner wanted a fresh, auteur-grade version built by Kimi K3 rather than the prior derivative.
+**Decision**: Rebuild the site as 'a film about remembering': Fraunces display serif + JetBrains Mono self-hosted in public/fonts; screenplay slug-lines per section (Scene 01-11 + end credits); cold steel grade for amnesia vs ember-gold for memory; letterbox title-sequence hero; scroll-driven 'memory, developing' strip; festival-laurel stats; end-credits footer.
+**Consequences**: global.css rewritten around ink/ember/steel tokens; .kicker replaced by .slug; all 13 components restyled; styleguide + 404 updated; INVARIANT-03 fallbacks preserved (motion only enhances).
+**Status**: active (2026-07-18)
+
+### D-011 — Swap display serif Fraunces -> Bodoni Moda; compress page density
+
+**Context**: Owner review of the K3 cut: likes the language/copy glow-up, but dislikes some font choices (picked 'swap the serif entirely'), flagged seam gaps at pagefolds, clipped box glows, too much scrolling/whitespace (measured 13.8 viewports @900px), and the abstract bf-strip image under 'One of them remembers' that communicates nothing.
+**Decision**: Replace Fraunces with Bodoni Moda (Didone) as --font-display; keep JetBrains Mono. Merge Problem+Amnesia into one scene and delete the bf-image strip; keep scenes as separate narrative beats otherwise but compress --section-pad to clamp(3.5rem,9vh,5.5rem), put quickstart steps 3-up, and match every media scrim to the flat section background ink-950 so folds are seamless; scope overflow:clip to media/parallax sections only so card glows are not clipped.
+**Consequences**: public/fonts fraunces-* removed, bodonimoda-* added; BaseLayout preload updated; AmnesiaMemory.astro deleted as separate scene (ledger folded into Problem); total page target <= ~9.5 viewports; vocab chips move from tiny italic serif to mono for legibility.
+**Status**: active (2026-07-18)

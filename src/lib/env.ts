@@ -16,9 +16,7 @@ export function supportsWebGL(): boolean {
   try {
     const c = document.createElement('canvas');
     const gl =
-      c.getContext('webgl2') ||
-      c.getContext('webgl') ||
-      c.getContext('experimental-webgl');
+      c.getContext('webgl2') || c.getContext('webgl') || c.getContext('experimental-webgl');
     _webgl = !!gl;
   } catch {
     _webgl = false;
@@ -47,11 +45,7 @@ export function saveData(): boolean {
  * Run `cb` once the element scrolls near the viewport, then disconnect.
  * Falls back to running immediately if IntersectionObserver is unavailable.
  */
-export function onNearViewport(
-  el: Element,
-  cb: () => void,
-  rootMargin = '200px'
-): void {
+export function onNearViewport(el: Element, cb: () => void, rootMargin = '200px'): void {
   if (typeof IntersectionObserver === 'undefined') {
     cb();
     return;
@@ -66,7 +60,7 @@ export function onNearViewport(
         }
       }
     },
-    { rootMargin }
+    { rootMargin },
   );
   io.observe(el);
 }

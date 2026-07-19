@@ -33,12 +33,12 @@ const TYPE_COLOR: Record<NodeType, THREE.Color> = {
 
 /** Curated hubs that get DOM labels — real entities from this very gameplan. */
 const HUBS: { type: NodeType; label: string }[] = [
-  { type: 'phase', label: 'phase 4 / 10' },
-  { type: 'decision', label: 'D-003 · media pipeline' },
-  { type: 'invariant', label: 'INVARIANT-03 · fallbacks' },
-  { type: 'subsystem', label: 'subsys.memory-graph' },
-  { type: 'lesson', label: 'lesson #10 · scroll-scrub' },
-  { type: 'decision', label: 'cz_cascade ✓' },
+  { type: 'phase', label: 'phase 3 / 6 · billing' },
+  { type: 'decision', label: 'D-015 · advisory gates' },
+  { type: 'invariant', label: 'INVARIANT-05 · judgment' },
+  { type: 'subsystem', label: 'subsys.mcp-server' },
+  { type: 'lesson', label: 'lesson · dogfood' },
+  { type: 'decision', label: 'cz_preflight ✓' },
 ];
 
 interface InitOpts {
@@ -64,7 +64,7 @@ export function initMemoryGraph(opts: InitOpts): MemoryGraphHandle {
   renderer.setPixelRatio(dpr);
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x0b0d12, 0.018);
+  scene.fog = new THREE.FogExp2(0x05070a, 0.018);
 
   const camera = new THREE.PerspectiveCamera(58, 1, 0.1, 300);
   camera.position.set(0, 0, 62);
@@ -92,13 +92,13 @@ export function initMemoryGraph(opts: InitOpts): MemoryGraphHandle {
     const home = new THREE.Vector3(
       Math.cos(angle) * radius,
       (Math.random() - 0.5) * 16 * (1 - t * 0.4),
-      Math.sin(angle) * radius * 0.7
+      Math.sin(angle) * radius * 0.7,
     );
     // Amnesia: far, scattered, formless.
     const fog = new THREE.Vector3(
       (Math.random() - 0.5) * 150,
       (Math.random() - 0.5) * 110,
-      (Math.random() - 0.5) * 150
+      (Math.random() - 0.5) * 150,
     );
     const type = i < HUBS.length ? HUBS[i].type : types[Math.floor(Math.random() * types.length)];
     const isHub = i < HUBS.length;
@@ -274,7 +274,7 @@ export function initMemoryGraph(opts: InitOpts): MemoryGraphHandle {
     // rebuild edges from node positions
     for (let e = 0; e < edges.length; e++) {
       const [a, b] = edges[e];
-      const oa = (e * 2) * 3;
+      const oa = e * 2 * 3;
       const ob = (e * 2 + 1) * 3;
       edgePos[oa] = positions[a * 3];
       edgePos[oa + 1] = positions[a * 3 + 1];
@@ -303,7 +303,7 @@ export function initMemoryGraph(opts: InitOpts): MemoryGraphHandle {
         projected.set(
           positions[nodeIndex * 3],
           positions[nodeIndex * 3 + 1],
-          positions[nodeIndex * 3 + 2]
+          positions[nodeIndex * 3 + 2],
         );
         projected.applyMatrix4(group.matrixWorld);
         projected.project(camera);
@@ -315,7 +315,7 @@ export function initMemoryGraph(opts: InitOpts): MemoryGraphHandle {
         const x = (projected.x * 0.5 + 0.5) * w;
         const y = (-projected.y * 0.5 + 0.5) * h;
         el.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
-        el.style.opacity = String((k - 0.55) / 0.45 * 0.92);
+        el.style.opacity = String(((k - 0.55) / 0.45) * 0.92);
       }
     }
   };
@@ -334,7 +334,7 @@ export function initMemoryGraph(opts: InitOpts): MemoryGraphHandle {
         cancelAnimationFrame(raf);
       }
     },
-    { rootMargin: '0px' }
+    { rootMargin: '0px' },
   );
   io.observe(canvas);
 

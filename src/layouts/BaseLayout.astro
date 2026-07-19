@@ -60,8 +60,24 @@ const jsonLd = {
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#0b0d12" />
+    <meta name="theme-color" content="#05070a" />
     <meta name="color-scheme" content="dark" />
+
+    <!-- Self-hosted display + mono faces -->
+    <link
+      rel="preload"
+      href="/fonts/bodonimoda-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/jetbrainsmono-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -73,7 +89,10 @@ const jsonLd = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Clauderizer: your best ideas shouldn't die in the dark." />
+    <meta
+      property="og:image:alt"
+      content="Clauderizer: your best ideas shouldn't die in the dark."
+    />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -107,7 +126,7 @@ const jsonLd = {
           (entries) => {
             for (const e of entries) e.target.classList.toggle('anim-off', !e.isIntersecting);
           },
-          { rootMargin: '140px' }
+          { rootMargin: '140px' },
         );
         pausables.forEach((el) => io.observe(el));
       }
@@ -120,12 +139,22 @@ const jsonLd = {
 
       if (canvas && ctx && !reduce.matches) {
         const small = window.matchMedia('(max-width: 640px)').matches;
-        const COUNT = small ? 22 : 52;
+        const COUNT = small ? 18 : 46;
         let w = 0,
           h = 0,
           dpr = 1,
-          raf = 0;
-        type P = { x: number; y: number; r: number; vy: number; vx: number; a: number; tw: number };
+          raf = 0,
+          t = 0;
+        type P = {
+          x: number;
+          y: number;
+          r: number;
+          vy: number;
+          vx: number;
+          a: number;
+          tw: number;
+          sway: number;
+        };
         let parts: P[] = [];
 
         const resize = () => {
@@ -139,30 +168,40 @@ const jsonLd = {
           parts = Array.from({ length: COUNT }, () => ({
             x: Math.random() * w,
             y: Math.random() * h,
-            r: (Math.random() * 1.5 + 0.4) * dpr,
-            vy: -(Math.random() * 0.22 + 0.05) * dpr,
-            vx: (Math.random() - 0.5) * 0.1 * dpr,
-            a: Math.random() * 0.5 + 0.15,
+            r: (Math.random() * 1.6 + 0.35) * dpr,
+            vy: -(Math.random() * 0.2 + 0.04) * dpr,
+            vx: (Math.random() - 0.5) * 0.08 * dpr,
+            a: Math.random() * 0.45 + 0.12,
             tw: Math.random() * Math.PI * 2,
+            sway: Math.random() * 0.5 + 0.15,
           }));
         };
         const frame = () => {
+          t += 0.006;
           ctx.clearRect(0, 0, w, h);
-          ctx.shadowColor = 'rgba(245,158,11,0.8)';
-          ctx.shadowBlur = 6 * dpr;
           for (const p of parts) {
             p.y += p.vy;
-            p.x += p.vx;
-            p.tw += 0.02;
+            p.x += p.vx + Math.sin(t * 2 + p.tw) * 0.06 * p.sway * dpr;
+            p.tw += 0.018;
             if (p.y < -12) {
               p.y = h + 12;
               p.x = Math.random() * w;
             }
+            if (p.x < -12) p.x = w + 12;
+            if (p.x > w + 12) p.x = -12;
+            const glow = p.r > 1.4 * dpr;
+            if (glow) {
+              ctx.shadowColor = 'rgba(245,158,11,0.85)';
+              ctx.shadowBlur = 7 * dpr;
+            } else {
+              ctx.shadowBlur = 0;
+            }
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255,180,84,${p.a * (0.6 + 0.4 * Math.sin(p.tw))})`;
+            ctx.fillStyle = `rgba(255,186,96,${p.a * (0.55 + 0.45 * Math.sin(p.tw))})`;
             ctx.fill();
           }
+          ctx.shadowBlur = 0;
           raf = requestAnimationFrame(frame);
         };
 
@@ -175,7 +214,7 @@ const jsonLd = {
             resize();
             seed();
           },
-          { passive: true }
+          { passive: true },
         );
         document.addEventListener('visibilitychange', () => {
           if (document.hidden) {

@@ -2,12 +2,18 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Styleguide · Clauderizer" description="Design tokens and primitives for the Clauderizer marketing site.">
+<BaseLayout
+  title="Styleguide · Clauderizer"
+  description="Design tokens and primitives for the Clauderizer marketing site."
+>
   <main class="container">
     <section class="intro">
-      <p class="kicker">Design system</p>
-      <h1>Tokens & primitives</h1>
-      <p class="lede">The cinematic "memory made visible" language: deep ink, warm cream, memory gold.</p>
+      <p class="slug"><span class="no">Design system</span></p>
+      <h1>A film about remembering.</h1>
+      <p class="lede">
+        True-black ink, warm cream titles in Bodoni Moda, ember-gold memory light against cold steel
+        amnesia. Every section is a scene.
+      </p>
     </section>
 
     <section class="group">
@@ -17,9 +23,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         <div class="swatch ink-800"><span>ink-800</span></div>
         <div class="swatch ink-700"><span>ink-700</span></div>
         <div class="swatch cream"><span>cream-50</span></div>
-        <div class="swatch amber"><span>amber-400</span></div>
+        <div class="swatch ember"><span>ember-400</span></div>
+        <div class="swatch steel"><span>steel-400</span></div>
         <div class="swatch clay"><span>clay</span></div>
-        <div class="swatch rose"><span>rose</span></div>
         <div class="swatch ok"><span>ok</span></div>
         <div class="swatch bad"><span>bad</span></div>
       </div>
@@ -27,11 +33,18 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
     <section class="group">
       <h2>Typography</h2>
-      <p class="display">Display headline — bold, tight, editorial.</p>
-      <p class="head">Section headline — confident and readable.</p>
+      <p class="display">Display — Bodoni Moda, the film title.</p>
+      <p class="display-italic">Display italic — the emotional beat.</p>
       <p class="body-large">Body large — for ledes and summaries.</p>
       <p>Body — standard paragraph text with good line-height.</p>
-      <p class="mono">Mono — for code, labels, and terminal moments.</p>
+      <p class="mono">Mono — slug-lines, code, and terminal moments.</p>
+    </section>
+
+    <section class="group">
+      <h2>Slug-lines & cuts</h2>
+      <p class="slug"><span class="no">Scene 00</span> Int. repository — night</p>
+      <p class="slug cold"><span class="no">Scene 00</span> The cold of forgetting</p>
+      <hr class="flare" style="margin-top: 2rem" />
     </section>
 
     <section class="group">
@@ -39,36 +52,18 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       <div class="row">
         <a class="btn btn-primary" href="#">Primary</a>
         <a class="btn btn-ghost" href="#">Ghost</a>
-        <button class="btn btn-primary" type="button">Button primary</button>
-      </div>
-    </section>
-
-    <section class="group">
-      <h2>Cards</h2>
-      <div class="cards">
-        <article class="card">
-          <h3>Card title</h3>
-          <p>A neutral card with subtle border and hover lift.</p>
-        </article>
-        <article class="card card-glow">
-          <h3>Glow card</h3>
-          <p>A card with a warm amber edge glow.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="group">
-      <h2>Code</h2>
-      <div class="code-block">
-        <code>$ uvx --from clauderizer clauderize init</code>
+        <button class="cmd" type="button" data-copy="uvx --from clauderizer clauderize init">
+          <code><span class="prompt">$</span> uvx --from clauderizer clauderize init</code>
+          <span class="copy-hint">copy</span>
+        </button>
       </div>
     </section>
 
     <section class="group">
       <h2>Motion</h2>
       <p>
-        Reveals, parallax, and grain are motion-enhancements. Under <code>prefers-reduced-motion</code>
-        all motion collapses and content is fully visible.
+        Reveals, parallax, Ken Burns, letterbox, and grain are motion-enhancements. Under
+        <code>prefers-reduced-motion</code> all motion collapses and content is fully visible.
       </p>
     </section>
   </main>
@@ -76,7 +71,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
 <style>
   .intro {
-    padding-block: clamp(4rem, 10vh, 7rem) 3rem;
+    padding-block: clamp(5rem, 12vh, 8rem) 3rem;
+  }
+  .intro h1 {
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
   }
   .lede {
     font-size: clamp(1.1rem, 2vw, 1.35rem);
@@ -90,6 +88,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   }
   .group h2 {
     margin-bottom: 1.4rem;
+    font-size: clamp(1.8rem, 3.4vw, 2.6rem);
   }
 
   .swatches {
@@ -107,30 +106,62 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     border: 1px solid var(--edge);
   }
   .swatch span {
-    background: rgba(7, 8, 12, 0.65);
+    background: rgba(3, 4, 6, 0.65);
     padding: 0.25rem 0.5rem;
     border-radius: 6px;
   }
-  .ink-900 { background: var(--ink-900); color: var(--cream-50); }
-  .ink-800 { background: var(--ink-800); color: var(--cream-50); }
-  .ink-700 { background: var(--ink-700); color: var(--cream-50); }
-  .cream { background: var(--cream-50); color: var(--ink-900); }
-  .amber { background: var(--amber-400); color: var(--ink-900); }
-  .clay { background: var(--clay); color: var(--ink-900); }
-  .rose { background: var(--rose); color: var(--ink-900); }
-  .ok { background: var(--ok); color: var(--ink-900); }
-  .bad { background: var(--bad); color: var(--ink-900); }
+  .ink-900 {
+    background: var(--ink-900);
+    color: var(--cream-50);
+  }
+  .ink-800 {
+    background: var(--ink-800);
+    color: var(--cream-50);
+  }
+  .ink-700 {
+    background: var(--ink-700);
+    color: var(--cream-50);
+  }
+  .cream {
+    background: var(--cream-50);
+    color: var(--ink-900);
+  }
+  .ember {
+    background: var(--ember-400);
+    color: var(--ink-900);
+  }
+  .steel {
+    background: var(--steel-400);
+    color: var(--ink-900);
+  }
+  .clay {
+    background: var(--clay);
+    color: var(--ink-900);
+  }
+  .ok {
+    background: var(--ok);
+    color: var(--ink-900);
+  }
+  .bad {
+    background: var(--bad);
+    color: var(--ink-900);
+  }
 
   .display {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.05;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 540;
+    letter-spacing: -0.015em;
+    line-height: 1.02;
+    margin: 0 0 0.6rem;
   }
-  .head {
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
+  .display-italic {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.8rem, 4.4vw, 3rem);
+    font-weight: 460;
+    color: var(--ember-300);
+    margin: 0 0 0.6rem;
   }
   .body-large {
     font-size: clamp(1.05rem, 1.8vw, 1.25rem);
@@ -138,7 +169,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   }
   .mono {
     font-family: var(--font-mono);
-    color: var(--amber-400);
+    color: var(--ember-400);
   }
 
   .row {
@@ -146,74 +177,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     flex-wrap: wrap;
     gap: 1rem;
     align-items: center;
-  }
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.85rem 1.5rem;
-    border-radius: 999px;
-    font-weight: 600;
-    text-decoration: none;
-    transition:
-      transform 0.16s ease,
-      background 0.16s ease,
-      border-color 0.16s ease,
-      box-shadow 0.16s ease;
-  }
-  .btn-primary {
-    background: linear-gradient(180deg, var(--amber-400), var(--amber-600));
-    color: #1a1206;
-    box-shadow: 0 12px 34px -12px var(--amber-glow-strong);
-  }
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 18px 44px -14px var(--amber-glow-strong);
-  }
-  .btn-ghost {
-    color: var(--cream-50);
-    border: 1px solid var(--edge-strong);
-  }
-  .btn-ghost:hover {
-    border-color: var(--amber-400);
-    transform: translateY(-2px);
-  }
-
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
-    gap: 1.2rem;
-  }
-  .card {
-    background: rgba(18, 21, 29, 0.6);
-    border: 1px solid var(--edge);
-    border-radius: var(--radius);
-    padding: 1.6rem;
-    transition:
-      transform 0.18s ease,
-      border-color 0.18s ease;
-  }
-  .card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(245, 158, 11, 0.35);
-  }
-  .card-glow {
-    box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.08);
-  }
-  .card h3 {
-    margin-bottom: 0.5rem;
-  }
-  .card p {
-    margin: 0;
-    color: var(--cream-200);
-  }
-
-  .code-block {
-    background: var(--ink-850);
-    border: 1px solid var(--edge);
-    border-radius: var(--radius-sm);
-    padding: 1rem 1.2rem;
-    font-family: var(--font-mono);
-    color: var(--cream-50);
   }
   code {
     font-family: var(--font-mono);

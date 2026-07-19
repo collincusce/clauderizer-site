@@ -1,25 +1,37 @@
 ---
+// SCENE 11 — the final frame. The buildup footage carries the close.
 ---
 
 <section class="section cta">
   <div class="media-bg" aria-hidden="true">
-    <video src="/media/hero/buildup.mp4" autoplay muted loop playsinline poster="/media/hero/soul_v2b.jpg" aria-hidden="true"></video>
+    <video
+      class="kb"
+      src="/media/hero/buildup.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="/media/hero/soul_v2b.jpg"
+      data-anim
+      aria-hidden="true"></video>
     <div class="scrim"></div>
   </div>
 
   <div class="container inner">
-    <h2 class="reveal">Give your agent a memory that survives.</h2>
+    <p class="slug reveal reveal-sm"><span class="no">Scene 10</span> The final frame</p>
+    <h2 class="reveal">Give your agent a memory <em>that survives.</em></h2>
     <p class="sub reveal">
       Project memory belongs in the repository, where it ships with the code, shows up in diffs, and
       is reviewed alongside changes. As tool calls the agent can't forget to make, not advice it has
       to remember.
     </p>
-    <button class="cmd reveal" type="button" data-copy="uvx --from clauderizer clauderize init">
-      <code>uvx --from clauderizer clauderize init</code>
+    <button class="cmd big reveal" type="button" data-copy="uvx --from clauderizer clauderize init">
+      <code><span class="prompt">$</span> uvx --from clauderizer clauderize init</code>
       <span class="copy-hint">copy</span>
     </button>
     <div class="row reveal">
-      <a class="btn btn-primary" href="https://github.com/collincusce/Clauderizer">Star on GitHub</a>
+      <a class="btn btn-primary" href="https://github.com/collincusce/Clauderizer">Star on GitHub</a
+      >
       <a class="btn btn-ghost" href="https://pypi.org/project/clauderizer/">View on PyPI</a>
     </div>
   </div>
@@ -28,114 +40,42 @@
 <style>
   .cta {
     position: relative;
-    background: var(--ink-900);
+    background: var(--ink-950);
     overflow: clip;
-    min-height: 70svh;
+    min-height: 52svh;
     display: grid;
     align-items: center;
   }
-  .media-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-  }
   .media-bg video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.65;
-  }
-  .scrim {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(120% 80% at 50% 30%, transparent 25%, rgba(7, 8, 12, 0.92) 100%),
-      linear-gradient(180deg, rgba(7, 8, 12, 0.4), rgba(7, 8, 12, 0.9));
+    opacity: 0.55;
   }
   .inner {
     position: relative;
     z-index: 1;
-    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.4rem;
+    text-align: center;
+    gap: 1.6rem;
   }
-  .inner h2 {
-    max-width: 18ch;
-    margin: 0 auto;
+  h2 {
+    max-width: 16ch;
   }
   .sub {
-    max-width: 44rem;
-    color: var(--cream-200);
-    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
     margin: 0;
+    max-width: 42rem;
   }
-  .cmd {
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    background: rgba(11, 13, 18, 0.82);
-    border: 1px solid var(--edge-strong);
-    border-radius: var(--radius-sm);
-    padding: 0.95rem 1.25rem;
-    cursor: pointer;
-    color: var(--cream-50);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 0 0 1px var(--amber-glow);
-    transition: border-color 0.16s ease;
+  .cmd.big {
+    margin-top: 0.6rem;
+    padding: 1.05rem 1.4rem;
   }
-  .cmd:hover {
-    border-color: var(--amber-400);
-  }
-  .cmd code {
-    font-family: var(--font-mono);
-    font-size: 0.95rem;
-  }
-  .copy-hint {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--amber-400);
+  .cmd.big code {
+    font-size: clamp(0.82rem, 2.4vw, 1rem);
   }
   .row {
     display: flex;
     flex-wrap: wrap;
     gap: 0.9rem;
     justify-content: center;
-  }
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.85rem 1.5rem;
-    border-radius: 999px;
-    font-weight: 600;
-    text-decoration: none;
-    transition:
-      transform 0.16s ease,
-      background 0.16s ease,
-      border-color 0.16s ease;
-  }
-  .btn-primary {
-    background: linear-gradient(180deg, var(--amber-400), var(--amber-600));
-    color: #1a1206;
-  }
-  .btn-primary:hover {
-    transform: translateY(-2px);
-  }
-  .btn-ghost {
-    color: var(--cream-50);
-    border: 1px solid var(--edge-strong);
-    background: rgba(7, 8, 12, 0.4);
-    backdrop-filter: blur(4px);
-  }
-  .btn-ghost:hover {
-    border-color: var(--amber-400);
-    transform: translateY(-2px);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .media-bg video { opacity: 0.5; }
   }
 </style>

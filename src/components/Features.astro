@@ -1,4 +1,5 @@
 ---
+// SCENE 06 — why it holds: a system, not a hope.
 const features = [
   {
     t: 'Discoverable',
@@ -25,13 +26,18 @@ const features = [
     d: 'One install wires every supported agent by default: Claude Code, Cursor, Copilot, Codex, Gemini, Windsurf, Cline, Amp, Continue, Zed, Grok, and Kimi. Add --host to scope it to one.',
     icon: '<circle cx="11" cy="11" r="7"/><path d="M4 11h14M11 4c2.6 2 2.6 12 0 14M11 4c-2.6 2-2.6 12 0 14"/>',
   },
+  {
+    t: 'Auditable',
+    d: 'Memory is append-only and every write lands as plain Markdown — it ships with the code, shows up in diffs, and is reviewed like code.',
+    icon: '<path d="M6 3h7l4 4v12H6z"/><path d="M13 3v4h4"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="14.5" x2="15" y2="14.5"/><line x1="9" y1="18" x2="12.5" y2="18"/>',
+  },
 ];
 ---
 
 <section class="section features" id="features">
   <div class="container">
-    <p class="kicker reveal reveal-sm">Why it holds</p>
-    <h2 class="reveal">A system, not a hope.</h2>
+    <p class="slug reveal reveal-sm"><span class="no">Scene 05</span> Why it holds</p>
+    <h2 class="reveal">A <em>system</em>, not a hope.</h2>
     <p class="sub reveal">
       Prose conventions rot because nothing executes them. Clauderizer keeps the proven model and
       makes it real tool calls the agent can't forget to make.
@@ -41,7 +47,17 @@ const features = [
       {
         features.map((f) => (
           <article class="feat reveal">
-            <svg class="ico" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={f.icon} />
+            <svg
+              class="ico"
+              viewBox="0 0 22 22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              set:html={f.icon}
+            />
             <h3>{f.t}</h3>
             <p>{f.d}</p>
           </article>
@@ -53,48 +69,71 @@ const features = [
 
 <style>
   .features {
-    background: linear-gradient(180deg, var(--ink-900), var(--ink-800));
+    background: var(--ink-950);
   }
   .sub {
-    max-width: 46rem;
-    color: var(--cream-200);
-    font-size: clamp(1.02rem, 1.7vw, 1.18rem);
-    margin: 0 0 2.8rem;
+    margin: 0 0 2.2rem;
   }
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.1rem;
   }
+  @media (max-width: 980px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 620px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
   .feat {
+    position: relative;
     border: 1px solid var(--edge);
     border-radius: var(--radius);
-    background: rgba(11, 13, 18, 0.55);
-    padding: 1.7rem;
+    background: rgba(7, 9, 13, 0.6);
+    padding: 1.3rem;
+    overflow: hidden;
     transition:
-      transform 0.18s ease,
-      border-color 0.18s ease,
-      background 0.18s ease;
+      transform 0.2s var(--ease-out-expo),
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .feat::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ember-400), transparent);
+    opacity: 0;
+    transition: opacity 0.25s ease;
   }
   .feat:hover {
     transform: translateY(-4px);
-    border-color: rgba(245, 158, 11, 0.4);
-    background: rgba(14, 16, 22, 0.7);
+    border-color: var(--ember-line);
+    box-shadow: 0 26px 70px -38px var(--ember-glow);
+  }
+  .feat:hover::before {
+    opacity: 0.8;
   }
   .ico {
-    width: 32px;
-    height: 32px;
-    color: var(--amber-400);
-    margin-bottom: 1rem;
+    width: 30px;
+    height: 30px;
+    color: var(--ember-400);
+    margin-bottom: 1.05rem;
+    filter: drop-shadow(0 0 10px var(--ember-glow));
   }
   .feat h3 {
-    margin: 0 0 0.45rem;
-    font-size: 1.18rem;
+    margin: 0 0 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 560;
   }
   .feat p {
     margin: 0;
     color: var(--cream-200);
-    font-size: 0.97rem;
-    line-height: 1.6;
+    font-size: 0.96rem;
+    line-height: 1.62;
   }
 </style>

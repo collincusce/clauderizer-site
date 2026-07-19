@@ -7,13 +7,14 @@ import Footer from '@/components/Footer.astro';
 <BaseLayout title="404 · Clauderizer" description="That page slipped out of memory.">
   <Nav />
   <main class="nf">
+    <p class="slug"><span class="no">Scene missing</span></p>
     <p class="code">404</p>
-    <h1>That page slipped out of memory.</h1>
+    <h1>This frame was cut from the final edit.</h1>
     <p class="lede">
       Even durable memory has its limits. The page you're after isn't in the graph. Let's get you
       back to where things stand.
     </p>
-    <a class="btn" href="/">← Back to the start</a>
+    <a class="btn btn-primary" href="/">← Back to the start</a>
   </main>
   <Footer />
 </BaseLayout>
@@ -22,25 +23,26 @@ import Footer from '@/components/Footer.astro';
   .nf {
     max-width: var(--maxw);
     margin: 0 auto;
-    padding: clamp(7rem, 22vh, 12rem) 1.5rem;
+    padding: clamp(8rem, 24vh, 13rem) 1.5rem;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    min-height: 60svh;
+    gap: 1.1rem;
+    min-height: 62svh;
   }
   .code {
-    font-family: var(--font-mono);
-    font-size: clamp(3rem, 12vw, 6rem);
-    font-weight: 800;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(4rem, 14vw, 7.5rem);
+    line-height: 1;
     margin: 0;
-    color: var(--clay);
-    letter-spacing: -0.04em;
-    text-shadow: 0 0 40px var(--clay-glow);
+    color: var(--ember-400);
+    text-shadow: 0 0 50px var(--ember-glow);
   }
   h1 {
-    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-size: clamp(1.7rem, 4vw, 2.7rem);
     margin: 0;
   }
   .lede {
@@ -50,18 +52,5 @@ import Footer from '@/components/Footer.astro';
   }
   .btn {
     margin-top: 0.8rem;
-    display: inline-flex;
-    align-items: center;
-    padding: 0.8rem 1.4rem;
-    border-radius: 999px;
-    font-weight: 600;
-    text-decoration: none;
-    color: #20140a;
-    background: linear-gradient(180deg, var(--amber-400), var(--clay));
-    box-shadow: 0 12px 34px -12px var(--clay-glow);
-    transition: transform 0.16s ease;
-  }
-  .btn:hover {
-    transform: translateY(-2px);
   }
 </style>

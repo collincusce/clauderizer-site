@@ -1,65 +1,107 @@
 /*
- * Clauderizer brand tokens + cinematic motion system — redesign refresh.
- * Art direction: "memory made visible" — deep ink canvas, warm cream text,
- * richer amber memory-gold, and a clay/rose warmth for emotional beats.
+ * Clauderizer — "A film about remembering."
+ * Art direction: the page plays like a short film. True-black ink, warm cream
+ * titles set in Bodoni Moda, ember-gold memory light against cold steel amnesia.
+ * Every section is a scene with a screenplay slug-line. Grain, vignette,
+ * letterbox, anamorphic hairlines — the full grade.
  */
+
+/* ---- Self-hosted variable fonts (latin subsets) ---- */
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/bodonimoda-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: italic;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/bodonimoda-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/jetbrainsmono-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/jetbrainsmono-italic.woff2') format('woff2');
+}
+
 :root {
-  /* ---- ink canvas ---- */
-  --ink-950: #07080c;
-  --ink-900: #0b0d12;
-  --ink-850: #0e1117;
-  --ink-800: #11141c;
-  --ink-750: #151922;
-  --ink-700: #1a1f2b;
-  --ink-650: #202633;
+  /* ---- ink: a true cinematic black ladder ---- */
+  --ink-960: #030405;
+  --ink-950: #05070a;
+  --ink-900: #07090d;
+  --ink-850: #0a0d12;
+  --ink-800: #0e1118;
+  --ink-750: #131722;
+  --ink-700: #191e2a;
 
   /* ---- warm cream text ---- */
-  --cream-50: #f4efe6;
-  --cream-100: #e8e2d6;
-  --cream-200: #d8d2c4;
-  --cream-300: #b9b3a7;
-  --muted: #8b91a1;
-  --dim: #868d9b;
+  --cream-50: #f5f0e4;
+  --cream-100: #ebe4d3;
+  --cream-200: #d8d0bd;
+  --cream-300: #b8b09e;
+  --muted: #8f94a1;
+  --dim: #6c7180;
 
-  /* ---- memory gold + clay accents ---- */
-  --amber-300: #ffd27a;
-  --amber-400: #ffb454;
-  --amber-500: #f59e0b;
-  --amber-600: #d97706;
-  --amber-glow: rgba(245, 158, 11, 0.35);
-  --amber-glow-strong: rgba(245, 158, 11, 0.55);
+  /* ---- ember: memory-gold ---- */
+  --ember-200: #ffe0a8;
+  --ember-300: #ffd28a;
+  --ember-400: #ffb454;
+  --ember-500: #f59e0b;
+  --ember-600: #d97706;
+  --ember-glow: rgba(245, 158, 11, 0.35);
+  --ember-glow-strong: rgba(245, 158, 11, 0.55);
+  --ember-line: rgba(255, 180, 84, 0.32);
+  --ember-soft: rgba(245, 158, 11, 0.1);
+
+  /* ---- steel: the cold of forgetting ---- */
+  --steel-200: #c3d2e2;
+  --steel-300: #a8bdd4;
+  --steel-400: #79a6cf;
+  --steel-500: #54769c;
+  --steel-line: rgba(121, 166, 207, 0.3);
+  --steel-soft: rgba(121, 166, 207, 0.08);
 
   --clay: #e08a5e;
   --clay-200: #f0b89a;
-  --clay-300: #f6d4c4;
   --clay-soft: rgba(224, 138, 94, 0.16);
   --clay-glow: rgba(224, 138, 94, 0.45);
 
   --rose: #c97b7b;
   --rose-soft: rgba(201, 123, 123, 0.12);
 
-  --ok: #57c24a;
-  --ok-soft: rgba(87, 194, 74, 0.14);
-  --ok-line: rgba(87, 194, 74, 0.4);
+  --ok: #62c654;
+  --ok-soft: rgba(98, 198, 84, 0.14);
+  --ok-line: rgba(98, 198, 84, 0.4);
   --bad: #e5685c;
   --bad-soft: rgba(229, 104, 92, 0.12);
   --bad-line: rgba(229, 104, 92, 0.34);
 
-  --edge: rgba(255, 255, 255, 0.08);
-  --edge-strong: rgba(255, 255, 255, 0.15);
-  --edge-subtle: rgba(255, 255, 255, 0.05);
+  --edge: rgba(255, 255, 255, 0.07);
+  --edge-strong: rgba(255, 255, 255, 0.14);
+  --edge-subtle: rgba(255, 255, 255, 0.045);
 
-  --font-sans:
+  --font-display: 'Bodoni Moda', Didot, 'Bodoni MT', Georgia, serif;
+  --font-body:
     ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-mono:
-    ui-monospace, 'JetBrains Mono', 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 
-  --maxw: 74rem;
-  --radius: 16px;
-  --radius-sm: 10px;
-  --section-pad: clamp(5rem, 14vh, 10rem);
+  --maxw: 76rem;
+  --radius: 14px;
+  --radius-sm: 9px;
+  --section-pad: clamp(3rem, 8vh, 4.5rem);
 
-  /* cinematic easing */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-sine: cubic-bezier(0.37, 0, 0.63, 1);
 }
@@ -75,13 +117,18 @@ html {
 
 body {
   margin: 0;
-  background: var(--ink-900);
+  background: var(--ink-950);
   color: var(--cream-50);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(245, 158, 11, 0.32);
+  color: var(--cream-50);
 }
 
 a {
@@ -95,47 +142,193 @@ video {
   max-width: 100%;
 }
 
-/* ---- Editorial type scale ---- */
+/* ---- Editorial film-title type scale ---- */
 h1,
 h2,
 h3,
 h4 {
   margin: 0;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  font-family: var(--font-display);
+  font-weight: 540;
+  letter-spacing: -0.015em;
+  line-height: 1.02;
 }
 
 h2 {
-  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
-  max-width: 18ch;
+  font-size: clamp(2.3rem, 4.8vw, 3.7rem);
+  max-width: 22ch;
+}
+
+h2 em,
+h1 em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ember-300);
 }
 
 h3 {
-  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
-  letter-spacing: -0.02em;
+  font-size: clamp(1.28rem, 2.2vw, 1.65rem);
+  letter-spacing: -0.01em;
 }
 
 .container {
   max-width: var(--maxw);
   width: 100%;
   margin: 0 auto;
-  padding-inline: clamp(1rem, 4vw, 2.5rem);
+  padding-inline: clamp(1.1rem, 4vw, 2.5rem);
 }
 
 .section {
   position: relative;
   padding-block: var(--section-pad);
+}
+/* Only media/parallax scenes clip — flat scenes must let card glows breathe. */
+.section.clip {
   overflow: clip;
 }
 
-.kicker {
+.sub {
+  max-width: 46rem;
+  color: var(--cream-200);
+  font-size: clamp(1.02rem, 1.7vw, 1.2rem);
+  line-height: 1.65;
+}
+
+/* ---- Screenplay slug-line: the scene marker ---- */
+.slug {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--amber-400);
-  margin: 0 0 1rem;
+  color: var(--ember-400);
+  margin: 0 0 1.4rem;
+}
+.slug::before {
+  content: '';
+  width: 26px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ember-400));
+  box-shadow: 0 0 8px var(--ember-glow);
+}
+.slug .no {
+  color: var(--dim);
+}
+.slug.cold {
+  color: var(--steel-400);
+}
+.slug.cold::before {
+  background: linear-gradient(90deg, transparent, var(--steel-400));
+  box-shadow: 0 0 8px rgba(121, 166, 207, 0.4);
+}
+
+/* ---- Anamorphic hairline flare — the scene cut ---- */
+.flare {
+  position: relative;
+  height: 1px;
+  border: 0;
+  margin: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--edge-strong) 30%,
+    rgba(255, 214, 150, 0.65) 50%,
+    var(--edge-strong) 70%,
+    transparent
+  );
+}
+.flare::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: var(--ink-950);
+  border: 1px solid var(--ember-line);
+  box-shadow: 0 0 12px var(--ember-glow);
+}
+
+/* ---- Buttons: title-card minimal ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.7rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.98rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.18s var(--ease-out-expo),
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+.btn-primary {
+  background: linear-gradient(180deg, var(--ember-300), var(--ember-600));
+  color: #1c1204;
+  box-shadow:
+    0 14px 40px -12px var(--ember-glow-strong),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 22px 52px -14px var(--ember-glow-strong),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.btn-ghost {
+  color: var(--cream-50);
+  border: 1px solid var(--edge-strong);
+  background: rgba(5, 7, 10, 0.4);
+  backdrop-filter: blur(6px);
+}
+.btn-ghost:hover {
+  border-color: var(--ember-400);
+  transform: translateY(-2px);
+}
+
+/* ---- Copyable command chip ---- */
+.cmd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  background: rgba(5, 7, 10, 0.72);
+  border: 1px solid var(--edge-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1.15rem;
+  cursor: pointer;
+  color: var(--cream-50);
+  backdrop-filter: blur(8px);
+  width: fit-content;
+  font-family: inherit;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+.cmd:hover {
+  border-color: var(--ember-400);
+  box-shadow: 0 0 24px -6px var(--ember-glow);
+}
+.cmd code {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+}
+.cmd .prompt {
+  color: var(--ember-400);
+}
+.copy-hint {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ember-400);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
 /* ---- Cinematic media backdrops ---- */
@@ -144,6 +337,7 @@ h3 {
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden;
 }
 .media-bg img,
 .media-bg video {
@@ -154,18 +348,37 @@ h3 {
 .media-bg .scrim {
   position: absolute;
   inset: 0;
+  /* Fades to the flat page background at both fold edges — zero-seam cuts. */
   background:
-    radial-gradient(120% 80% at 70% 20%, transparent 30%, rgba(7, 8, 12, 0.85) 100%),
-    linear-gradient(180deg, rgba(7, 8, 12, 0.2), rgba(7, 8, 12, 0.7));
+    radial-gradient(120% 85% at 70% 22%, transparent 26%, rgba(3, 4, 6, 0.82) 100%),
+    linear-gradient(
+      180deg,
+      var(--ink-950) 0%,
+      rgba(5, 7, 10, 0.25) 16%,
+      rgba(5, 7, 10, 0.35) 78%,
+      var(--ink-950) 100%
+    );
 }
 
-/* ---- Scroll-driven motion: compositor-based, mobile-friendly, opt-in ----
-   Defaults are the natural, fully-visible state, so reduced-motion users and
-   browsers without scroll-timelines get finished content. Motion only enhances. */
-.parallax {
-  will-change: transform;
+/* Ken Burns: the slow push-in of a film still. Opt-in via .kb + data-anim. */
+@media (prefers-reduced-motion: no-preference) {
+  .kb {
+    animation: cz-kb 32s ease-in-out infinite alternate;
+    transform-origin: 62% 38%;
+    will-change: transform;
+  }
+  @keyframes cz-kb {
+    from {
+      transform: scale(1.03) translate(0, 0);
+    }
+    to {
+      transform: scale(1.14) translate(-1.6%, 1.2%);
+    }
+  }
 }
 
+/* ---- Scroll-driven reveals: compositor-only, mobile-safe, enhancement-only ----
+   Defaults are the finished state; motion only ever enhances (INVARIANT-03). */
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
     .reveal {
@@ -177,12 +390,12 @@ h3 {
       animation-range: entry 0% entry 40%;
     }
     .reveal-slow {
-      animation-range: entry 10% entry 70%;
+      animation-range: entry 10% entry 72%;
     }
     @keyframes cz-reveal {
       from {
         opacity: 0;
-        transform: translateY(40px);
+        transform: translateY(42px);
       }
       to {
         opacity: 1;
@@ -198,7 +411,7 @@ h3 {
     @keyframes cz-reveal-scale {
       from {
         opacity: 0;
-        transform: scale(0.96);
+        transform: scale(0.955);
       }
       to {
         opacity: 1;
@@ -211,6 +424,7 @@ h3 {
       animation: cz-parallax linear both;
       animation-timeline: view();
       animation-range: cover;
+      will-change: transform;
     }
     .parallax-slow {
       --cz-shift: 6%;
@@ -232,7 +446,6 @@ h3 {
   }
 }
 
-/* Gentler parallax on small screens. */
 @media (prefers-reduced-motion: no-preference) and (max-width: 640px) {
   @supports (animation-timeline: view()) {
     .parallax-slow {
@@ -247,7 +460,7 @@ h3 {
   }
 }
 
-/* ---- Cinematic film layer: global overlay for the "studio" look ---- */
+/* ---- The global film layer: grain, vignette, grade, embers ---- */
 .fx {
   position: fixed;
   inset: 0;
@@ -260,29 +473,30 @@ h3 {
   inset: 0;
 }
 .fx-particles {
-  opacity: 0.5;
+  opacity: 0.55;
   mix-blend-mode: screen;
 }
 .fx-grade {
   background:
-    radial-gradient(120% 80% at 70% 8%, rgba(245, 158, 11, 0.12), transparent 55%),
-    linear-gradient(180deg, rgba(11, 13, 18, 0) 55%, rgba(11, 13, 18, 0.5) 100%);
+    radial-gradient(130% 90% at 72% 6%, rgba(245, 158, 11, 0.1), transparent 52%),
+    radial-gradient(120% 100% at 12% 96%, rgba(84, 118, 156, 0.12), transparent 55%),
+    linear-gradient(180deg, rgba(5, 7, 10, 0) 52%, rgba(5, 7, 10, 0.46) 100%);
   mix-blend-mode: soft-light;
 }
 .fx-vignette {
-  background: radial-gradient(140% 120% at 50% 42%, transparent 50%, rgba(0, 0, 0, 0.6) 100%);
+  background: radial-gradient(150% 130% at 50% 42%, transparent 48%, rgba(0, 0, 0, 0.62) 100%);
   mix-blend-mode: multiply;
 }
 .fx-grain {
   inset: -12%;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 160px 160px;
-  opacity: 0.045;
-  mix-blend-mode: soft-light;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
 }
 @media (prefers-reduced-motion: no-preference) {
   .fx-grain {
-    animation: cz-grain 0.55s steps(3) infinite;
+    animation: cz-grain 0.6s steps(3) infinite;
   }
   @keyframes cz-grain {
     0% {
@@ -300,18 +514,18 @@ h3 {
   }
 }
 
-/* ---- Memory-graph DOM labels ---- */
+/* ---- Memory-graph DOM labels (hero WebGL overlay) ---- */
 .mg-label {
   position: absolute;
   top: 0;
   left: 0;
   white-space: nowrap;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   letter-spacing: 0.01em;
-  padding: 0.2rem 0.55rem;
+  padding: 0.22rem 0.6rem;
   border-radius: 6px;
-  background: rgba(12, 15, 21, 0.76);
+  background: rgba(5, 7, 10, 0.72);
   border: 1px solid var(--edge);
   color: var(--cream-200);
   backdrop-filter: blur(4px);
@@ -325,26 +539,26 @@ h3 {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  margin-right: 0.4rem;
+  margin-right: 0.42rem;
   vertical-align: 1px;
   background: currentColor;
   box-shadow: 0 0 7px currentColor;
 }
 .mg-phase {
   color: var(--clay);
-  border-color: var(--clay-soft);
+  border-color: rgba(224, 138, 94, 0.25);
 }
 .mg-decision {
-  color: var(--amber-400);
-  border-color: rgba(255, 180, 84, 0.28);
+  color: var(--ember-400);
+  border-color: var(--ember-line);
 }
 .mg-invariant {
   color: var(--cream-50);
   border-color: var(--edge-strong);
 }
 .mg-subsystem {
-  color: #79a6cf;
-  border-color: rgba(121, 166, 207, 0.3);
+  color: var(--steel-400);
+  border-color: var(--steel-line);
 }
 .mg-lesson {
   color: var(--muted);

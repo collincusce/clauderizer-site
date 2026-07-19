@@ -37,3 +37,11 @@ post-launch-fixes: Features 3x2 grid (+Auditable card); hero video 0.7x two-clip
 **What was actually correct**: Owner verdict: it read as a database dump next to a void. Replaced with a static editorial dictionary — all 26 terms printed in two CSS columns with ember group labels and zero interaction.
 **Why**: Reference content should be printed beautifully, not hidden behind interaction; interactive structures leave voids and cost clicks.
 **Lesson**: For glossary/reference content on a marketing page, a static well-typeset dictionary beats any interactive pattern. Spend the effort on typography, not interaction.
+
+### C-02 — Phase 4
+
+**Phase**: 4
+**What gameplan said**: INVARIANT-01 says all AWS commands for this project use --profile clauderizer.
+**What was actually correct**: --profile clauderizer (lsatprep-deployer) lacks all project perms; the working identities are: GitHub->AWS OIDC in CI (deploy.yml fired on push to main and published the site), and --profile czcontent (assume-role clauderizer-content-deploy, account 063337706623) for manual content ops. CDK stack ClauderizerSiteStack is live: bucket clauderizer-site-063337706623, distribution E1N991BM8K1U6J.
+**Why**: Update INVARIANT-01 to name the real profiles (czcontent for manual content ops; OIDC for CI; CDK stack mutations need a CloudFormation-capable identity, currently unresolved).
+**Lesson**: Named-profile invariants drift from the actual profile set on the machine; verify identities with sts before assuming the documented one works.

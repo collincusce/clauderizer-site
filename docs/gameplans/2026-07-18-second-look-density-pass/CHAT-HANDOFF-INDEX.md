@@ -69,6 +69,8 @@ obsolete items — mark with "(obsolete)" rather than deleting.)_
 
 **3.** For glossary/reference content on a marketing page, a static well-typeset dictionary beats any interactive pattern. Spend the effort on typography, not interaction.
 
+**4.** Named-profile invariants drift from the actual profile set on the machine; verify identities with sts before assuming the documented one works.
+
 ### Category: Design
 
 **1.** Cinematic full-bleed marketing pages need scrims that fade to the EXACT flat section background at fold edges, not to generic dark rgba stops — anything else produces visible seam bands between pagefolds. And overflow:clip belongs only on sections that truly need it (parallax/media); blanket clipping amputates card glows and reads as glitchy borders. *(evidence: second-look-density-pass phase 3 seam audit, 2026-07-18)* (promoted 2026-07-18: L-11)

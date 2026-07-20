@@ -1,5 +1,5 @@
 ---
-// SCENE 05 — how it works: Markdown in docs/ as durability and permanence.
+// SCENE 04 — how it works: Markdown in docs/ as durability and permanence.
 const stages = [
   {
     t: 'Markdown in docs/',
@@ -11,7 +11,7 @@ const stages = [
   },
   {
     t: 'MCP tools + hooks',
-    d: 'Self-describing tool calls and lifecycle hooks inject status into context, automatically.',
+    d: 'Self-describing tool calls (MCP — the Model Context Protocol, a standard way agents use external tools) and lifecycle hooks inject status into context, automatically.',
   },
   {
     t: 'Your agent',
@@ -22,7 +22,7 @@ const stages = [
 const loop = [
   { call: 'cz_next_phase_context', out: 'the full bundle for this phase' },
   { call: 'cz_preflight', out: 'actually runs your tests / build' },
-  { call: '… do the work …', out: 'write code, honour the invariants', work: true },
+  { call: '… do the work …', out: 'write code, honor the invariants', work: true },
   { call: 'cz_add_decision · cz_add_invariant', out: 'structured, graph-aware records' },
   { call: 'cz_cascade', out: 'walk the graph, flag dependents' },
   { call: 'cz_write_handoff', out: 'assemble the next cumulative handoff' },

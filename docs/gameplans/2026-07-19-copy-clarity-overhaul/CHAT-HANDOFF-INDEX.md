@@ -1,7 +1,7 @@
 # Chat Handoff Index — copy-clarity-overhaul
 
 > Last updated: 2026-07-19
-> Status: Phase 3 of 6 in progress
+> Status: Phase 4 of 6 in progress
 
 ## How This Works
 
@@ -32,8 +32,8 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 | 0 | Bootstrap | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-0-HANDOFF.md |
 | 1 | Positioning brief | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-1-HANDOFF.md |
 | 2 | Hero and meta rewrite | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-2-HANDOFF.md |
-| 3 | Homepage cascade | 🟡 IN PROGRESS | 2026-07-19 | — | handoffs/PHASE-3-HANDOFF.md |
-| 4 | Parallel surfaces | ⬜ NOT STARTED | — | — | handoffs/PHASE-4-HANDOFF.md |
+| 3 | Homepage cascade | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-3-HANDOFF.md |
+| 4 | Parallel surfaces | 🟡 IN PROGRESS | 2026-07-19 | — | handoffs/PHASE-4-HANDOFF.md |
 | 5 | Human validation | ⬜ NOT STARTED | — | — | handoffs/PHASE-5-HANDOFF.md |
 
 **Status legend**: ⬜ NOT STARTED · 🟢 READY · 🟡 IN PROGRESS · ✅ COMPLETE · ⚠️ BLOCKED · 🔴 FAILED
@@ -47,6 +47,10 @@ Digested the visitor feedback (hero H1 'tells me nothing'; headline should say w
 ### Phase 2 — completed 2026-07-19
 
 Applied the Phase 1 positioning above the fold. Hero.astro: H1 is now 'Stop re-explaining / your project / to your AI.' (ember italic on 'your project', title max-width 13ch -> 20ch), lede is the chosen memory-system copy with docs/ kept as inline code, aria-label updated. BaseLayout.astro: default title, meta description (drives OG/Twitter/JSON-LD), and og:image:alt all carry the new positioning. site.webmanifest description updated. Build passes; dist/index.html verified to contain the new title/description/H1 and zero occurrences of the old poetic H1.
+
+### Phase 3 — completed 2026-07-19
+
+Cascaded the positioning through the homepage with surgical edits. Section H2s audited: all pass the plain-meaning test unchanged (mantras 'A system, not a hope', 'Markdown wins', 'conventions rot' preserved per D2). MCP expanded at first on-page mention (HowItWorks pipeline stage 3). FAQ gained a monorepo/workaround Q&A per D3 (7 total; FAQPage JSON-LD picks it up automatically). Drift fixed: scene-number comments now match slugs in HowItWorks/Features/Receipts/CTA/FAQ, 'honour' -> 'honor', Vocabulary added to nav. The retired poetic H1 was deliberately restored as the final CTA's emotional closer (per the Phase 1 brief), where comprehension is already established. Build + lint green; mantras verified in dist.
 
 ## Accumulated Lessons
 

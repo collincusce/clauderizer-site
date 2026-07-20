@@ -1,5 +1,5 @@
 ---
-// SCENE 10 — questions, answered before you ask.
+// SCENE 09 — questions, answered before you ask.
 const faqs = [
   {
     q: 'What is Clauderizer?',
@@ -8,6 +8,10 @@ const faqs = [
   {
     q: 'How is it different from a CLAUDE.md or a rules file?',
     a: 'A rules file is prose the agent has to remember to read and follow. Clauderizer exposes memory as self-describing MCP tools and lifecycle hooks, so orientation and updates happen as executed tool calls, not conventions that quietly rot.',
+  },
+  {
+    q: 'I already use a monorepo for this — why Clauderizer?',
+    a: "A monorepo keeps your code in one place, but the agent still starts every session blank: there's no tracked plan, no decision log, and nothing that briefs it. Clauderizer works in any repository — monorepo or not — and greets the agent with where things stand before you type a word.",
   },
   {
     q: 'Where does the memory live?',

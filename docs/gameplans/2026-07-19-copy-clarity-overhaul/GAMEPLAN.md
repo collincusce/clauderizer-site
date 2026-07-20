@@ -104,12 +104,12 @@ _(None yet. Append A-NNN entries here once Phase 0 starts.)_
 | 3.1 | _(describe)_ | _(est)_ |
 
 **Exit criteria**:
-- [ ] - [ ] Every section H2 passes the plain-meaning test (a first-time visitor can say what the section claims)
-- [ ] - [ ] 'MCP' is expanded or glossed at first on-page mention
-- [ ] - [ ] FAQ contains a monorepo/workaround alternative Q&A
-- [ ] - [ ] Scene-number comment/slug drift, 'honour', and the missing Vocabulary nav link are fixed
-- [ ] - [ ] `npm run build` and `npm run lint` pass
-- [ ] - [ ] Doctrine mantras ('a system, not a hope', 'Markdown wins', 'tool calls the agent can\'t forget to make') are preserved
+- [x] - [ ] Every section H2 passes the plain-meaning test (a first-time visitor can say what the section claims)
+- [x] - [ ] 'MCP' is expanded or glossed at first on-page mention
+- [x] - [ ] FAQ contains a monorepo/workaround alternative Q&A
+- [x] - [ ] Scene-number comment/slug drift, 'honour', and the missing Vocabulary nav link are fixed
+- [x] - [ ] `npm run build` and `npm run lint` pass
+- [x] - [ ] Doctrine mantras ('a system, not a hope', 'Markdown wins', 'tool calls the agent can\'t forget to make') are preserved
 
 ### Phase 4: Parallel surfaces
 

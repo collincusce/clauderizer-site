@@ -10,8 +10,8 @@
 | 0 | Bootstrap | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-0-HANDOFF.md |
 | 1 | Positioning brief | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-1-HANDOFF.md |
 | 2 | Hero and meta rewrite | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-2-HANDOFF.md |
-| 3 | Homepage cascade | 🟡 IN PROGRESS | 2026-07-19 | — | handoffs/PHASE-3-HANDOFF.md |
-| 4 | Parallel surfaces | ⬜ NOT STARTED | — | — | handoffs/PHASE-4-HANDOFF.md |
+| 3 | Homepage cascade | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-3-HANDOFF.md |
+| 4 | Parallel surfaces | 🟡 IN PROGRESS | 2026-07-19 | — | handoffs/PHASE-4-HANDOFF.md |
 | 5 | Human validation | ⬜ NOT STARTED | — | — | handoffs/PHASE-5-HANDOFF.md |
 
 ## Outputs Registry
@@ -30,6 +30,13 @@ meta_description: Clauderizer is a memory system for coding agents — plans, de
 
 ```
 hero_h1_lines: Stop re-explaining / your project (em) / to your AI. — title max-width bumped 13ch -> 20ch to fit
+```
+
+### Phase 3 Outputs
+
+```
+faq_count: 7 Q&As (added monorepo/workaround entry; FAQPage JSON-LD auto-includes it)
+poetry_retained_at: Final CTA H2: 'Your best ideas shouldn't die in the dark.' — emotional closer after comprehension is established
 ```
 
 ## Corrections Log

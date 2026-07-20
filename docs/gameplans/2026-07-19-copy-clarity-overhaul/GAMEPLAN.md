@@ -73,10 +73,10 @@ _(None yet. Append A-NNN entries here once Phase 0 starts.)_
 | 1.1 | _(describe)_ | _(est)_ |
 
 **Exit criteria**:
-- [ ] - [ ] Message brief file exists in the gameplan dir with all seven fields filled: audience, trigger, pain, desired outcome, primary proof, main objection, single CTA
-- [ ] - [ ] Headline candidates written for all four directions (pain-first, outcome-first, category statement, retained-poetry), at least 3 per direction
-- [ ] - [ ] Winning H1 + lede recorded in the brief (chosen with the user)
-- [ ] - [ ] Brief includes positioning against the monorepo/CLAUDE.md/re-explaining workarounds
+- [x] - [ ] Message brief file exists in the gameplan dir with all seven fields filled: audience, trigger, pain, desired outcome, primary proof, main objection, single CTA
+- [x] - [ ] Headline candidates written for all four directions (pain-first, outcome-first, category statement, retained-poetry), at least 3 per direction
+- [x] - [ ] Winning H1 + lede recorded in the brief (chosen with the user)
+- [x] - [ ] Brief includes positioning against the monorepo/CLAUDE.md/re-explaining workarounds
 
 ### Phase 2: Hero and meta rewrite
 

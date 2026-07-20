@@ -1,7 +1,7 @@
 # Chat Handoff Index — copy-clarity-overhaul
 
 > Last updated: 2026-07-19
-> Status: Phase 1 of 6 in progress
+> Status: Phase 2 ready
 
 ## How This Works
 
@@ -30,7 +30,7 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 | Phase | Name | Status | Started | Completed | Handoff |
 |-------|------|--------|---------|-----------|---------|
 | 0 | Bootstrap | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-0-HANDOFF.md |
-| 1 | Positioning brief | 🟡 IN PROGRESS | 2026-07-19 | — | handoffs/PHASE-1-HANDOFF.md |
+| 1 | Positioning brief | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-1-HANDOFF.md |
 | 2 | Hero and meta rewrite | ⬜ NOT STARTED | — | — | handoffs/PHASE-2-HANDOFF.md |
 | 3 | Homepage cascade | ⬜ NOT STARTED | — | — | handoffs/PHASE-3-HANDOFF.md |
 | 4 | Parallel surfaces | ⬜ NOT STARTED | — | — | handoffs/PHASE-4-HANDOFF.md |
@@ -40,7 +40,9 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 
 ## Per-Phase Completion Summaries
 
-_(None yet.)_
+### Phase 1 — completed 2026-07-19
+
+Digested the visitor feedback (hero H1 'tells me nothing'; headline should say what the product does for me; visitor uses monorepos as their workaround) against a full copy inventory of the site and external copywriting research (5-second test, benefit-led beats clever, dual-structure hero). Wrote POSITIONING-BRIEF.md: seven-field message brief, workaround positioning table (CLAUDE.md, monorepo, re-explaining), 11 headline candidates across four directions, 3 lede candidates. With the owner, chose pain-first H1 'Stop re-explaining your project to your AI.' + the 'memory system' lede (the owner's draft copy, de-jargoned), plus derived meta title/description for Phase 2 to apply.
 
 ## Accumulated Lessons
 
@@ -50,3 +52,5 @@ obsolete items — mark with "(obsolete)" rather than deleting.)_
 ### Category: Process
 
 _(none yet)_
+
+**1.** Marketing copy needs an outsider comprehension check before launch: the author is too close to notice that poetic headlines carry no information for a first-time visitor. A 5-second test with one unfamiliar reader caught what the whole build missed. *(evidence: 2026-07-19 visitor feedback on the hero H1 'Your best ideas shouldn't die in the dark.')*

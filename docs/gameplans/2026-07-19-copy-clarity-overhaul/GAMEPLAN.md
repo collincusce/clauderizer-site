@@ -88,11 +88,11 @@ _(None yet. Append A-NNN entries here once Phase 0 starts.)_
 | 2.1 | _(describe)_ | _(est)_ |
 
 **Exit criteria**:
-- [ ] - [ ] Hero H1 and lede match the chosen positioning from Phase 1
-- [ ] - [ ] BaseLayout default title, meta description, OG/Twitter description, and JSON-LD all carry the new positioning
-- [ ] - [ ] site.webmanifest description updated to match
-- [ ] - [ ] `npm run build` passes (astro check + production build)
-- [ ] - [ ] grep confirms the old H1 'shouldn\'t die in the dark' no longer appears in src/ except where deliberately retained as poetry
+- [x] - [ ] Hero H1 and lede match the chosen positioning from Phase 1
+- [x] - [ ] BaseLayout default title, meta description, OG/Twitter description, and JSON-LD all carry the new positioning
+- [x] - [ ] site.webmanifest description updated to match
+- [x] - [ ] `npm run build` passes (astro check + production build)
+- [x] - [ ] grep confirms the old H1 'shouldn\'t die in the dark' no longer appears in src/ except where deliberately retained as poetry
 
 ### Phase 3: Homepage cascade
 

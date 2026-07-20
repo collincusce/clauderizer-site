@@ -7,8 +7,9 @@ interface Props {
 }
 
 const {
-  title = 'Clauderizer: durable working memory for coding agents',
-  description = "Your best ideas shouldn't die in the dark. Clauderizer gives coding agents durable, cross-session memory: plans, decisions, and a dependency graph as plain, Git-diffable Markdown.",
+  title = 'Clauderizer — stop re-explaining your project to your AI',
+  description =
+    'Clauderizer is a memory system for coding agents — plans, decisions, and conventions as Markdown in your repo, briefed to your agent every session.',
 } = Astro.props;
 
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
@@ -92,7 +93,7 @@ const jsonLd = {
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Clauderizer: your best ideas shouldn't die in the dark."
+      content="Clauderizer: stop re-explaining your project to your AI."
     />
 
     <!-- Twitter -->

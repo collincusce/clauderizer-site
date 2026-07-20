@@ -1,7 +1,7 @@
 # Chat Handoff Index — copy-clarity-overhaul
 
 > Last updated: 2026-07-19
-> Status: Phase 2 ready
+> Status: Phase 3 of 6 in progress
 
 ## How This Works
 
@@ -31,8 +31,8 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 |-------|------|--------|---------|-----------|---------|
 | 0 | Bootstrap | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-0-HANDOFF.md |
 | 1 | Positioning brief | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-1-HANDOFF.md |
-| 2 | Hero and meta rewrite | ⬜ NOT STARTED | — | — | handoffs/PHASE-2-HANDOFF.md |
-| 3 | Homepage cascade | ⬜ NOT STARTED | — | — | handoffs/PHASE-3-HANDOFF.md |
+| 2 | Hero and meta rewrite | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-2-HANDOFF.md |
+| 3 | Homepage cascade | 🟡 IN PROGRESS | 2026-07-19 | — | handoffs/PHASE-3-HANDOFF.md |
 | 4 | Parallel surfaces | ⬜ NOT STARTED | — | — | handoffs/PHASE-4-HANDOFF.md |
 | 5 | Human validation | ⬜ NOT STARTED | — | — | handoffs/PHASE-5-HANDOFF.md |
 
@@ -43,6 +43,10 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 ### Phase 1 — completed 2026-07-19
 
 Digested the visitor feedback (hero H1 'tells me nothing'; headline should say what the product does for me; visitor uses monorepos as their workaround) against a full copy inventory of the site and external copywriting research (5-second test, benefit-led beats clever, dual-structure hero). Wrote POSITIONING-BRIEF.md: seven-field message brief, workaround positioning table (CLAUDE.md, monorepo, re-explaining), 11 headline candidates across four directions, 3 lede candidates. With the owner, chose pain-first H1 'Stop re-explaining your project to your AI.' + the 'memory system' lede (the owner's draft copy, de-jargoned), plus derived meta title/description for Phase 2 to apply.
+
+### Phase 2 — completed 2026-07-19
+
+Applied the Phase 1 positioning above the fold. Hero.astro: H1 is now 'Stop re-explaining / your project / to your AI.' (ember italic on 'your project', title max-width 13ch -> 20ch), lede is the chosen memory-system copy with docs/ kept as inline code, aria-label updated. BaseLayout.astro: default title, meta description (drives OG/Twitter/JSON-LD), and og:image:alt all carry the new positioning. site.webmanifest description updated. Build passes; dist/index.html verified to contain the new title/description/H1 and zero occurrences of the old poetic H1.
 
 ## Accumulated Lessons
 

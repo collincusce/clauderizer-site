@@ -11,8 +11,8 @@
 | 1 | Positioning brief | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-1-HANDOFF.md |
 | 2 | Hero and meta rewrite | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-2-HANDOFF.md |
 | 3 | Homepage cascade | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-3-HANDOFF.md |
-| 4 | Parallel surfaces | 🟡 IN PROGRESS | 2026-07-19 | — | handoffs/PHASE-4-HANDOFF.md |
-| 5 | Human validation | ⬜ NOT STARTED | — | — | handoffs/PHASE-5-HANDOFF.md |
+| 4 | Parallel surfaces | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-4-HANDOFF.md |
+| 5 | Human validation | 🟡 IN PROGRESS | 2026-07-19 | — | handoffs/PHASE-5-HANDOFF.md |
 
 ## Outputs Registry
 

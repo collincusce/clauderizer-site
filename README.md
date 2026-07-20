@@ -1,7 +1,7 @@
 # clauderizer.com
 
 The cinematic marketing site for **[Clauderizer](https://github.com/collincusce/Clauderizer)** —
-durable, cross-session working memory for coding agents.
+a memory system for coding agents: stop re-explaining your project to your AI.
 
 Built with [Astro](https://astro.build), deployed to AWS (S3 + CloudFront + Route 53 via CDK).
 It dogfoods Clauderizer: the entire build is planned and tracked in

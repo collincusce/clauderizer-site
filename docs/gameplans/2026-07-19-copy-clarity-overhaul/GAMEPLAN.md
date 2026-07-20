@@ -121,10 +121,10 @@ _(None yet. Append A-NNN entries here once Phase 0 starts.)_
 | 4.1 | _(describe)_ | _(est)_ |
 
 **Exit criteria**:
-- [ ] - [ ] public/llms.txt rewritten to match the new positioning, with the '42 MCP tools' count made consistent with the site
-- [ ] - [ ] README tagline, 404 copy, and styleguide lede aligned with the new positioning
-- [ ] - [ ] grep consistency check: key claims (tagline, tool counts, host list) identical across src/, public/llms.txt, README.md
-- [ ] - [ ] `npm run build` passes
+- [x] - [ ] public/llms.txt rewritten to match the new positioning, with the '42 MCP tools' count made consistent with the site
+- [x] - [ ] README tagline, 404 copy, and styleguide lede aligned with the new positioning
+- [x] - [ ] grep consistency check: key claims (tagline, tool counts, host list) identical across src/, public/llms.txt, README.md
+- [x] - [ ] `npm run build` passes
 
 ### Phase 5: Human validation
 

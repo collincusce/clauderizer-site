@@ -62,3 +62,22 @@ _(5 of 12 shown — ranked by keyword + entity-id overlap with this phase, no ML
 _(Enrich here: what exists / what does not yet, key constraints, captured
 source-of-truth values for this phase. Everything outside the marker block
 above survives `cz_write_handoff` regeneration.)_
+
+## Agent Notes — 2026-07-19 (Phase 5 partial)
+
+DONE (machine-checkable):
+- Production build green after all copy changes (`npm run build`, 3 pages).
+- Cold-read of extracted visible text from dist/index.html: above-the-fold now
+  reads title → "Stop re-explaining your project to your AI." → memory-system
+  lede → install command. The 5-second failure mode from the visitor feedback
+  is fixed structurally.
+
+BLOCKED (needs the owner):
+- Lighthouse >=95 gate (INVARIANT-04): no Chrome/Chromium in this environment.
+  Changes were copy-only plus one max-width tweak and one nav link — no new
+  assets or JS — but the gate must still be re-run where Chrome exists, or
+  against the deployed site after deploy.
+- 3-person 5-second test with people UNFAMILIAR with the product: show the
+  hero for 5 seconds, ask "what does this product do for you?" Record answers
+  in this phase's summary, apply any copy fixes, then check the remaining
+  exit criteria and transition Phase 5 to complete.

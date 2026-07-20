@@ -39,6 +39,14 @@ faq_count: 7 Q&As (added monorepo/workaround entry; FAQPage JSON-LD auto-include
 poetry_retained_at: Final CTA H2: 'Your best ideas shouldn't die in the dark.' — emotional closer after comprehension is established
 ```
 
+### Phase 5 Outputs
+
+```
+build_status: production build green (3 pages) after all copy changes
+cold_read: above-the-fold text extraction verified: H1 + memory-system lede + install command visible in first screen; old failure mode structurally fixed
+blocked_on_owner: Lighthouse gate (no Chrome in this env) + 3-person 5-second test with unfamiliar readers
+```
+
 ## Corrections Log
 
 _(Every divergence from the gameplan, captured in real time, as C-NN entries.)_

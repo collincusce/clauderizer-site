@@ -7,8 +7,8 @@
 
 | Phase | Name | Status | Started | Completed | Handoff |
 |-------|------|--------|---------|-----------|---------|
-| 0 | Bootstrap | ⬜ READY | — | — | handoffs/PHASE-0-HANDOFF.md |
-| 1 | Positioning brief | ⬜ NOT STARTED | — | — | handoffs/PHASE-1-HANDOFF.md |
+| 0 | Bootstrap | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-0-HANDOFF.md |
+| 1 | Positioning brief | 🟡 IN PROGRESS | 2026-07-19 | — | handoffs/PHASE-1-HANDOFF.md |
 | 2 | Hero and meta rewrite | ⬜ NOT STARTED | — | — | handoffs/PHASE-2-HANDOFF.md |
 | 3 | Homepage cascade | ⬜ NOT STARTED | — | — | handoffs/PHASE-3-HANDOFF.md |
 | 4 | Parallel surfaces | ⬜ NOT STARTED | — | — | handoffs/PHASE-4-HANDOFF.md |

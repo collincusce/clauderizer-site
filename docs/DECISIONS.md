@@ -90,3 +90,11 @@ _(Add entries with `cz_add_decision`.)_
 **Decision**: Replace Fraunces with Bodoni Moda (Didone) as --font-display; keep JetBrains Mono. Merge Problem+Amnesia into one scene and delete the bf-image strip; keep scenes as separate narrative beats otherwise but compress --section-pad to clamp(3.5rem,9vh,5.5rem), put quickstart steps 3-up, and match every media scrim to the flat section background ink-950 so folds are seamless; scope overflow:clip to media/parallax sections only so card glows are not clipped.
 **Consequences**: public/fonts fraunces-* removed, bodonimoda-* added; BaseLayout preload updated; AmnesiaMemory.astro deleted as separate scene (ledger folded into Problem); total page target <= ~9.5 viewports; vocab chips move from tiny italic serif to mono for legibility.
 **Status**: active (2026-07-18)
+
+### D-012 — Benefit-led clarity over cinematic cleverness in marketing copy
+
+**Context**: A first-time visitor's feedback on clauderizer.com: the hero H1 'Your best ideas shouldn't die in the dark.' 'doesn't tell me anything'; the headline should say what the product does for me; it took them a second to figure out what was going on. External research consensus agrees: benefit-led headlines beat clever ones for cold traffic, the 5-second test is the bar, and clarity beats cleverness. This refines D-007 (cinematic emotional storytelling): the cinema was carrying the message in words, which failed comprehension.
+**Decision**: Every headline and sentence on the marketing site must carry plain-language meaning: state what the product does for the visitor. The cinematic film conceit (scenes, slug-lines, letterbox, end credits) remains as VISUAL and structural flavor only — clarity in words, cinema in visuals.
+**Consequences**: Hero H1 is rewritten benefit-first; all section H2s audited for plain meaning; emotional storytelling lives in motion/design, not wordplay; D-007 is narrowed, not reversed.
+**Evidence**: User feedback 2026-07-19; dev-tool/SaaS copywriting research (5-second test, benefit-vs-ingredient dual structure, problem-first messaging).
+**Status**: active (2026-07-19)

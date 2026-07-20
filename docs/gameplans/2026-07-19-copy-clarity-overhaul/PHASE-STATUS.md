@@ -12,7 +12,7 @@
 | 2 | Hero and meta rewrite | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-2-HANDOFF.md |
 | 3 | Homepage cascade | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-3-HANDOFF.md |
 | 4 | Parallel surfaces | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-4-HANDOFF.md |
-| 5 | Human validation | 🟡 IN PROGRESS | 2026-07-19 | — | handoffs/PHASE-5-HANDOFF.md |
+| 5 | Human validation | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-5-HANDOFF.md |
 
 ## Outputs Registry
 
@@ -49,4 +49,10 @@ blocked_on_owner: Lighthouse gate (no Chrome in this env) + 3-person 5-second te
 
 ## Corrections Log
 
-_(Every divergence from the gameplan, captured in real time, as C-NN entries.)_
+### C-01 — Phase 5
+
+**Phase**: 5
+**What gameplan said**: Exit criteria required a 3-person 5-second test with unfamiliar readers and a Lighthouse >=95 re-run on the production build.
+**What was actually correct**: Owner waived both on 2026-07-19 ('I looked at it, that's enough for now'). Owner review + the cold-read text extraction served as validation; Lighthouse remains gated in ci.yml on the next PR.
+**Why**: Low-stakes marketing iteration on a personal site; the owner judged formal panel validation disproportionate.
+**Lesson**: Scope human-validation phases to the stakes: owner-review by default for low-stakes copy iteration; reserve formal 5-second panels for launches or traffic-driving pages.

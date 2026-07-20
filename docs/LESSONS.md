@@ -31,8 +31,14 @@
 
 **L-10.** AWS explicit-deny bypass for a constrained shared IAM user: attaching AdministratorAccess does NOT override an explicit Deny in another attached policy (explicit deny always wins, e.g. a *-scoped guardrail denying s3:CreateBucket). If you can't detach that policy, create a DEDICATED role with the needed perms and ASSUME it — identity-based denies on the calling user do not apply to the assumed-role session (only SCPs/permission boundaries/session policies do). Keyless via role_arn + source_profile. *(evidence: Phase 9 launch 2026-06-22: lsatprep-deployer-scoped denied s3:CreateBucket; deployed via assumed role clauderizer-deploy.)* *(from 2026-06-22-marketing-site-launch)*
 
+**L-13.** Marketing copy needs an outsider comprehension check before launch: the author is too close to notice that poetic headlines carry no information for a first-time visitor. One 5-second test with an unfamiliar reader caught what the whole build missed. Headlines must state what the product does for the visitor; poetry belongs in visuals and closers, not in the hero H1. *(from 2026-07-19-copy-clarity-overhaul)*
+
 ### Category: Design
 
 **L-11.** Cinematic full-bleed pages: every scrim must fade to the EXACT flat section background at fold edges (never generic dark rgba), and overflow:clip belongs only on media/parallax sections — blanket clipping amputates card glows and reads as glitchy borders. *(from 2026-07-18-second-look-density-pass)*
 
 **L-12.** Reference content (glossaries, FAQs) should be printed beautifully, not hidden behind interaction. Interactive structures cost clicks and leave voids; spend the effort on typography. Group-level tabs are acceptable when the corpus overflows one fold — but stack panels in one grid cell so the page never resizes on switch. *(from 2026-07-18-second-look-density-pass)*
+
+### Category: Style
+
+**L-14.** No em-dashes in user-facing copy: the owner reads them as an AI tell. Use parentheses, colons, periods, or commas instead. Numeric ranges keep the en-dash. *(from 2026-07-19-copy-clarity-overhaul)*

@@ -1,7 +1,7 @@
 # Chat Handoff Index — copy-clarity-overhaul
 
 > Last updated: 2026-07-19
-> Status: Phase 5 of 6 in progress
+> Status: All 6 phases complete
 
 ## How This Works
 
@@ -34,7 +34,7 @@ Run `cz_preflight` before any code. If any enabled check fails: STOP, report.
 | 2 | Hero and meta rewrite | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-2-HANDOFF.md |
 | 3 | Homepage cascade | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-3-HANDOFF.md |
 | 4 | Parallel surfaces | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-4-HANDOFF.md |
-| 5 | Human validation | 🟡 IN PROGRESS | 2026-07-19 | — | handoffs/PHASE-5-HANDOFF.md |
+| 5 | Human validation | ✅ COMPLETE | 2026-07-19 | 2026-07-19 | handoffs/PHASE-5-HANDOFF.md |
 
 **Status legend**: ⬜ NOT STARTED · 🟢 READY · 🟡 IN PROGRESS · ✅ COMPLETE · ⚠️ BLOCKED · 🔴 FAILED
 
@@ -56,6 +56,10 @@ Cascaded the positioning through the homepage with surgical edits. Section H2s a
 
 Brought off-page surfaces in line with the new positioning. llms.txt: blockquote now leads with 'Stop re-explaining your project to your AI' + the memory-system framing, the '42 MCP tools, 3 resources, and 2 prompts' discrepancy is fixed (now '42 MCP tools and 3 resources', matching the site's Receipts laurels), the monorepo/workaround Q&A was added to mirror the on-page FAQ, and the review date bumped to 2026-07-19. README tagline updated to the new positioning. 404 and styleguide copy deliberately left unchanged: both are context-clear (an error page's joke lands because its job is wayfinding, and the styleguide is an internal design doc) — changing them would be churn, not clarity. Consistency verified by grep: tagline, tool counts, and 12-host list match across src/, public/llms.txt, and README.md. Build green.
 
+### Phase 5 — completed 2026-07-19
+
+Validation completed at owner-judgment scope. Machine-checkable items done: production build green after every change, cold-read of the extracted page text confirming the above-the-fold comprehension fix, and a live deploy verified end-to-end (title, H1, OG card) on clauderizer.com. The formal 3-person 5-second test and Lighthouse re-run were explicitly waived by the owner ('I looked at it, that's enough for now'); Lighthouse remains gated in CI on the next PR. Additionally caught and fixed during this phase: the OG link-preview card (og-2026.jpg, itself yesterday's stale-unfurl fix) still had the retired headline baked in, so it was re-rendered as og-2026-v2.jpg with the new positioning and deployed.
+
 ## Accumulated Lessons
 
 _(Numbered sequentially across the whole gameplan. Categorized. Pruned of
@@ -63,8 +67,10 @@ obsolete items — mark with "(obsolete)" rather than deleting.)_
 
 ### Category: Process
 
-**1.** Marketing copy needs an outsider comprehension check before launch: the author is too close to notice that poetic headlines carry no information for a first-time visitor. A 5-second test with one unfamiliar reader caught what the whole build missed. *(evidence: 2026-07-19 visitor feedback on the hero H1 'Your best ideas shouldn't die in the dark.')*
+**1.** Marketing copy needs an outsider comprehension check before launch: the author is too close to notice that poetic headlines carry no information for a first-time visitor. A 5-second test with one unfamiliar reader caught what the whole build missed. *(evidence: 2026-07-19 visitor feedback on the hero H1 'Your best ideas shouldn't die in the dark.')* (promoted 2026-07-19: L-13)
+
+**3.** Scope human-validation phases to the stakes: owner-review by default for low-stakes copy iteration; reserve formal 5-second panels for launches or traffic-driving pages.
 
 ### Category: Style
 
-**2.** No em-dashes in user-facing copy on this site: the owner reads them as an AI tell ('nobody in real life uses them in earnest'). Use parentheses, colons, periods, or commas instead. Numeric ranges (3.11–3.13) keep the en-dash. *(evidence: owner feedback 2026-07-19 after reviewing the Phase 2-4 copy overhaul)*
+**2.** No em-dashes in user-facing copy on this site: the owner reads them as an AI tell ('nobody in real life uses them in earnest'). Use parentheses, colons, periods, or commas instead. Numeric ranges (3.11–3.13) keep the en-dash. *(evidence: owner feedback 2026-07-19 after reviewing the Phase 2-4 copy overhaul)* (promoted 2026-07-19: L-14)

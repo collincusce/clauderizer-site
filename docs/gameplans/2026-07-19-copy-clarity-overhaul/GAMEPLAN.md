@@ -1,7 +1,7 @@
 # copy-clarity-overhaul Gameplan
 
 > Created: 2026-07-19
-> Status: Executing
+> Status: Complete
 > Kind: driven
 > Procedure: docs/gameplans/GAMEPLAN-PROCEDURE.md
 
@@ -47,7 +47,7 @@ _(None yet. Append A-NNN entries here once Phase 0 starts.)_
 
 ## Open Items
 
-**O-01.** The site has no analytics, so copy performance cannot be measured quantitatively — validation relies on human 5-second tests. Decide separately whether to add privacy-friendly analytics.
+**O-01.** The site has no analytics, so copy performance cannot be measured quantitatively — validation relies on human 5-second tests. Decide separately whether to add privacy-friendly analytics. _(resolved 2026-07-19: Declined for now. Owner judgment 2026-07-19: qualitative human feedback is sufficient at this stage; no analytics to be added. Revisit if the site starts getting real traffic.)_
 
 ## Phase Breakdown
 

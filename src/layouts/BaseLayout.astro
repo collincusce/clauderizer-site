@@ -13,7 +13,7 @@ const {
 } = Astro.props;
 
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
-const ogImage = Astro.site ? new URL('/og-2026.jpg', Astro.site).href : '/og-2026.jpg';
+const ogImage = Astro.site ? new URL('/og-2026-v2.jpg', Astro.site).href : '/og-2026-v2.jpg';
 
 const jsonLd = {
   '@context': 'https://schema.org',

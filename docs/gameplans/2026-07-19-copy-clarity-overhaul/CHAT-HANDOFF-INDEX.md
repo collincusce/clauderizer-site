@@ -63,6 +63,8 @@ obsolete items — mark with "(obsolete)" rather than deleting.)_
 
 ### Category: Process
 
-_(none yet)_
-
 **1.** Marketing copy needs an outsider comprehension check before launch: the author is too close to notice that poetic headlines carry no information for a first-time visitor. A 5-second test with one unfamiliar reader caught what the whole build missed. *(evidence: 2026-07-19 visitor feedback on the hero H1 'Your best ideas shouldn't die in the dark.')*
+
+### Category: Style
+
+**2.** No em-dashes in user-facing copy on this site: the owner reads them as an AI tell ('nobody in real life uses them in earnest'). Use parentheses, colons, periods, or commas instead. Numeric ranges (3.11–3.13) keep the en-dash. *(evidence: owner feedback 2026-07-19 after reviewing the Phase 2-4 copy overhaul)*

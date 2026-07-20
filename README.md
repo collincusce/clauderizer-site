@@ -1,6 +1,6 @@
 # clauderizer.com
 
-The cinematic marketing site for **[Clauderizer](https://github.com/collincusce/Clauderizer)** —
+The cinematic marketing site for **[Clauderizer](https://github.com/collincusce/Clauderizer)**,
 a memory system for coding agents: stop re-explaining your project to your AI.
 
 Built with [Astro](https://astro.build), deployed to AWS (S3 + CloudFront + Route 53 via CDK).
@@ -27,14 +27,14 @@ npm run dev        # http://localhost:4321
 
 ## Stack
 
-- **Astro** (static, MDX, islands) — near-zero JS by default for a fast, SEO-strong site
-- **AWS S3 + CloudFront + Route 53** via **AWS CDK** (TypeScript) — `infra/` (lands in Phase 7)
+- **Astro** (static, MDX, islands): near-zero JS by default for a fast, SEO-strong site
+- **AWS S3 + CloudFront + Route 53** via **AWS CDK** (TypeScript): `infra/` (lands in Phase 7)
 - **GitHub Actions + OIDC** for CI/CD with no static AWS keys (Phase 8)
 
 ## Working memory
 
-This repo carries its own durable memory under [`docs/`](docs/) — the gameplan, decisions,
-invariants, and a dependency graph — maintained by
+This repo carries its own durable memory under [`docs/`](docs/): the gameplan, decisions,
+invariants, and a dependency graph, maintained by
 [Clauderizer](https://github.com/collincusce/Clauderizer). Where things stand lives in
 [`docs/gameplans/2026-06-22-marketing-site-launch/GAMEPLAN.md`](docs/gameplans/2026-06-22-marketing-site-launch/GAMEPLAN.md).
 

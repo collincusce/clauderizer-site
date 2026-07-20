@@ -1,7 +1,7 @@
 {
   "name": "Clauderizer",
   "short_name": "Clauderizer",
-  "description": "A memory system for coding agents — plans, decisions, and conventions as Markdown in your repo, briefed to your agent every session.",
+  "description": "A memory system for coding agents: plans, decisions, and conventions as Markdown in your repo, briefed to your agent every session.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0b0d12",
